@@ -31,7 +31,7 @@ import jm.audio.AudioObject;
 * This instrument is used for playabck of .au files in the Play.au() method.
 * @author Andrew Brown
 */
-public final class AudioSampleInst extends jm.audio.Instrument{
+public final class AudioSampleInst extends Instrument{
 	private String fileName;
 
 	public AudioSampleInst(String fileName){

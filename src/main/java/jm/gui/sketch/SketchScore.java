@@ -261,7 +261,7 @@ public class SketchScore extends Frame implements WindowListener, ActionListener
            fd.setFile("FileName.xml");
            fd.show();
             if (fd.getFile() != null) {
-                jm.util.Write.xml(score, fd.getDirectory() + fd.getFile());
+                Write.xml(score, fd.getDirectory() + fd.getFile());
             }
         }
         

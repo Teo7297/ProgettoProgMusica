@@ -50,7 +50,7 @@ import jm.gui.show.*;
  * the jm.util.Read and km.util.Write classes.
  *
  * @see Part
- * @see jm.midi.SMF
+ * @see SMF
  * @author Andrew Sorensen, Andrew Brown, Adam Kirby
  * @version 1.0,Sun Feb 25 18:43:33  2001
  */

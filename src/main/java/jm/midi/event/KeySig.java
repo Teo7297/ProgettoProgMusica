@@ -102,7 +102,7 @@ public final class KeySig implements Event{
          * Implemented by Sean T. Hayes
          * @param dis stream containing midi events
          * @return the number of bytes read from <code>dis</code>
-         * @throws java.io.IOException
+         * @throws IOException
          */
 	public int read(DataInputStream dis) throws IOException
         {

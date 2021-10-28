@@ -153,7 +153,7 @@ public final class TimeSig implements Event{
          * Implemented by Sean T. Hayes
          * @param dis a stream of MIDI data
          * @return the number of bytes read
-         * @throws java.io.IOException
+         * @throws IOException
          */
 	public int read(DataInputStream dis) throws IOException
         {

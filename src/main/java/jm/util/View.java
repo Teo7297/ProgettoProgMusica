@@ -481,7 +481,7 @@ public class View implements JMC{
         String fileName = fd.getFile();
         if (fileName != null) {
             Score score = new Score();
-            jm.util.Read.midi(score, fd.getDirectory() + fileName);
+            Read.midi(score, fd.getDirectory() + fileName);
             HistogramFrame hf = new HistogramFrame(score);
         }
     }

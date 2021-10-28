@@ -47,7 +47,7 @@ import jm.util.Read;
  * created and displayed detailing the problem.
  *
  * If you want the errors to be transparent to your user, or you want to
- * manage exception-handling try using the {@link jm.util.Read} class instead.
+ * manage exception-handling try using the {@link Read} class instead.
  *
  * @author Adam Kirby
  * @version 1.0,Sun Feb 25 18:43:56  2001

@@ -543,7 +543,7 @@ public class HelperGUI extends Frame implements JMC, ActionListener, AdjustmentL
         fd.show();
         String fileName = fd.getFile();
         if (fileName != null) {
-            jm.util.Read.midi(score, fd.getDirectory() + fileName);
+            Read.midi(score, fd.getDirectory() + fileName);
             makeBtnsVisible();
         }
     }
@@ -579,7 +579,7 @@ public class HelperGUI extends Frame implements JMC, ActionListener, AdjustmentL
         // stop playback if possible here!
     }
 
-    public void adjustmentValueChanged(java.awt.event.AdjustmentEvent ae) {
+    public void adjustmentValueChanged(AdjustmentEvent ae) {
         if (ae.getSource() == sliderA) {
             //System.out.println(sliderA.getValue());
             labelA.setText(" variableA = " + sliderA.getValue());
@@ -615,7 +615,7 @@ public class HelperGUI extends Frame implements JMC, ActionListener, AdjustmentL
                                        FileDialog.SAVE);
         fd.show();
         if (fd.getFile() != null) {
-            jm.util.Write.xml(score, fd.getDirectory() + fd.getFile());
+            Write.xml(score, fd.getDirectory() + fd.getFile());
         }
     }
 

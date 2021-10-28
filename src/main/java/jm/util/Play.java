@@ -286,13 +286,13 @@ public class Play implements JMC {
      */ 
     public static void au(String fileName, boolean autoClose) {
         jm.gui.wave.WaveFileReader afr = new jm.gui.wave.WaveFileReader(fileName);
-        jm.music.rt.RTLine[] lineArray = {new jm.util.AudioRTLine(fileName)};	
-        jm.audio.RTMixer mixer = new jm.audio.RTMixer(lineArray) ;//, 4096, si.getSampleRate(), si.getChannels(), 0.01);	
+        jm.music.rt.RTLine[] lineArray = {new AudioRTLine(fileName)};
+        RTMixer mixer = new RTMixer(lineArray) ;//, 4096, si.getSampleRate(), si.getChannels(), 0.01);
             mixer.begin();
             System.out.println("---------- Playing '" + fileName + "'... Sample rate = "
                                + afr.getSampleRate() + " Channels = " + afr.getChannels() + " ----------");
             if (autoClose) {
-                java.io.File audioFile = new java.io.File(fileName);
+                File audioFile = new File(fileName);
                 try {
                     int byteSize = afr.getBits() - 1;
                     // bytes, sample rate, channels, milliseconds, cautious buffer
@@ -379,7 +379,7 @@ public class Play implements JMC {
             insts[i].setOutput(Instrument.REALTIME);
         }
         // get all the phrases in a vector
-        java.util.Vector v = new java.util.Vector();
+        Vector v = new Vector();
         for(int i=0; i<score.size(); i++) {
             Part p = score.getPart(i);
             for(int j=0; j<p.size(); j++) {
@@ -432,7 +432,7 @@ public class Play implements JMC {
     public static void audioClip(String fileName) {
         System.out.println("-------- Playing an audio file ----------");
         System.out.println("Loading sound into memory, please wait...");
-        java.io.File audioFile = new java.io.File(fileName);
+        File audioFile = new File(fileName);
         try {
 	    java.net.URI tempURI = audioFile.toURI();
 	    java.net.URL tempURL = tempURI.toURL();

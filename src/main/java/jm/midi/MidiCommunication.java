@@ -115,7 +115,7 @@ public abstract class MidiCommunication implements Receiver {
             ShortMessage message = new ShortMessage ();
             message.setMessage (status, channel, data1, data2);
             this.midiReceiver.send (message, -1L);
-        } catch (javax.sound.midi.InvalidMidiDataException e) {};
+        } catch (InvalidMidiDataException e) {};
     }
 
     /**

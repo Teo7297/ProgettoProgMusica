@@ -29,7 +29,7 @@ package jm.audio;
  * @version 1.1 July 18:42:42  2001
  */
 
-public final class AOException extends java.lang.Exception{
+public final class AOException extends Exception{
 		private static String[] MESSAGES = new String[2];
 	static{
 		MESSAGES[0] = "Unbalanced number of returned samples from "+

@@ -188,7 +188,7 @@ public final class MidiUtil implements JMC{
      * Sean Hayes: added support for TimSig and KeySigs
      * @param id
      * @return
-     * @throws java.io.IOException
+     * @throws IOException
      */
 	public static Event createMetaEvent(int id)throws IOException{ 
             switch(id){

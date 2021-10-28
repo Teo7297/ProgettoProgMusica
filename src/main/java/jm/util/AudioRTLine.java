@@ -39,7 +39,7 @@ public class AudioRTLine extends RTLine {
         if(firstTime) {
             n = new Note(67, 1.0);
             firstTime = false;
-        } else n = new Note(jm.JMC.REST, 1.0);
+        } else n = new Note(JMC.REST, 1.0);
         return n;
     }
 }

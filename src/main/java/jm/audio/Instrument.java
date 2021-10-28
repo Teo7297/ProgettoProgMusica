@@ -37,7 +37,7 @@ import jm.music.rt.RTLine;
  * @author Andrew Sorensen
  * @version 1.0,Sun Feb 25 18:42:44  2001
  */
-public abstract class Instrument extends Thread implements Runnable, jm.JMC{
+public abstract class Instrument extends Thread implements Runnable, JMC{
 	//----------------------------------------------
 	// Attributes
 	//----------------------------------------------
@@ -139,7 +139,7 @@ public abstract class Instrument extends Thread implements Runnable, jm.JMC{
 			double frequency = 0.0;
 			if (note.getPitchType() == Note.MIDI_PITCH  && note.getPitch() != JMC.REST &&
 					note.getPitch() <= Note.MIN_PITCH && note.getPitch() >= Note.MAX_PITCH) {
-				frequency = jm.JMC.FRQ[note.getPitch()];
+				frequency = JMC.FRQ[note.getPitch()];
 			} else {
 				frequency = note.getFrequency();
 			}
