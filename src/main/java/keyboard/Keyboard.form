@@ -3,9 +3,11 @@
   <grid id="5d87a" binding="externalPanel" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="150" y="109" width="839" height="656"/>
+      <xy x="150" y="109" width="839" height="689"/>
     </constraints>
-    <properties/>
+    <properties>
+      <preferredSize width="610" height="700"/>
+    </properties>
     <border type="none"/>
     <children>
       <grid id="27dc6" binding="keyboardPanel" layout-manager="GridLayoutManager" row-count="2" column-count="12" same-size-horizontally="false" same-size-vertically="false" hgap="1" vgap="0">
@@ -186,11 +188,20 @@
           </component>
         </children>
       </grid>
-      <vspacer id="435fd">
+      <grid id="b87a4" binding="sheetPanel" custom-create="true" layout-manager="BorderLayout" hgap="0" vgap="0">
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
-      </vspacer>
+        <properties>
+          <alignmentX value="0.5"/>
+          <alignmentY value="0.5"/>
+          <background color="-1"/>
+          <minimumSize width="610" height="340"/>
+          <preferredSize width="610" height="340"/>
+        </properties>
+        <border type="none"/>
+        <children/>
+      </grid>
     </children>
   </grid>
 </form>

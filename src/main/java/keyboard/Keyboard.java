@@ -1,13 +1,12 @@
 package keyboard;
 
 import jm.music.data.*;
-import jm.util.Play;
 import jm.JMC;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+
 
 public class Keyboard implements JMC{
     private JPanel keyboardPanel;
@@ -24,116 +23,27 @@ public class Keyboard implements JMC{
     private JButton Fs_Key;
     private JButton As_Key;
     private JButton Gs_Key;
+    private JPanel sheetPanel;
+    private NotePlay notePlay;
 
     public Keyboard() {
-
-        C_Key.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_A,0), "C_Note");
-        C_Key.getActionMap().put("C_Note", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("C");
-                Play.midi(new Note(C4, WHOLE_NOTE));
-                /*int[] chord = {F2,F4};
-                CPhrase ph = new CPhrase(0.0);
-                ph.addChord(chord, 1.);
-                Play.midi(new Part(ph));*/
-            }
-        });
-        D_Key.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_S,0), "D_Note");
-        D_Key.getActionMap().put("D_Note", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("D");
-                Play.midi(new Note(D4, WHOLE_NOTE));
-            }
-        });
-        E_Key.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D,0), "E_Note");
-        E_Key.getActionMap().put("E_Note", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("E");
-                Play.midi(new Note(E4, WHOLE_NOTE));
-            }
-        });
-        F_Key.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_F,0), "F_Note");
-        F_Key.getActionMap().put("F_Note", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("F");
-                Play.midi(new Note(F4, WHOLE_NOTE));
-            }
-        });
-        G_Key.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_G,0), "G_Note");
-        G_Key.getActionMap().put("G_Note", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("G");
-                Play.midi(new Note(G4, WHOLE_NOTE));
-            }
-        });
-        A_Key.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_H,0), "A_Note");
-        A_Key.getActionMap().put("A_Note", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("A");
-                Play.midi(new Note(A4, WHOLE_NOTE));
-            }
-        });
-        B_Key.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_J,0), "B_Note");
-        B_Key.getActionMap().put("B_Note", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("B");
-                Play.midi(new Note(B4, WHOLE_NOTE));
-            }
-        });
-        Cs_Key.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_W,0), "Cs_Note");
-        Cs_Key.getActionMap().put("Cs_Note", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("C#");
-                Play.midi(new Note(CS4, WHOLE_NOTE));
-            }
-        });
-        Ds_Key.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_E,0), "Ds_Note");
-        Ds_Key.getActionMap().put("Ds_Note", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("D#");
-                Play.midi(new Note(DS4, WHOLE_NOTE));
-            }
-        });
-        Fs_Key.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_T,0), "Fs_Note");
-        Fs_Key.getActionMap().put("Fs_Note", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("F#");
-                Play.midi(new Note(FS4, WHOLE_NOTE));
-            }
-        });
-        Gs_Key.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_Y,0), "Gs_Note");
-        Gs_Key.getActionMap().put("Gs_Note", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("G#");
-                Play.midi(new Note(GS4, WHOLE_NOTE));
-            }
-        });
-        As_Key.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_U,0), "As_Note");
-        As_Key.getActionMap().put("As_Note", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("A#");
-                Play.midi(new Note(AS4, WHOLE_NOTE));
-            }
-        });
+        assignKeyBinds();
+        notePlay = new NotePlay();
     }
 
     public static void main(String[] args) {
+        initFrame();
+    }
+
+    private static void initFrame(){
+        //------------------
+        // frame settings
+        // size: (610 x 700)
+        //------------------
         Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
         try {
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Metal".equals(info.getName())) {
                     UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -148,4 +58,64 @@ public class Keyboard implements JMC{
         frame.setLocation((int)(size.getWidth()/2 - frame.getWidth()/2), (int)(size.getHeight()/2 - frame.getHeight()/2)); //must be after pack()
         frame.setVisible(true);
     }
+
+    // TODO: set onRelease events, evitare che tenere premuto accodi 10000 note (see https://stackoverflow.com/questions/28843656/calling-a-java-abstractaction-from-a-button-mouse-release)
+    private void assignKeyBinds(){
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
+            @Override
+            public boolean dispatchKeyEvent(KeyEvent ke) {
+                synchronized (this) {
+                    if (ke.getID() == KeyEvent.KEY_PRESSED) {
+                            switch (ke.getKeyCode()){
+                                case KeyEvent.VK_A:
+                                    notePlay.execute(new Note(C4,WHOLE_NOTE));
+                                    break;
+                                case KeyEvent.VK_S:
+                                    notePlay.execute(new Note(D4, WHOLE_NOTE));
+                                    break;
+                                case KeyEvent.VK_D:
+                                    notePlay.execute(new Note(E4, WHOLE_NOTE));
+                                    break;
+                                case KeyEvent.VK_F:
+                                    notePlay.execute(new Note(F4, WHOLE_NOTE));
+                                    break;
+                                case KeyEvent.VK_G:
+                                    notePlay.execute(new Note(G4, WHOLE_NOTE));
+                                    break;
+                                case KeyEvent.VK_H:
+                                    notePlay.execute(new Note(A4, WHOLE_NOTE));
+                                    break;
+                                case KeyEvent.VK_J:
+                                    notePlay.execute(new Note(B4, WHOLE_NOTE));
+                                    break;
+                                case KeyEvent.VK_W:
+                                    notePlay.execute(new Note(CS4, WHOLE_NOTE));
+                                    break;
+                                case KeyEvent.VK_E:
+                                    notePlay.execute(new Note(DS4, WHOLE_NOTE));
+                                    break;
+                                case KeyEvent.VK_T:
+                                    notePlay.execute(new Note(FS4, WHOLE_NOTE));
+                                    break;
+                                case KeyEvent.VK_Y:
+                                    notePlay.execute(new Note(GS4, WHOLE_NOTE));
+                                    break;
+                                case KeyEvent.VK_U:
+                                    notePlay.execute(new Note(AS4, WHOLE_NOTE));
+                                    break;
+                            }
+                    }
+                    return false;
+                }
+            }
+        });
+    }
+
+    private void createUIComponents() {
+        sheetPanel = new MusicSheetGraphics();
+    }
+
+
+
+
 }

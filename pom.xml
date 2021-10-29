@@ -20,5 +20,10 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/src/main/resources/jsyn-20170815.jar</systemPath>
         </dependency>
+        <dependency>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>ideauidesigner-maven-plugin</artifactId>
+            <version>1.0-beta-1</version>
+        </dependency>
     </dependencies>
 </project>

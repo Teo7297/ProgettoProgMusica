@@ -7,32 +7,45 @@ import jm.JMC;
 import jm.util.View;
 import keyboard.Keyboard;
 
-public class Main implements JMC {
+import java.util.LinkedList;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.Queue;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+import jm.JMC;
 
-    public static void main(String[] args) throws InterruptedException {
-        Phrase phr = new Phrase();
-        for(int i = 0; i< 50; i++) {
-            Note n = new Note((int)(Math.random()*60 + 30), SQ * (int)(Math.random()*8 + 1));
-            phr.addNote(n);
-        }
-        View.notate(phr);
+import static jm.constants.Pitches.C4;
+
+public class Main extends Observable implements Observer {
+    private final ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
+    private Queue<Note> CQ;
+
+    public Main() {
+        this.CQ = new LinkedList<>();
+        addObserver(this);
     }
 
-    /*int[] chord = {F2,F4};
-        CPhrase ph = new CPhrase(0.0);
-        ph.addChord(chord, 1.);
-        Part pt = new Part(ph);
+    private void execute() {
+        for (int i = 0; i < 5; ++i) {
+            this.CQ.add(new Note(C4, 1));
+            this.setChanged();
+            this.notifyObservers(i);
 
-        View.notate(pt);
+            try {
+                Thread.sleep(1000l);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
-        pt.removePhrase(0);
-        pt.add(new Phrase(new Note(C4, 1)));
-        while(true){
-            pt.add(new Phrase(new Note(C4, 1)));
-            Thread.sleep(500);
-            pt.add(new Phrase(new Note(D4, 1)));
-            Thread.sleep(500);
-        }*/
+        executor.shutdown();
+    }
 
-
+    @Override
+    public void update(Observable o, Object arg) {
+        executor.submit(() -> {
+                Play.midi(this.CQ.poll());
+        });
+    }
 }
