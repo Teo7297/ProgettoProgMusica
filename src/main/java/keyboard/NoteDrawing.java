@@ -1,5 +1,8 @@
 package keyboard;
 
+import jm.music.data.Note;
+import jm.util.Play;
+
 import java.awt.*;
 import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
@@ -37,36 +40,32 @@ public class NoteDrawing {
     private static final HashMap<String, Integer> CMap = new HashMap<String, Integer>(){{
         //y needed to place clef correctly on screen
         put("chiavesoltreble", 113);
-        //put("french_violin", 130);
         put("chiavedosoprano", 102);
         put("chiavedomezzo_soprano", 120);
         put("chiavedoalto", 138);
         put("chiavedotenor", 157);
-        //put("baritone_C", 175);
         put("chiavefabaritone", 156);
         put("chiavefabass", 138);
-        //put("subbass", 120);
 
-        //deltas for note height (+9 = 1 nota)
+        //deltas for note height (+9 = 1 nota) (+63 = 1 ottava)
         put("trebleDelta", 18);
-        //put("french_violinDelta", );
         put("sopranoDelta", 36);
         put("mezzo_sopranoDelta", 54);
         put("altoDelta", 72);
         put("tenorDelta", 90);
-        //put("baritone_CDelta", );
-        put("baritoneDelta", 45); //108 4 ottava
-        put("bassDelta", 63); //126 4 ottava
-        //put("subbassDelta", );
+        put("baritoneDelta", 108);
+        put("bassDelta", 126);
     }};
     private static int maxNotationNumber;
     private int currentNotationNumber;
     private String currentNotation;
     private static final Font font =  new Font("Arimo", Font.PLAIN, 36);
     private static final Font fontDS =  new Font("Arimo", Font.PLAIN, 60);
+    private int currentOctave;
 
 
     public NoteDrawing(int position, int x, int extraStart, int extraEnd, String clefType, String clefName){
+        this.currentOctave = 4;
         this.clefDelta = CMap.get(clefType+"Delta");
         this.position = position;
         this.x = x;
@@ -82,7 +81,7 @@ public class NoteDrawing {
     }
 
     public void drawNote(Graphics2D g2){
-        int y = notesHeights.get(currentNote)-clefDelta;
+        int y = notesHeights.get(currentNote) - clefDelta + ((4 - this.currentOctave) * 63); //4 = ottava "base", 63 = distanza sull'asse y per spostarsi di 7 note
         drawExtraLines(y, this.extraStart, this.extraEnd, g2);
         Ellipse2D circle = new Ellipse2D.Double(x,y,18,16);
         g2.fill(circle);
@@ -193,7 +192,7 @@ public class NoteDrawing {
                 return this.currentNote + "#";
             case "\u266D":
                 return this.currentNote + "b";
-            case "\uD834\uDD2A": //ss
+            case "\uD834\uDD2A": //x
                 return notes[getNotePosition(this.currentNote)+2];
             case "\uD834\uDD2B": //bb
                 return notes[getNotePosition(this.currentNote)-2];
@@ -202,24 +201,18 @@ public class NoteDrawing {
         }
     }
 
-    /*//-1, 0, 1
-    public int changeOctaveDelta(){
-        switch (octaveDeltas[new Random().nextInt(3)]){
-            case 0:
-                if(this.position == 0)
-                    octaveDeltaSound = 1.;
-                return 0;
-            case -1:
-                if(this.position == 0)
-                    octaveDeltaSound = 0.5;
-                return 63;
-            case 1:
-                if(this.position == 0)
-                    octaveDeltaSound = 2.;
-                return  -63;
-            default:
-                System.err.println("Given delta value not supported");
-                return 0;
-        }
-    }*/
+    public int getCurrentOctave(){
+        return this.currentOctave;
+    }
+
+    public void setCurrentOctave(int o){
+        this.currentOctave = o;
+    }
+
+    public void play(Note n){
+        double freqMultiplier = (this.currentOctave < 4 ? .5 : 2.) * (Math.abs(4 - this.currentOctave));
+        if(freqMultiplier != 0)
+            n.setFrequency(n.getFrequency() * freqMultiplier);
+        Play.midi(n);
+    }
 }

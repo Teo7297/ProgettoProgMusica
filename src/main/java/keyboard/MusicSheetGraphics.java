@@ -83,6 +83,10 @@ public class MusicSheetGraphics extends JPanel implements ActionListener{
         }
     }
 
+    public NoteDrawing getCurrentNote(){
+        return this.currentNote;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if(this.correct) {

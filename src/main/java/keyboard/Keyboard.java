@@ -26,7 +26,8 @@ public class Keyboard implements JMC{
     private JButton As_Key;
     private JButton Gs_Key;
     private JPanel sheetPanel;
-    private NotePlay notePlay;
+    //private NotePlay notePlay;
+    private NoteDrawing currentNote;
 
     public Keyboard() {
         assignKeyBinds();
@@ -68,44 +69,51 @@ public class Keyboard implements JMC{
             public boolean dispatchKeyEvent(KeyEvent ke) {
                 synchronized (this) {
                     if (ke.getID() == KeyEvent.KEY_PRESSED) {
-                            switch (ke.getKeyCode()){
-                                case KeyEvent.VK_A:
-                                    notePlay.execute(new Note(C4 ,QUARTER_NOTE));
-                                    break;
-                                case KeyEvent.VK_S:
-                                    notePlay.execute(new Note(D4,  QUARTER_NOTE));
-                                    break;
-                                case KeyEvent.VK_D:
-                                    notePlay.execute(new Note(E4,  QUARTER_NOTE));
-                                    break;
-                                case KeyEvent.VK_F:
-                                    notePlay.execute(new Note(F4,  QUARTER_NOTE));
-                                    break;
-                                case KeyEvent.VK_G:
-                                    notePlay.execute(new Note(G4,  QUARTER_NOTE));
-                                    break;
-                                case KeyEvent.VK_H:
-                                    notePlay.execute(new Note(A4,  QUARTER_NOTE));
-                                    break;
-                                case KeyEvent.VK_J:
-                                    notePlay.execute(new Note(B4,  QUARTER_NOTE));
-                                    break;
-                                case KeyEvent.VK_W:
-                                    notePlay.execute(new Note(CS4, QUARTER_NOTE));
-                                    break;
-                                case KeyEvent.VK_E:
-                                    notePlay.execute(new Note(DS4, QUARTER_NOTE));
-                                    break;
-                                case KeyEvent.VK_T:
-                                    notePlay.execute(new Note(FS4, QUARTER_NOTE));
-                                    break;
-                                case KeyEvent.VK_Y:
-                                    notePlay.execute(new Note(GS4, QUARTER_NOTE));
-                                    break;
-                                case KeyEvent.VK_U:
-                                    notePlay.execute(new Note(AS4, QUARTER_NOTE));
-                                    break;
-                            }
+                        Note n;
+                        switch (ke.getKeyCode()){
+                            case KeyEvent.VK_A:
+                                n = new Note(C4 ,QUARTER_NOTE);
+                                break;
+                            case KeyEvent.VK_S:
+                                n = new Note(D4 ,QUARTER_NOTE);
+                                break;
+                            case KeyEvent.VK_D:
+                                n = new Note(E4 ,QUARTER_NOTE);
+                                break;
+                            case KeyEvent.VK_F:
+                                n = new Note(F4 ,QUARTER_NOTE);
+                                break;
+                            case KeyEvent.VK_G:
+                                n = new Note(G4 ,QUARTER_NOTE);
+                                break;
+                            case KeyEvent.VK_H:
+                                n = new Note(A4 ,QUARTER_NOTE);
+                                break;
+                            case KeyEvent.VK_J:
+                                n = new Note(B4 ,QUARTER_NOTE);
+                                break;
+                            case KeyEvent.VK_W:
+                                n = new Note(CS4 ,QUARTER_NOTE);
+                                break;
+                            case KeyEvent.VK_E:
+                                n = new Note(DS4 ,QUARTER_NOTE);
+                                break;
+                            case KeyEvent.VK_T:
+                                n = new Note(FS4 ,QUARTER_NOTE);
+                                break;
+                            case KeyEvent.VK_Y:
+                                n = new Note(GS4 ,QUARTER_NOTE);
+                                break;
+                            case KeyEvent.VK_U:
+                                n = new Note(AS4 ,QUARTER_NOTE);
+                                break;
+                            default:
+                                n = null;
+                        }
+                        if(n != null) {
+                            currentNote.play(n);
+                            ((MusicSheetGraphics) sheetPanel).evaluatePlayerInput(n.getName());
+                        }
                     }
                     return false;
                 }
@@ -115,6 +123,6 @@ public class Keyboard implements JMC{
 
     private void createUIComponents() {
         sheetPanel = new MusicSheetGraphics("chiavefa", "baritone", 10, true);
-        notePlay = new NotePlay((MusicSheetGraphics)sheetPanel);
+        this.currentNote = ((MusicSheetGraphics)sheetPanel).getCurrentNote();
     }
 }

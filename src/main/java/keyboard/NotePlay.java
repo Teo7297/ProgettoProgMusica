@@ -30,7 +30,7 @@ public class NotePlay extends Observable implements Observer {
     public void update(Observable o, Object arg) {
         executor.submit(() -> {
             //N.setFrequency(N.getFrequency());
-            Play.midi(((NotePlay)o).N);
+            sheetPanel.getCurrentNote().play(((NotePlay)o).N);
             sheetPanel.evaluatePlayerInput(N.getName());
         });
     }
