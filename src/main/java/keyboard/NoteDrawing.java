@@ -26,12 +26,11 @@ public class NoteDrawing {
         put("A",198);
         put("B",189);
     }};
-    private final int position;
     private final int x;
     private final int extraStart;
     private final int extraEnd;
     private String currentNote;
-    private final int clefDelta;
+    private int clefDelta;
     private static final HashMap<String, String> ClefToNoteMap = new HashMap<String, String>(){{
         put("chiavedo","C");
         put("chiavefa","F");
@@ -62,12 +61,15 @@ public class NoteDrawing {
     private static final Font font =  new Font("Arimo", Font.PLAIN, 36);
     private static final Font fontDS =  new Font("Arimo", Font.PLAIN, 60);
     private int currentOctave;
+    private String currentClefType;
+    private String currentClefName;
 
 
     public NoteDrawing(int position, int x, int extraStart, int extraEnd, String clefType, String clefName){
+        this.currentClefName = clefName;
+        this.currentClefType = clefType;
         this.currentOctave = 4;
-        this.clefDelta = CMap.get(clefType+"Delta");
-        this.position = position;
+        this.clefDelta = CMap.get(this.currentClefType+"Delta");
         this.x = x;
         this.extraStart = extraStart;
         this.extraEnd = extraEnd;
@@ -87,6 +89,11 @@ public class NoteDrawing {
         g2.fill(circle);
         if(!this.currentNotation.equals(""))
             drawNotation(g2, this.x, y);
+    }
+
+    private void setCurrentClefType(String clefType){
+        this.currentClefType = clefType;
+        this.clefDelta = CMap.get(this.currentClefType+"Delta");
     }
 
     private void drawExtraLines(int y, int start, int end, Graphics2D g2){
@@ -118,7 +125,7 @@ public class NoteDrawing {
     }
 
     public void generateNextNote(){
-        int position = -1, start = 0, end = 0;
+        int position = -1, start, end;
         for (int i=0; i<notes.length; i++){
             if (notes[i].equals(this.currentNote)){
                 position = i;
@@ -140,6 +147,19 @@ public class NoteDrawing {
             }
         }
         checkValidity();
+        if(MusicSheetGraphics.level > 5 && Math.random() < .33){
+            changeOctave();
+        }
+    }
+
+    private void changeOctave(){
+        int[] clefs = new int[]{2,3,4,5};
+        if(this.currentClefName.equals("chiavefa")){
+            this.currentOctave = clefs[new Random().nextInt(3)];
+            System.err.println("CHANGE " + this.currentOctave);
+        } else {
+            this.currentOctave = clefs[new Random().nextInt(3)+1];
+        }
     }
 
     //check if the notation is valid (no over/under scale)
@@ -159,7 +179,8 @@ public class NoteDrawing {
         }
     }
 
-    public void setCurrentNote(String currentNote, String notation, int notationNumber){
+    public void setCurrentNote(String currentNote, String notation, int notationNumber, int octave){
+        this.currentOctave = octave;
         this.currentNote = currentNote;
         this.currentNotation = notation;
         this.currentNotationNumber = notationNumber;
@@ -205,14 +226,15 @@ public class NoteDrawing {
         return this.currentOctave;
     }
 
-    public void setCurrentOctave(int o){
-        this.currentOctave = o;
-    }
-
     public void play(Note n){
-        double freqMultiplier = (this.currentOctave < 4 ? .5 : 2.) * (Math.abs(4 - this.currentOctave));
+        double v = (this.currentOctave < 4 ? .5 : 2.);
+        double freqMultiplier = 1;
+        for (int i = 0; i<Math.abs(4 - this.currentOctave); i++){
+            freqMultiplier *= v;
+        }
         if(freqMultiplier != 0)
             n.setFrequency(n.getFrequency() * freqMultiplier);
+        System.out.println(n.getFrequency());
         Play.midi(n);
     }
 }

@@ -91,9 +91,9 @@ public class MusicSheetGraphics extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if(this.correct) {
             this.correct = false;
-            currentNote.setCurrentNote(nextNote.getCurrentNote(), nextNote.getCurrentNotation(), nextNote.getCurrentNotationNumber());
-            nextNote.setCurrentNote(next2Note.getCurrentNote(), next2Note.getCurrentNotation(), next2Note.getCurrentNotationNumber());
-            next2Note.setCurrentNote(next3Note.getCurrentNote(), next3Note.getCurrentNotation(), next3Note.getCurrentNotationNumber());
+            currentNote.setCurrentNote(nextNote.getCurrentNote(), nextNote.getCurrentNotation(), nextNote.getCurrentNotationNumber(), nextNote.getCurrentOctave());
+            nextNote.setCurrentNote(next2Note.getCurrentNote(), next2Note.getCurrentNotation(), next2Note.getCurrentNotationNumber(), next2Note.getCurrentOctave());
+            next2Note.setCurrentNote(next3Note.getCurrentNote(), next3Note.getCurrentNotation(), next3Note.getCurrentNotationNumber(), next3Note.getCurrentOctave());
             next3Note.generateNextNote();
         } else {
             this.wrong = false;
