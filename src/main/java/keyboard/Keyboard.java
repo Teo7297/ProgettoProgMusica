@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
+import static java.awt.EventQueue.invokeLater;
+
 
 public class Keyboard implements JMC{
     private JPanel keyboardPanel;
@@ -28,11 +30,10 @@ public class Keyboard implements JMC{
 
     public Keyboard() {
         assignKeyBinds();
-        notePlay = new NotePlay();
     }
 
     public static void main(String[] args) {
-        initFrame();
+        invokeLater(Keyboard::initFrame);
     }
 
     private static void initFrame(){
@@ -60,6 +61,7 @@ public class Keyboard implements JMC{
     }
 
     // TODO: set onRelease events, evitare che tenere premuto accodi 10000 note (see https://stackoverflow.com/questions/28843656/calling-a-java-abstractaction-from-a-button-mouse-release)
+    // TODO: vedi dove mettere il doClick dei bottoni per l'animazione di click
     private void assignKeyBinds(){
         KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
             @Override
@@ -68,40 +70,40 @@ public class Keyboard implements JMC{
                     if (ke.getID() == KeyEvent.KEY_PRESSED) {
                             switch (ke.getKeyCode()){
                                 case KeyEvent.VK_A:
-                                    notePlay.execute(new Note(C4,WHOLE_NOTE));
+                                    notePlay.execute(new Note(C4 ,QUARTER_NOTE));
                                     break;
                                 case KeyEvent.VK_S:
-                                    notePlay.execute(new Note(D4, WHOLE_NOTE));
+                                    notePlay.execute(new Note(D4,  QUARTER_NOTE));
                                     break;
                                 case KeyEvent.VK_D:
-                                    notePlay.execute(new Note(E4, WHOLE_NOTE));
+                                    notePlay.execute(new Note(E4,  QUARTER_NOTE));
                                     break;
                                 case KeyEvent.VK_F:
-                                    notePlay.execute(new Note(F4, WHOLE_NOTE));
+                                    notePlay.execute(new Note(F4,  QUARTER_NOTE));
                                     break;
                                 case KeyEvent.VK_G:
-                                    notePlay.execute(new Note(G4, WHOLE_NOTE));
+                                    notePlay.execute(new Note(G4,  QUARTER_NOTE));
                                     break;
                                 case KeyEvent.VK_H:
-                                    notePlay.execute(new Note(A4, WHOLE_NOTE));
+                                    notePlay.execute(new Note(A4,  QUARTER_NOTE));
                                     break;
                                 case KeyEvent.VK_J:
-                                    notePlay.execute(new Note(B4, WHOLE_NOTE));
+                                    notePlay.execute(new Note(B4,  QUARTER_NOTE));
                                     break;
                                 case KeyEvent.VK_W:
-                                    notePlay.execute(new Note(CS4, WHOLE_NOTE));
+                                    notePlay.execute(new Note(CS4, QUARTER_NOTE));
                                     break;
                                 case KeyEvent.VK_E:
-                                    notePlay.execute(new Note(DS4, WHOLE_NOTE));
+                                    notePlay.execute(new Note(DS4, QUARTER_NOTE));
                                     break;
                                 case KeyEvent.VK_T:
-                                    notePlay.execute(new Note(FS4, WHOLE_NOTE));
+                                    notePlay.execute(new Note(FS4, QUARTER_NOTE));
                                     break;
                                 case KeyEvent.VK_Y:
-                                    notePlay.execute(new Note(GS4, WHOLE_NOTE));
+                                    notePlay.execute(new Note(GS4, QUARTER_NOTE));
                                     break;
                                 case KeyEvent.VK_U:
-                                    notePlay.execute(new Note(AS4, WHOLE_NOTE));
+                                    notePlay.execute(new Note(AS4, QUARTER_NOTE));
                                     break;
                             }
                     }
@@ -112,10 +114,7 @@ public class Keyboard implements JMC{
     }
 
     private void createUIComponents() {
-        sheetPanel = new MusicSheetGraphics();
+        sheetPanel = new MusicSheetGraphics("chiavefa", "baritone", 10, true);
+        notePlay = new NotePlay((MusicSheetGraphics)sheetPanel);
     }
-
-
-
-
 }

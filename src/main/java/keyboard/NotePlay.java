@@ -3,24 +3,24 @@ package keyboard;
 import jm.music.data.Note;
 import jm.util.Play;
 
-import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Queue;
+import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
 public class NotePlay extends Observable implements Observer {
-    private final ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(6);
-    private Queue<Note> CQ;
+    private final ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(12);
+    public Note N;
+    private MusicSheetGraphics sheetPanel;
 
-    public NotePlay() {
-        this.CQ = new LinkedList<>();
+    public NotePlay(MusicSheetGraphics sheetPanel) {
         addObserver(this);
+        this.sheetPanel = sheetPanel;
     }
 
     public void execute(Note n) {
-        this.CQ.add(n);
+        this.N = n;
         this.setChanged();
         this.notifyObservers();
         //executor.shutdown();
@@ -29,7 +29,9 @@ public class NotePlay extends Observable implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         executor.submit(() -> {
-            Play.midi(this.CQ.poll());
+            //N.setFrequency(N.getFrequency());
+            Play.midi(((NotePlay)o).N);
+            sheetPanel.evaluatePlayerInput(N.getName());
         });
     }
 }
