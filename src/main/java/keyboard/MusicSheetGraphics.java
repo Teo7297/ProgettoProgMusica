@@ -30,12 +30,13 @@ public class MusicSheetGraphics extends JPanel implements ActionListener{
         this.correct = false;
         this.wrong = false;
 
-        this.currentNote = new NoteDrawing(0, 120, 115, 142, clefType, clefName);
-        this.nextNote = new NoteDrawing(1, 240, 235, 262, clefType, clefName);
-        this.next2Note = new NoteDrawing(2, 360, 355, 382, clefType, clefName);
-        this.next3Note = new NoteDrawing(3, 480, 475, 502, clefType, clefName);
         this.clefDrawing = new ClefDrawing(clefName, clefType, this);
         this.staveDrawing = new StaveDrawing();
+
+        this.currentNote = new NoteDrawing(120, 115, 142, this.clefDrawing);
+        this.nextNote = new NoteDrawing(240, 235, 262, this.clefDrawing);
+        this.next2Note = new NoteDrawing(360, 355, 382, this.clefDrawing);
+        this.next3Note = new NoteDrawing(480, 475, 502, this.clefDrawing);
 
         currentNote.generateNextNote();
         nextNote.generateNextNote();
@@ -91,10 +92,12 @@ public class MusicSheetGraphics extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if(this.correct) {
             this.correct = false;
-            currentNote.setCurrentNote(nextNote.getCurrentNote(), nextNote.getCurrentNotation(), nextNote.getCurrentNotationNumber(), nextNote.getCurrentOctave());
-            nextNote.setCurrentNote(next2Note.getCurrentNote(), next2Note.getCurrentNotation(), next2Note.getCurrentNotationNumber(), next2Note.getCurrentOctave());
-            next2Note.setCurrentNote(next3Note.getCurrentNote(), next3Note.getCurrentNotation(), next3Note.getCurrentNotationNumber(), next3Note.getCurrentOctave());
-            next3Note.generateNextNote();
+            this.currentNote.setCurrentNote(nextNote.getCurrentNote(), nextNote.getCurrentNotation(), nextNote.getCurrentNotationNumber(), nextNote.getCurrentOctave());
+            this.nextNote.setCurrentNote(next2Note.getCurrentNote(), next2Note.getCurrentNotation(), next2Note.getCurrentNotationNumber(), next2Note.getCurrentOctave());
+            this.next2Note.setCurrentNote(next3Note.getCurrentNote(), next3Note.getCurrentNotation(), next3Note.getCurrentNotationNumber(), next3Note.getCurrentOctave());
+            this.next3Note.generateNextNote();
+
+            this.clefDrawing.changeClef();
         } else {
             this.wrong = false;
         }

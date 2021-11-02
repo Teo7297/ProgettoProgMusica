@@ -10,32 +10,27 @@ import java.util.HashMap;
 public class ClefDrawing {
     private static final HashMap<String, Integer> CMap = new HashMap<String, Integer>(){{
         //y needed to place clef correctly on screen
-        put("chiavesoltreble", 113);
-        //put("french_violin", 130);
-        put("chiavedosoprano", 102);
-        put("chiavedomezzo_soprano", 120);
-        put("chiavedoalto", 138);
-        put("chiavedotenor", 157);
-        //put("baritone_C", 175);
-        put("chiavefabaritone", 156);
-        put("chiavefabass", 138);
-        //put("subbass", 120);
+        put("treble", 113);
+        put("soprano", 102);
+        put("mezzo_soprano", 120);
+        put("alto", 138);
+        put("tenor", 157);
+        put("baritone", 156);
+        put("bass", 138);
 
         //deltas for note height
         put("trebleDelta", 18);
-        //put("french_violinDelta", );
         put("sopranoDelta", 36);
         put("mezzo_sopranoDelta", 54);
         put("altoDelta", 72);
         put("tenorDelta", 90);
-        //put("baritone_CDelta", );
         put("baritoneDelta", 108);
         put("bassDelta", 126);
         //put("subbassDelta", );
     }};
 
-    private final String clefName;
-    private final String clefType;
+    private String clefName;
+    private String clefType;
     private final MusicSheetGraphics msg;
 
     public ClefDrawing(String clefName, String clefType, MusicSheetGraphics msg){
@@ -74,6 +69,22 @@ public class ClefDrawing {
         } else{
             System.err.println("Clef BufferedImage is null! Please check that the file name and path are correct");
         }
-        g2.drawImage(scaled, 25, CMap.get(clefName+clefType), this.msg);
+        g2.drawImage(scaled, 25, CMap.get(clefType), this.msg);
+    }
+
+    public String getClefName() {
+        return clefName;
+    }
+
+    public String getClefType() {
+        return clefType;
+    }
+
+    //TODO: la chiave si cambia correttamente MA le note generate prima del cambio chiave vengono traslate! cosa faccio?
+    public void changeClef(){
+        //if(Math.random() < 0.3) {
+            this.clefName = "chiavefa";
+            this.clefType = "bass";
+        //}
     }
 }

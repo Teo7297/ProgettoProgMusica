@@ -30,7 +30,6 @@ public class NoteDrawing {
     private final int extraStart;
     private final int extraEnd;
     private String currentNote;
-    private int clefDelta;
     private static final HashMap<String, String> ClefToNoteMap = new HashMap<String, String>(){{
         put("chiavedo","C");
         put("chiavefa","F");
@@ -61,19 +60,16 @@ public class NoteDrawing {
     private static final Font font =  new Font("Arimo", Font.PLAIN, 36);
     private static final Font fontDS =  new Font("Arimo", Font.PLAIN, 60);
     private int currentOctave;
-    private String currentClefType;
-    private String currentClefName;
+    private final ClefDrawing clefDrawing;
 
 
-    public NoteDrawing(int position, int x, int extraStart, int extraEnd, String clefType, String clefName){
-        this.currentClefName = clefName;
-        this.currentClefType = clefType;
+    public NoteDrawing(int x, int extraStart, int extraEnd, ClefDrawing clefDrawing){
+        this.clefDrawing = clefDrawing;
         this.currentOctave = 4;
-        this.clefDelta = CMap.get(this.currentClefType+"Delta");
         this.x = x;
         this.extraStart = extraStart;
         this.extraEnd = extraEnd;
-        this.currentNote = ClefToNoteMap.get(clefName);
+        this.currentNote = ClefToNoteMap.get(this.clefDrawing.getClefName());
         maxNotationNumber = 2;
         if(MusicSheetGraphics.level < 5){
             maxNotationNumber = 0;
@@ -83,17 +79,12 @@ public class NoteDrawing {
     }
 
     public void drawNote(Graphics2D g2){
-        int y = notesHeights.get(currentNote) - clefDelta + ((4 - this.currentOctave) * 63); //4 = ottava "base", 63 = distanza sull'asse y per spostarsi di 7 note
+        int y = notesHeights.get(currentNote) - CMap.get(this.clefDrawing.getClefType()+"Delta") + ((4 - this.currentOctave) * 63); //4 = ottava "base", 63 = distanza sull'asse y per spostarsi di 7 note
         drawExtraLines(y, this.extraStart, this.extraEnd, g2);
         Ellipse2D circle = new Ellipse2D.Double(x,y,18,16);
         g2.fill(circle);
         if(!this.currentNotation.equals(""))
             drawNotation(g2, this.x, y);
-    }
-
-    private void setCurrentClefType(String clefType){
-        this.currentClefType = clefType;
-        this.clefDelta = CMap.get(this.currentClefType+"Delta");
     }
 
     private void drawExtraLines(int y, int start, int end, Graphics2D g2){
@@ -154,7 +145,7 @@ public class NoteDrawing {
 
     private void changeOctave(){
         int[] clefs = new int[]{2,3,4,5};
-        if(this.currentClefName.equals("chiavefa")){
+        if(this.clefDrawing.getClefName().equals("chiavefa")){
             this.currentOctave = clefs[new Random().nextInt(3)];
             System.err.println("CHANGE " + this.currentOctave);
         } else {
@@ -234,7 +225,6 @@ public class NoteDrawing {
         }
         if(freqMultiplier != 0)
             n.setFrequency(n.getFrequency() * freqMultiplier);
-        System.out.println(n.getFrequency());
         Play.midi(n);
     }
 }
