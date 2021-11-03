@@ -122,7 +122,7 @@ public class Keyboard implements JMC{
     }
 
     private void createUIComponents() {
-        sheetPanel = new MusicSheetGraphics("chiavesol", "treble", 10, true);
+        sheetPanel = new MusicSheetGraphics("chiavedo", "alto", 10, false);
         this.currentNote = ((MusicSheetGraphics)sheetPanel).getCurrentNote();
     }
 }

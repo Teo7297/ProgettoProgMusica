@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.util.Random;
 
 public class MusicSheetGraphics extends JPanel implements ActionListener{
@@ -17,7 +18,7 @@ public class MusicSheetGraphics extends JPanel implements ActionListener{
     private final NoteDrawing nextNote;
     private final NoteDrawing next2Note;
     private final NoteDrawing next3Note;
-    private final ClefDrawing clefDrawing;
+    //private final ClefDrawing clefDrawing;
     private final StaveDrawing staveDrawing;
 
     private static boolean GODMODE;
@@ -30,13 +31,13 @@ public class MusicSheetGraphics extends JPanel implements ActionListener{
         this.correct = false;
         this.wrong = false;
 
-        this.clefDrawing = new ClefDrawing(clefName, clefType, this);
+        //this.clefDrawing = new ClefDrawing(clefName, clefType, this);
         this.staveDrawing = new StaveDrawing();
 
-        this.currentNote = new NoteDrawing(120, 115, 142, this.clefDrawing);
-        this.nextNote = new NoteDrawing(240, 235, 262, this.clefDrawing);
-        this.next2Note = new NoteDrawing(360, 355, 382, this.clefDrawing);
-        this.next3Note = new NoteDrawing(480, 475, 502, this.clefDrawing);
+        this.currentNote = new NoteDrawing(120, 115, 142, new ClefDrawing(clefName, clefType, this), true);
+        this.nextNote = new NoteDrawing(240, 235, 262, new ClefDrawing(clefName, clefType, this), false);
+        this.next2Note = new NoteDrawing(360, 355, 382, new ClefDrawing(clefName, clefType, this), false);
+        this.next3Note = new NoteDrawing(480, 475, 502, new ClefDrawing(clefName, clefType, this), false);
 
         currentNote.generateNextNote();
         nextNote.generateNextNote();
@@ -46,20 +47,20 @@ public class MusicSheetGraphics extends JPanel implements ActionListener{
 
     public void evaluatePlayerInput(String noteName){
 
+
         //TODO: da cambiare la logica di comparazione, Note trasforma a caso alcune note in # e alcune in b
-        if((currentNote.getCurrentNote()).equals(noteName) || GODMODE) {
+        if ((this.currentNote.getStringName()).equals(noteName) || GODMODE) {
             this.correct = true;
             //CORRECT set score
-        } else{
+        } else {
             this.wrong = true;
             //WRONG set score
         }
         Timer t = new Timer(200, this);
         t.setRepeats(false);
         t.start();
+
     }
-
-
 
     public void paintComponent(Graphics g){
         super.paintComponent(g);
@@ -67,7 +68,7 @@ public class MusicSheetGraphics extends JPanel implements ActionListener{
         g2.setStroke(new BasicStroke(2.5f));
         g2.setPaint(Color.black);
         staveDrawing.drawStave(g2);
-        clefDrawing.drawClef(g2);
+        this.currentNote.getClefDrawing().drawClef(g2);
         if(this.correct){
             g2.setPaint(Color.green);
         } else if(this.wrong){
@@ -92,12 +93,10 @@ public class MusicSheetGraphics extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if(this.correct) {
             this.correct = false;
-            this.currentNote.setCurrentNote(nextNote.getCurrentNote(), nextNote.getCurrentNotation(), nextNote.getCurrentNotationNumber(), nextNote.getCurrentOctave());
-            this.nextNote.setCurrentNote(next2Note.getCurrentNote(), next2Note.getCurrentNotation(), next2Note.getCurrentNotationNumber(), next2Note.getCurrentOctave());
-            this.next2Note.setCurrentNote(next3Note.getCurrentNote(), next3Note.getCurrentNotation(), next3Note.getCurrentNotationNumber(), next3Note.getCurrentOctave());
+            this.currentNote.setCurrentNote(nextNote);
+            this.nextNote.setCurrentNote(next2Note);
+            this.next2Note.setCurrentNote(next3Note);
             this.next3Note.generateNextNote();
-
-            this.clefDrawing.changeClef();
         } else {
             this.wrong = false;
         }

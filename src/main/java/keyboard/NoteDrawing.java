@@ -2,7 +2,6 @@ package keyboard;
 
 import jm.music.data.Note;
 import jm.util.Play;
-
 import java.awt.*;
 import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
@@ -15,7 +14,21 @@ import java.util.Random;
 public class NoteDrawing {
     private static final int[] lineDownThresholds = new int[]{321, 303, 285, 267, 251, 233};
     private static final int[] lineUpThresholds = new int[]{125, 107, 89, 71, 53, 35};
-    private static final String[] notes = new String[]{"C","D","E","F","G","A","B"};
+    public static final String[] notes = new String[]{"C","D","E","F","G","A","B"};
+    private static final HashMap<String, String> jmusicNotations = new HashMap<String, String>(){{
+        put("C#", "C#");
+        put("Db", "C#");
+        put("D#", "Eb");
+        put("Eb", "Eb");
+        put("E#", "F");
+        put("Fb", "E");
+        put("F#", "F#");
+        put("Gb", "F#");
+        put("G#", "Ab");
+        put("Ab", "Ab");
+        put("A#", "Bb");
+        put("Bb", "Bb");
+    }};
     private static final String[] notations = new String[]{"\u266F", "\u266D", "\uD834\uDD2A", "\uD834\uDD2B"};
     private static final HashMap<String, Integer> notesHeights = new HashMap<String, Integer>(){{
         put("C",243);
@@ -36,15 +49,6 @@ public class NoteDrawing {
         put("chiavesol","G");
     }};
     private static final HashMap<String, Integer> CMap = new HashMap<String, Integer>(){{
-        //y needed to place clef correctly on screen
-        put("chiavesoltreble", 113);
-        put("chiavedosoprano", 102);
-        put("chiavedomezzo_soprano", 120);
-        put("chiavedoalto", 138);
-        put("chiavedotenor", 157);
-        put("chiavefabaritone", 156);
-        put("chiavefabass", 138);
-
         //deltas for note height (+9 = 1 nota) (+63 = 1 ottava)
         put("trebleDelta", 18);
         put("sopranoDelta", 36);
@@ -60,10 +64,14 @@ public class NoteDrawing {
     private static final Font font =  new Font("Arimo", Font.PLAIN, 36);
     private static final Font fontDS =  new Font("Arimo", Font.PLAIN, 60);
     private int currentOctave;
-    private final ClefDrawing clefDrawing;
+    private ClefDrawing clefDrawing;
+    private boolean isFirst;
 
 
-    public NoteDrawing(int x, int extraStart, int extraEnd, ClefDrawing clefDrawing){
+    public NoteDrawing(int x, int extraStart, int extraEnd, ClefDrawing clefDrawing, boolean isFirst){
+        this.currentNotation = "";
+        this.currentNotationNumber = 0;
+        this.isFirst = isFirst;
         this.clefDrawing = clefDrawing;
         this.currentOctave = 4;
         this.x = x;
@@ -79,7 +87,7 @@ public class NoteDrawing {
     }
 
     public void drawNote(Graphics2D g2){
-        int y = notesHeights.get(currentNote) - CMap.get(this.clefDrawing.getClefType()+"Delta") + ((4 - this.currentOctave) * 63); //4 = ottava "base", 63 = distanza sull'asse y per spostarsi di 7 note
+        int y = notesHeights.get(this.currentNote) - CMap.get(this.clefDrawing.getClefType()+"Delta") + ((4 - this.currentOctave) * 63); //4 = ottava "base", 63 = distanza sull'asse y per spostarsi di 7 note
         drawExtraLines(y, this.extraStart, this.extraEnd, g2);
         Ellipse2D circle = new Ellipse2D.Double(x,y,18,16);
         g2.fill(circle);
@@ -116,40 +124,57 @@ public class NoteDrawing {
     }
 
     public void generateNextNote(){
-        int position = -1, start, end;
-        for (int i=0; i<notes.length; i++){
-            if (notes[i].equals(this.currentNote)){
-                position = i;
-                break;
-            }
-        }
-        start = Math.max(position - MusicSheetGraphics.level, 0);
-        end = Math.min(position + MusicSheetGraphics.level + 1, notes.length);
-        this.currentNote = notes[new Random().nextInt(end - start) + start];
-        //this.currentNote = "C";
+        // first note == clef note
+        if(!isFirst) {
+            if (MusicSheetGraphics.level > 5 && Math.random() < .2)
+                this.clefDrawing.changeClef();
+            if (MusicSheetGraphics.level > 5 && Math.random() < .33)
+                this.changeOctave();
 
-        this.currentNotation = "";
-        this.currentNotationNumber = 0;
-        if (maxNotationNumber > 0){
-            double rand = Math.random();
-            this.currentNotationNumber = 0;
-            if(rand < .2){
-                this.currentNotation = notations[new Random().nextInt(2*maxNotationNumber)];
+            //lower eventual F clef octave
+            if(this.clefDrawing.getClefName().equals("chiavefa") && this.currentOctave > 4)
+                this.currentOctave = 4;
+
+            //maximum distance for the next note
+            int position = -1, start, end;
+            for (int i = 0; i < notes.length; i++) {
+                if (notes[i].equals(this.currentNote)) {
+                    position = i;
+                    break;
+                }
             }
-        }
-        checkValidity();
-        if(MusicSheetGraphics.level > 5 && Math.random() < .33){
-            changeOctave();
+            start = Math.max(position - MusicSheetGraphics.level, 0);
+            end = Math.min(position + MusicSheetGraphics.level + 1, notes.length);
+
+            //avoid the same note back to back
+            String oldNote = this.currentNote;
+            while(oldNote.equals(this.currentNote))
+                this.currentNote = notes[new Random().nextInt(end - start) + start];
+
+            // set the notation
+            this.currentNotation = "";
+            this.currentNotationNumber = 0;
+            if (maxNotationNumber > 0) {
+                double rand = Math.random();
+                this.currentNotationNumber = 0;
+                if (rand < .2) {
+                    this.currentNotation = notations[new Random().nextInt(2 * maxNotationNumber)];
+                }
+            }
+            checkValidity();
+
+        } else {
+            isFirst = false;
         }
     }
 
     private void changeOctave(){
-        int[] clefs = new int[]{2,3,4,5};
         if(this.clefDrawing.getClefName().equals("chiavefa")){
-            this.currentOctave = clefs[new Random().nextInt(3)];
-            System.err.println("CHANGE " + this.currentOctave);
+            System.out.println("GEN CHIAVEFA");
+            this.currentOctave = new Random().nextInt(3) + 2;
+            System.out.println("OCT = " + this.currentOctave);
         } else {
-            this.currentOctave = clefs[new Random().nextInt(3)+1];
+            this.currentOctave = new Random().nextInt(3) + 3;
         }
     }
 
@@ -170,11 +195,13 @@ public class NoteDrawing {
         }
     }
 
-    public void setCurrentNote(String currentNote, String notation, int notationNumber, int octave){
-        this.currentOctave = octave;
-        this.currentNote = currentNote;
-        this.currentNotation = notation;
-        this.currentNotationNumber = notationNumber;
+    public void setCurrentNote(NoteDrawing nextNote){
+        this.clefDrawing.setClefName(nextNote.getClefDrawing().getClefName());
+        this.clefDrawing.setClefType(nextNote.getClefDrawing().getClefType());
+        this.currentOctave = nextNote.getCurrentOctave();
+        this.currentNote = nextNote.getCurrentNote();
+        this.currentNotation = nextNote.getCurrentNotation();
+        this.currentNotationNumber = nextNote.getCurrentNotationNumber();
     }
 
     public String getCurrentNote(){
@@ -197,19 +224,18 @@ public class NoteDrawing {
         return -1;
     }
 
-    public String getName(){
-        //TODO probabilmente conviene fare una mappa con i diesis/bemolle supportati da sta merda di jmusic
+    public String getStringName(){
         switch (this.currentNotation){
             case "\u266F":
-                return this.currentNote + "#";
+                return jmusicNotations.get(this.currentNote + "#");
             case "\u266D":
-                return this.currentNote + "b";
+                return jmusicNotations.get(this.currentNote + "b");
             case "\uD834\uDD2A": //x
                 return notes[getNotePosition(this.currentNote)+2];
             case "\uD834\uDD2B": //bb
                 return notes[getNotePosition(this.currentNote)-2];
             default:
-                return "";
+                return this.currentNote;
         }
     }
 
@@ -226,5 +252,13 @@ public class NoteDrawing {
         if(freqMultiplier != 0)
             n.setFrequency(n.getFrequency() * freqMultiplier);
         Play.midi(n);
+    }
+
+    public ClefDrawing getClefDrawing() {
+        return this.clefDrawing;
+    }
+
+    public boolean hasNotations(){
+        return this.currentNotationNumber > 0;
     }
 }

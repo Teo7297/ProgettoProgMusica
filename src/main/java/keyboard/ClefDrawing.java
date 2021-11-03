@@ -6,32 +6,32 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Random;
 
 public class ClefDrawing {
     private static final HashMap<String, Integer> CMap = new HashMap<String, Integer>(){{
         //y needed to place clef correctly on screen
         put("treble", 113);
-        put("soprano", 102);
-        put("mezzo_soprano", 120);
+        put("soprano", 174);
+        put("mezzo_soprano", 157);
         put("alto", 138);
-        put("tenor", 157);
+        put("tenor", 120);
         put("baritone", 156);
         put("bass", 138);
-
-        //deltas for note height
-        put("trebleDelta", 18);
-        put("sopranoDelta", 36);
-        put("mezzo_sopranoDelta", 54);
-        put("altoDelta", 72);
-        put("tenorDelta", 90);
-        put("baritoneDelta", 108);
-        put("bassDelta", 126);
-        //put("subbassDelta", );
     }};
-
+    private static final String[] clefNames = new String[]{
+            "chiavesol treble",
+            "chiavedo soprano",
+            "chiavedo mezzo_soprano",
+            "chiavedo alto",
+            "chiavedo tenor",
+            "chiavefa baritone",
+            "chiavefa bass"
+    };
     private String clefName;
     private String clefType;
     private final MusicSheetGraphics msg;
+
 
     public ClefDrawing(String clefName, String clefType, MusicSheetGraphics msg){
         this.clefName = clefName;
@@ -73,18 +73,24 @@ public class ClefDrawing {
     }
 
     public String getClefName() {
-        return clefName;
+        return this.clefName;
     }
 
     public String getClefType() {
-        return clefType;
+        return this.clefType;
     }
 
-    //TODO: la chiave si cambia correttamente MA le note generate prima del cambio chiave vengono traslate! cosa faccio?
+    public void setClefName(String clefName) {
+        this.clefName = clefName;
+    }
+
+    public void setClefType(String clefType) {
+        this.clefType = clefType;
+    }
+
     public void changeClef(){
-        //if(Math.random() < 0.3) {
-            this.clefName = "chiavefa";
-            this.clefType = "bass";
-        //}
+        String[] newClef = clefNames[new Random().nextInt(clefNames.length)].split(" ");
+        this.clefName = newClef[0];
+        this.clefType = newClef[1];
     }
 }
