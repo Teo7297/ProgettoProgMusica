@@ -43,16 +43,11 @@ public class NoteDrawing {
     private final int extraStart;
     private final int extraEnd;
     private String currentNote;
-    private static final HashMap<String, String> ClefToNoteMap = new HashMap<String, String>(){{
-        put("chiavedo","C");
-        put("chiavefa","F");
-        put("chiavesol","G");
-    }};
     private static final HashMap<String, Integer> CMap = new HashMap<String, Integer>(){{
         //deltas for note height (+9 = 1 nota) (+63 = 1 ottava)
         put("trebleDelta", 18);
         put("sopranoDelta", 36);
-        put("mezzo_sopranoDelta", 54);
+        put("mezzo-sopranoDelta", 54);
         put("altoDelta", 72);
         put("tenorDelta", 90);
         put("baritoneDelta", 108);
@@ -64,11 +59,13 @@ public class NoteDrawing {
     private static final Font font =  new Font("Arimo", Font.PLAIN, 36);
     private static final Font fontDS =  new Font("Arimo", Font.PLAIN, 60);
     private int currentOctave;
-    private ClefDrawing clefDrawing;
+    private final ClefDrawing clefDrawing;
     private boolean isFirst;
+    private boolean isFirstRound;
 
 
     public NoteDrawing(int x, int extraStart, int extraEnd, ClefDrawing clefDrawing, boolean isFirst){
+        this.isFirstRound = true;
         this.currentNotation = "";
         this.currentNotationNumber = 0;
         this.isFirst = isFirst;
@@ -77,7 +74,10 @@ public class NoteDrawing {
         this.x = x;
         this.extraStart = extraStart;
         this.extraEnd = extraEnd;
-        this.currentNote = ClefToNoteMap.get(this.clefDrawing.getClefName());
+        this.currentNote = this.clefDrawing.getClefName();
+    }
+
+    public static void setMaxNotationNumber(){
         maxNotationNumber = 2;
         if(MusicSheetGraphics.level < 5){
             maxNotationNumber = 0;
@@ -94,6 +94,7 @@ public class NoteDrawing {
         if(!this.currentNotation.equals(""))
             drawNotation(g2, this.x, y);
     }
+
 
     private void drawExtraLines(int y, int start, int end, Graphics2D g2){
         //Draw the extra lines
@@ -128,11 +129,11 @@ public class NoteDrawing {
         if(!isFirst) {
             if (MusicSheetGraphics.level > 5 && Math.random() < .2)
                 this.clefDrawing.changeClef();
-            if (MusicSheetGraphics.level > 5 && Math.random() < .33)
+            else if (MusicSheetGraphics.level > 5 && Math.random() < .33)
                 this.changeOctave();
 
             //lower eventual F clef octave
-            if(this.clefDrawing.getClefName().equals("chiavefa") && this.currentOctave > 4)
+            if(this.clefDrawing.getClefName().equals("F") && this.currentOctave > 4)
                 this.currentOctave = 4;
 
             //maximum distance for the next note
@@ -160,19 +161,19 @@ public class NoteDrawing {
                 if (rand < .2) {
                     this.currentNotation = notations[new Random().nextInt(2 * maxNotationNumber)];
                 }
+                checkValidity();
             }
-            checkValidity();
-
         } else {
             isFirst = false;
         }
+        if(isFirstRound && this.getClefDrawing().getClefName().equals("F"))
+            this.currentOctave = 3;
+        this.isFirstRound = false;
     }
 
     private void changeOctave(){
-        if(this.clefDrawing.getClefName().equals("chiavefa")){
-            System.out.println("GEN CHIAVEFA");
+        if(this.clefDrawing.getClefName().equals("F")){
             this.currentOctave = new Random().nextInt(3) + 2;
-            System.out.println("OCT = " + this.currentOctave);
         } else {
             this.currentOctave = new Random().nextInt(3) + 3;
         }
@@ -231,9 +232,17 @@ public class NoteDrawing {
             case "\u266D":
                 return jmusicNotations.get(this.currentNote + "b");
             case "\uD834\uDD2A": //x
-                return notes[getNotePosition(this.currentNote)+2];
+                //special case E##
+                if(this.currentNote.equals("E")){
+                    return "F#";
+                }
+                return notes[getNotePosition(this.currentNote) + 1];
             case "\uD834\uDD2B": //bb
-                return notes[getNotePosition(this.currentNote)-2];
+                //special case Fbb
+                if(this.currentNote.equals("F")){
+                    return "Eb";
+                }
+                return notes[getNotePosition(this.currentNote) - 1];
             default:
                 return this.currentNote;
         }
@@ -251,7 +260,7 @@ public class NoteDrawing {
         }
         if(freqMultiplier != 0)
             n.setFrequency(n.getFrequency() * freqMultiplier);
-        Play.midi(n);
+        //Play.midi(n); //TODO: scommentare
     }
 
     public ClefDrawing getClefDrawing() {

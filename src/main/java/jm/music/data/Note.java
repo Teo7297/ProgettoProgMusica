@@ -442,7 +442,7 @@ public class Note implements Cloneable, Serializable{
      */
     public int getPitch(){
         if (pitchType == FREQUENCY && this.pitch != (double)REST) {
-            System.err.println("jMusic warning: getting Note pitch when pitchType set as frequency.");
+            //System.err.println("jMusic warning: getting Note pitch when pitchType set as frequency.");
             //System.exit(1);
             //return 0; // to do - calculation to work out MIDI note from freq.
             return Convert.getMidiPitchByFrequency((float)this.getFrequency());

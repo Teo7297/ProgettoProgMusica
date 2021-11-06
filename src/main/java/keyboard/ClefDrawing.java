@@ -1,75 +1,49 @@
 package keyboard;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Random;
 
 public class ClefDrawing {
-    private static final HashMap<String, Integer> CMap = new HashMap<String, Integer>(){{
+    private static final HashMap<String, Integer> clefNamesHeights = new HashMap<String, Integer>(){{
         //y needed to place clef correctly on screen
-        put("treble", 113);
-        put("soprano", 174);
-        put("mezzo_soprano", 157);
-        put("alto", 138);
-        put("tenor", 120);
-        put("baritone", 156);
-        put("bass", 138);
+        put("G treble", 113);
+        put("C soprano", 174);
+        put("C mezzo-soprano", 157);
+        put("C alto", 138);
+        put("C tenor", 120);
+        put("F baritone", 156);
+        put("F bass", 138);
     }};
-    private static final String[] clefNames = new String[]{
-            "chiavesol treble",
-            "chiavedo soprano",
-            "chiavedo mezzo_soprano",
-            "chiavedo alto",
-            "chiavedo tenor",
-            "chiavefa baritone",
-            "chiavefa bass"
-    };
+    private final Image[] clefsImages;
     private String clefName;
     private String clefType;
     private final MusicSheetGraphics msg;
 
 
-    public ClefDrawing(String clefName, String clefType, MusicSheetGraphics msg){
+    public ClefDrawing(String clefName, String clefType, MusicSheetGraphics msg, Image[] clefsImages){
+        this.clefsImages = clefsImages;
         this.clefName = clefName;
         this.clefType = clefType;
         this.msg = msg;
     }
 
     public void drawClef(Graphics2D g2){
-        int scaleX = 1, scaleY = 1;
+        int clefIndex = -1;
         switch (clefName){
-            case "chiavesol":
-                scaleX = 55;
-                scaleY = 135;
+            case "G":
+                clefIndex = 1;
                 break;
-            case "chiavedo":
-                scaleX = 70;
-                scaleY = 82;
+            case "C":
+                clefIndex = 0;
                 break;
-            case "chiavefa":
-                scaleX = 55;
-                scaleY = 67;
+            case "F":
+                clefIndex = 2;
                 break;
             default:
-                System.err.println("Badly typed clef img file name, please insert the name of the PNG file without the extension (.png)");
+                System.err.println("Error drawing clef!");
         }
-        BufferedImage clef = null;
-        try {
-            clef = ImageIO.read(new File("src/main/img/"+clefName+".png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Image scaled = null;
-        if (clef != null) {
-            scaled = clef.getScaledInstance(scaleX,scaleY, Image.SCALE_SMOOTH);
-        } else{
-            System.err.println("Clef BufferedImage is null! Please check that the file name and path are correct");
-        }
-        g2.drawImage(scaled, 25, CMap.get(clefType), this.msg);
+        g2.drawImage(clefsImages[clefIndex], 25, clefNamesHeights.get(this.clefName+" "+this.clefType), this.msg);
     }
 
     public String getClefName() {
@@ -89,7 +63,8 @@ public class ClefDrawing {
     }
 
     public void changeClef(){
-        String[] newClef = clefNames[new Random().nextInt(clefNames.length)].split(" ");
+        Object[] clefs = clefNamesHeights.keySet().toArray();
+        String[] newClef = ((String) clefs[new Random().nextInt(clefNamesHeights.size())]).split(" ");
         this.clefName = newClef[0];
         this.clefType = newClef[1];
     }
