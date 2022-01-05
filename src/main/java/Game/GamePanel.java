@@ -1,25 +1,31 @@
 package Game;
 
+import javafx.event.EventDispatcher;
 import jm.music.data.Note;
 import keyboard.*;
-import jm.music.data.*;
 import jm.JMC;
+import mainMenu.MainFrame;
 
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.util.Locale;
 
 
-public class GamePanel extends JPanel implements JMC{
+public class GamePanel extends JPanel implements JMC, ActionListener {
 
-    private NoteDrawing currentNote;
-    private JPanel sheetPanel;
-    private JPanel keyboardPanel;
+    private final NoteDrawing currentNote;
+    private final JPanel sheetPanel;
 
-    private String username;
-    private int time;
+    private final String username;
+    private final int time;
+    private final int level;
+    private final String clef;
+    private KeyEventDispatcher ked;
+
+    public static Timer gameTimer;
 
     public GamePanel(String username, int level, int time, String clef){
         super(new GridLayout(2,1));
@@ -29,16 +35,26 @@ public class GamePanel extends JPanel implements JMC{
         this.sheetPanel = new MusicSheetGraphics(sclef[0], sclef[1].toLowerCase(), level, false);
         this.add(this.sheetPanel);
 
-        this.keyboardPanel = new KeyboardPanel();
-        this.add(this.keyboardPanel);
+        KeyboardPanel keyboardPanel = new KeyboardPanel();
+        this.add(keyboardPanel);
 
-        assignKeyBinds((KeyboardPanel) this.keyboardPanel);
+        assignKeyBinds(keyboardPanel);
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(this.ked);
 
         this.currentNote = ((MusicSheetGraphics)sheetPanel).getCurrentNote();
+
+        this.username = username;
+        this.time = time;
+        this.level = level;
+        this.clef = clef;
+
+        gameTimer = new Timer(time * 1000, this);
+        gameTimer.setRepeats(false);
+        gameTimer.start();
     }
 
     private void assignKeyBinds(KeyboardPanel keyboard){
-        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
+        this.ked = new KeyEventDispatcher() {
             @Override
             public boolean dispatchKeyEvent(KeyEvent ke) {
                 synchronized (this) {
@@ -104,6 +120,21 @@ public class GamePanel extends JPanel implements JMC{
                     return false;
                 }
             }
-        });
+        };
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        System.out.println("GAME OVER");
+        Score score = new Score(((MusicSheetGraphics)this.sheetPanel).getCurrentScore(), username, time, level);
+        KeyboardFocusManager.getCurrentKeyboardFocusManager();
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().removeKeyEventDispatcher(this.ked);
+        int ans = JOptionPane.showOptionDialog(SwingUtilities.getRoot(this), "Score: "+score.getPoints()+"!\nContinue to next level?","TIME'S UP", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Si", "No"},null);
+        if(ans == 0){
+            //go to next level
+            ((MainFrame)SwingUtilities.getRoot(this)).registerScore(score);
+            ((MainFrame)SwingUtilities.getRoot(this)).loadGame(this.username, this.level+1, this.time, this.clef);
+        } else
+            ((MainFrame)SwingUtilities.getRoot(this)).loadMainMenu(score);
     }
 }

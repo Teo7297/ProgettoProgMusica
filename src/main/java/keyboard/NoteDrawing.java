@@ -1,7 +1,9 @@
 package keyboard;
 
+import Game.NoteTimer;
 import jm.music.data.Note;
 import jm.util.Play;
+
 import java.awt.*;
 import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
@@ -90,6 +92,7 @@ public class NoteDrawing {
         int y = notesHeights.get(this.currentNote) - CMap.get(this.clefDrawing.getClefType()+"Delta") + ((4 - this.currentOctave) * 63); //4 = ottava "base", 63 = distanza sull'asse y per spostarsi di 7 note
         drawExtraLines(y, this.extraStart, this.extraEnd, g2);
         Ellipse2D circle = new Ellipse2D.Double(x,y,18,16);
+        //g2.rotate(Math.toRadians(35), x + 18 / 2, y + 16 / 2);
         g2.fill(circle);
         if(!this.currentNotation.equals(""))
             drawNotation(g2, this.x, y);
@@ -169,6 +172,7 @@ public class NoteDrawing {
         if(isFirstRound && this.getClefDrawing().getClefName().equals("F"))
             this.currentOctave = 3;
         this.isFirstRound = false;
+        NoteTimer.startTimer();
     }
 
     private void changeOctave(){
@@ -260,7 +264,7 @@ public class NoteDrawing {
         }
         if(freqMultiplier != 0)
             n.setFrequency(n.getFrequency() * freqMultiplier);
-        //Play.midi(n); //TODO: scommentare
+        Play.midi(n);
     }
 
     public ClefDrawing getClefDrawing() {

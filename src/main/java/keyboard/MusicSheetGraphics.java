@@ -1,5 +1,8 @@
 package keyboard;
 
+import Game.NoteTimer;
+import mainMenu.MainFrame;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +22,9 @@ public class MusicSheetGraphics extends JPanel implements ActionListener{
     private final NoteDrawing next2Note;
     private final NoteDrawing next3Note;
     private final StaveDrawing staveDrawing;
+    private int errors;
+    private int currentScore;
+    private final JLabel scoreLabel;
 
     private static boolean GODMODE;
 
@@ -26,28 +32,47 @@ public class MusicSheetGraphics extends JPanel implements ActionListener{
         super(null);
         this.setPreferredSize(new Dimension(700,350));
         this.setBackground(Color.white);
+        this.scoreLabel = new JLabel("Score: 0");
+        this.scoreLabel.setBounds(0,0,100,30);
+        this.add(this.scoreLabel);
+        JButton homeButton = new JButton("Exit");
+        homeButton.setBounds(600, 10, 80,30);
+        homeButton.addActionListener((e)->{
+            ((MainFrame)SwingUtilities.getRoot(this)).loadMainMenu(null);
+        });
+        this.add(homeButton);
+
+        JLabel levelLabel = new JLabel("Level: " + level_);
+        levelLabel.setBounds(100, 0, 80,30);
+        this.add(levelLabel);
 
         GODMODE = godmode;
         level = level_;
 
         this.correct = false;
         this.wrong = false;
+        this.errors = 0;
+        this.currentScore = 0;
 
         this.staveDrawing = new StaveDrawing();
 
         Image[] clefImages = loadClefImages();
 
-        this.currentNote = new NoteDrawing(120, 115, 142, new ClefDrawing(clefName, clefType, this, clefImages), true);
+        this.currentNote = new NoteDrawing(120, 115, 142, new ClefDrawing(clefName, clefType, this, clefImages), false);
         this.nextNote = new NoteDrawing(240, 235, 262, new ClefDrawing(clefName, clefType, this, clefImages), false);
         this.next2Note = new NoteDrawing(360, 355, 382, new ClefDrawing(clefName, clefType, this, clefImages), false);
-        this.next3Note = new NoteDrawing(480, 475, 502, new ClefDrawing(clefName, clefType, this, clefImages), false);
+        this.next3Note = new NoteDrawing(480, 475, 502, new ClefDrawing(clefName, clefType, this, clefImages), true);
 
         NoteDrawing.setMaxNotationNumber();
 
-        currentNote.generateNextNote();
-        nextNote.generateNextNote();
-        next2Note.generateNextNote();
-        next3Note.generateNextNote();
+        this.next3Note.generateNextNote();
+        this.currentNote.setCurrentNote(this.next3Note);
+        this.next3Note.generateNextNote();
+        this.nextNote.setCurrentNote(this.next3Note);
+        this.next3Note.generateNextNote();
+        this.next2Note.setCurrentNote(this.next3Note);
+        this.next3Note.generateNextNote();
+
     }
 
     private Image[] loadClefImages() {
@@ -73,7 +98,7 @@ public class MusicSheetGraphics extends JPanel implements ActionListener{
             }
             BufferedImage clef = null;
             try {
-                clef = ImageIO.read(new File("src/main/img/"+names[i]+".png"));
+                clef = ImageIO.read(new File("img/"+names[i]+".png"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -87,20 +112,23 @@ public class MusicSheetGraphics extends JPanel implements ActionListener{
     }
 
     public void evaluatePlayerInput(String noteName){
-
-        //TODO: da cambiare la logica di comparazione, Note trasforma a caso alcune note in # e alcune in b
         if ((this.currentNote.getStringName()).equals(noteName) || GODMODE) {
             this.correct = true;
-            //CORRECT set score
+            this.currentScore += (100 - (5*((this.errors * 2) + NoteTimer.getTimerSeconds()))) * level;   //score formula
+            NoteTimer.restartTimer();
+            this.errors = 0;
         } else {
             this.wrong = true;
-            //WRONG set score
+            errors += 1;
         }
         repaint();
-        Timer t = new Timer(200, this);
+        Timer t = new Timer(50, this);
         t.setRepeats(false);
         t.start();
+    }
 
+    public int getCurrentScore(){
+        return this.currentScore;
     }
 
     public void paintComponent(Graphics g){
@@ -108,6 +136,7 @@ public class MusicSheetGraphics extends JPanel implements ActionListener{
         Graphics2D g2 = (Graphics2D) g;
         g2.setStroke(new BasicStroke(2.5f));
         g2.setPaint(Color.black);
+        this.scoreLabel.setText("Score: " + this.currentScore);
         staveDrawing.drawStave(g2);
         this.currentNote.getClefDrawing().drawClef(g2);
         if(this.correct){
