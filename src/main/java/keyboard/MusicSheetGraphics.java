@@ -30,6 +30,13 @@ public class MusicSheetGraphics extends JPanel implements ActionListener{
 
     private static boolean GODMODE;
 
+    /**
+     * @param clefName starting clef
+     * @param clefType starting clef type
+     * @param level_ starting level
+     * @param godmode godmode (every input is correct, testing only)
+     * @param gamePanel gamePanel that invoked this constructor
+     */
     public MusicSheetGraphics(String clefName, String clefType, int level_, boolean godmode, GamePanel gamePanel){
         super(null);
         this.gamePanel = gamePanel;
@@ -80,6 +87,9 @@ public class MusicSheetGraphics extends JPanel implements ActionListener{
 
     }
 
+    /**
+     * @return an Image array with the clefs PNG images.
+     */
     private Image[] loadClefImages() {
         String[] names = new String[]{"chiavedo", "chiavesol", "chiavefa"};
         Image[] res = new Image[3];
@@ -116,9 +126,14 @@ public class MusicSheetGraphics extends JPanel implements ActionListener{
         return res;
     }
 
+    /**
+     * Evaluate the player input and assign a score if the note is correct
+     * @param noteName the name of the played note
+     */
     public void evaluatePlayerInput(String noteName){
         if ((this.currentNote.getStringName()).equals(noteName) || GODMODE) {
             this.correct = true;
+            //formula to determine the obtained score
             this.currentScore += (100 - (5*((this.errors * 2) + NoteTimer.getTimerSeconds()))) * level;   //score formula
             NoteTimer.restartTimer();
             this.errors = 0;

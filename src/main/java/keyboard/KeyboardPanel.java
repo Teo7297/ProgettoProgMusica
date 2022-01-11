@@ -3,6 +3,9 @@ package keyboard;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * This class creates the piano keyboard
+ */
 public class KeyboardPanel extends JPanel {
     public JButton C_Key;
     public JButton D_Key;

@@ -4,6 +4,9 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Random;
 
+/**
+ * This class is responsible for the handling of clefs during the match.
+ */
 public class ClefDrawing {
     private static final HashMap<String, Integer> clefNamesHeights = new HashMap<String, Integer>(){{
         //y needed to place clef correctly on screen

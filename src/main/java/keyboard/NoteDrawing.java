@@ -13,6 +13,9 @@ import java.awt.geom.Point2D;
 import java.util.HashMap;
 import java.util.Random;
 
+/**
+ * This class is responsible for the generation and handling of the notes during the match.
+ */
 public class NoteDrawing {
     private static final int[] lineDownThresholds = new int[]{321, 303, 285, 267, 251, 233};
     private static final int[] lineUpThresholds = new int[]{125, 107, 89, 71, 53, 35};
@@ -66,6 +69,13 @@ public class NoteDrawing {
     private boolean isFirstRound;
 
 
+    /**
+     * @param x position of the note on the horizontal axis
+     * @param extraStart start point for extra lines
+     * @param extraEnd end point for extra lines
+     * @param clefDrawing clefDrawing object
+     * @param isFirst if this is the first note of the match, it cannot be random (must be the clef base note)
+     */
     public NoteDrawing(int x, int extraStart, int extraEnd, ClefDrawing clefDrawing, boolean isFirst){
         this.isFirstRound = true;
         this.currentNotation = "";
@@ -79,6 +89,10 @@ public class NoteDrawing {
         this.currentNote = this.clefDrawing.getClefName();
     }
 
+    /**
+     * Based on the current level, sets the maximum number of notations that a note can have
+     * (sharp/flat = 1, double sharp/double flat = 2)
+     */
     public static void setMaxNotationNumber(){
         maxNotationNumber = 2;
         if(MusicSheetGraphics.level < 5){
@@ -88,6 +102,12 @@ public class NoteDrawing {
         }
     }
 
+    /**
+     * @param g2
+     * Graphics2D
+     *
+     * Customize the swing graphics with the generated note drawing.
+     */
     public void drawNote(Graphics2D g2){
         int y = notesHeights.get(this.currentNote) - CMap.get(this.clefDrawing.getClefType()+"Delta") + ((4 - this.currentOctave) * 63); //4 = ottava "base", 63 = distanza sull'asse y per spostarsi di 7 note
         drawExtraLines(y, this.extraStart, this.extraEnd, g2);
@@ -99,6 +119,15 @@ public class NoteDrawing {
     }
 
 
+    /**
+     * @param y
+     * @param start
+     * @param end
+     * @param g2
+     * Graphics2D
+     *
+     * Draws the extra mini-lines of the stave when a note needs to be drawn over or under the classic 5 lines of the stave.
+     */
     private void drawExtraLines(int y, int start, int end, Graphics2D g2){
         //Draw the extra lines
         for (int i = 0; i<6; i++){
@@ -112,6 +141,12 @@ public class NoteDrawing {
         }
     }
 
+    /**
+     * Draw the selected notation close to the note
+     * @param g2 Graphics2D
+     * @param x
+     * @param y
+     */
     private void drawNotation(Graphics2D g2, int x, int y){
         FontRenderContext frc = g2.getFontRenderContext();
         TextLayout tl;
@@ -127,6 +162,9 @@ public class NoteDrawing {
         tl.draw(g2, x - 20, y + 15);
     }
 
+    /**
+     * Generate a new note in the last position of the stave, according to the determined values (last note, notations number, level,...)
+     */
     public void generateNextNote(){
         // first note == clef note
         if(!isFirst) {
@@ -175,6 +213,9 @@ public class NoteDrawing {
         NoteTimer.startTimer();
     }
 
+    /**
+     * Have a chance of changing current octave
+     */
     private void changeOctave(){
         if(this.clefDrawing.getClefName().equals("F")){
             this.currentOctave = new Random().nextInt(3) + 2;
@@ -183,7 +224,10 @@ public class NoteDrawing {
         }
     }
 
-    //check if the notation is valid (no over/under scale)
+    /**
+     * Check if the notation is valid (no under/over interval [C ... B])
+     */
+
     private void checkValidity(){
         // "\u266F", "\u266D", "\uD834\uDD2A", "\uD834\uDD2B"
         switch (this.currentNotation){
@@ -200,6 +244,10 @@ public class NoteDrawing {
         }
     }
 
+    /**
+     * Sets the next note to be played.
+     * @param nextNote next note to be displayed as "current"
+     */
     public void setCurrentNote(NoteDrawing nextNote){
         this.clefDrawing.setClefName(nextNote.getClefDrawing().getClefName());
         this.clefDrawing.setClefType(nextNote.getClefDrawing().getClefType());
@@ -256,6 +304,10 @@ public class NoteDrawing {
         return this.currentOctave;
     }
 
+    /**
+     * Plays the note based on the parameters inferred by the clef and octave.
+     * @param n Note to play
+     */
     public void play(Note n){
         double v = (this.currentOctave < 4 ? .5 : 2.);
         double freqMultiplier = 1;

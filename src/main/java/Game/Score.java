@@ -1,6 +1,9 @@
 package Game;
 
-public class Score implements Comparable{
+/**
+ * Class used for the player scores, implements Comparable to allow sorting of the leaderboard by points value
+ */
+public class Score implements Comparable<Score>{
     private final int points;
     private final String username;
     private final int time;
@@ -30,8 +33,8 @@ public class Score implements Comparable{
     }
 
     @Override
-    public int compareTo(Object o) {
-        return this.getPoints() - ((Score)o).getPoints();
+    public int compareTo(Score o) {
+        return this.getPoints() - o.getPoints();
     }
 
     @Override

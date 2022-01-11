@@ -11,6 +11,10 @@ import org.json.*;
 
 import static javax.swing.SwingUtilities.invokeLater;
 
+/**
+ * This is the main class of this project, execute it to run the application.
+ */
+
 public class MainFrame extends JFrame {
 
     private static CardLayout cardLayout;
@@ -40,6 +44,9 @@ public class MainFrame extends JFrame {
         this.setVisible(true);
     }
 
+    /**
+     * Load scores from JSON file, if not found create a new one
+     */
     private void loadScoresJSON() {
         try {
             this.scoreFile = new File(SCORES_FILE_NAME);
@@ -59,6 +66,9 @@ public class MainFrame extends JFrame {
         }
     }
 
+    /**
+     * Store the scores file
+     */
     private void storeScoresJSON() {
         try {
             FileWriter fw = new FileWriter(this.scoreFile);
@@ -70,12 +80,29 @@ public class MainFrame extends JFrame {
         }
     }
 
+    /**
+     * Use the given parameters to load a new game (Panel) and start it
+     * @param username
+     * username of the player
+     * @param level
+     * selected level
+     * @param time
+     * selected play time
+     * @param clef
+     * selected clef
+     */
     public void loadGame(String username, int level, int time, String clef){
         homeContainer.add(new GamePanel(username, level, time, clef), "Game",1);
         cardLayout.show(homeContainer, "Game");
         this.setSize(new Dimension(700,700));
     }
 
+    /**
+     * Leave the game match and load the main menu,
+     * the score is registered only if the match has been completed (time's up).
+     * @param score
+     * Result score of the game
+     */
     public void loadMainMenu(Score score){
         if(score == null)
             GamePanel.gameTimer.stop();
@@ -90,6 +117,13 @@ public class MainFrame extends JFrame {
         this.setSize(new Dimension(720,340));
     }
 
+    /**
+     * Register the match score (in memory) and calls storeScoresJSON()
+     * to store it in a file.
+     * @param score
+     * Result score of the game
+     *
+     */
     public void registerScore(Score score){
         boolean registered = false;
         JSONArray arr = scoresJson.getJSONArray("scores");

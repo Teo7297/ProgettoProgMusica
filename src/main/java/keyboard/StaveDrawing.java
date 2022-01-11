@@ -6,6 +6,9 @@ import java.awt.geom.Point2D;
 
 public class StaveDrawing {
 
+    /**
+     * This class is responsible for the handling of the stave during the match.
+     */
     public StaveDrawing(){}
     public void drawStave(Graphics2D g2){
         Line2D line1 = new Line2D.Double(new Point2D.Double(15, 143), new Point2D.Double(2000,143));

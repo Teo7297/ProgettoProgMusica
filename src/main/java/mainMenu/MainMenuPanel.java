@@ -14,6 +14,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Properties;
 
+/**
+ * This is the JPanel of the main menu of the game,
+ * it contains the form for the player to fill with
+ * the requested information and the highest scores tab.
+ */
 public class MainMenuPanel extends JPanel implements ActionListener {
 
     private String[] scores;
@@ -50,6 +55,13 @@ public class MainMenuPanel extends JPanel implements ActionListener {
         this.add(new Form(), BorderLayout.WEST);
     }
 
+    /**
+     * Update the high scores scrollable tab.
+     * @param updateUI
+     * Decide if a UI update is necessary (load eventual new high scores)
+     *
+     *
+     */
     public void updateScores(boolean updateUI) {
         JSONArray arr = MainFrame.scoresJson.getJSONArray("scores");
         this.scores = new String[arr.length()];
