@@ -19,7 +19,7 @@ public class Tempo {
     public static double DEFAULT_LOW   = 0.0000001;
     public static double DEFAULT_HIGH  = 1000000;
     
-    private double value = this.DEFAULT_TEMPO;
+    private double value = DEFAULT_TEMPO;
     
     private double lowestTempo = DEFAULT_LOW;
     

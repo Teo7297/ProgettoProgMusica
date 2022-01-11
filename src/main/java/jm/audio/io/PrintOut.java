@@ -46,7 +46,7 @@ public final class PrintOut extends AudioObject implements JMC{
 	// ATTRIBUTES
 	//----------------------------------------------
         /* the number of charracters across which to display the wave */
-        private int width; 
+        private final int width;
 
         //----------------------------------------------
 	// Constructors
@@ -69,9 +69,9 @@ public final class PrintOut extends AudioObject implements JMC{
                                                               "rw");
                     try{
                         f.close();
-                    } catch (IOException e) {};
-                } catch (IOException e) {};
-	}
+                    } catch (IOException e) {}
+                } catch (IOException e) {}
+    }
 	
 	public void finalize(){
 

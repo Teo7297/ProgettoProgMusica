@@ -119,7 +119,7 @@ public class BassStave extends Stave implements JMC{
        
         // draw notes and rests
         for(int i = 0; i < phrase.size();i++) {
-            int notePitchNum = (int)phrase.getNote(i).getPitch();
+            int notePitchNum = phrase.getNote(i).getPitch();
             // choose graphic
             chooseImage( notePitchNum, phrase.getNote(i).getRhythmValue(), 50, 0, 50);
             // reset pitch for rests

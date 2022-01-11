@@ -38,9 +38,9 @@ public class Spring extends AudioObject{
 	//----------------------------------------------
 	private SpringPipe springNetwork;
 	private int numberOfNodes = 8;
-	private double springConstant;
-	private double massFriction;
-	private double jitter;
+	private final double springConstant;
+	private final double massFriction;
+	private final double jitter;
 		
 	//----------------------------------------------
 	// Constructors

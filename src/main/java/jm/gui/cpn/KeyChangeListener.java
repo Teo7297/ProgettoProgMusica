@@ -32,5 +32,5 @@ public interface KeyChangeListener {
     /**
      * Respond to key change.
      */
-    public void keyChanged();
+    void keyChanged();
 }

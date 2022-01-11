@@ -48,10 +48,10 @@ import jm.util.*;
 public class ShowPanel extends ScrollPane { 
     public Score score;
     protected double beatWidth; //10.0;
-    private ShowArea sa;
-    private ShowRuler ruler;
-    private Panel pan;
-    private Frame frame;
+    private final ShowArea sa;
+    private final ShowRuler ruler;
+    private final Panel pan;
+    private final Frame frame;
     private int panelHeight;
     
     public ShowPanel(Frame frame, Score score) {

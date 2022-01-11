@@ -40,9 +40,9 @@ public final class TextIn extends AudioObject implements jm.JMC{
 	// ATTRIBUTES
 	//----------------------------------------------
 	/** Debug constant specific to AUIn file */
-	private boolean DEBUG_AUIn = DEBUG && true;
+	private final boolean DEBUG_AUIn = DEBUG && true;
 	/** The file associated with this class */
-	private String fileName;
+	private final String fileName;
 	/** The input stream to read the file from */
 	private FileInputStream fis;
 	/** Parser */

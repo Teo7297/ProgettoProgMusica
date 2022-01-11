@@ -1,12 +1,7 @@
 package keyboard;
 
-import jm.music.data.Note;
-import jm.util.Play;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class KeyboardPanel extends JPanel {
     public JButton C_Key;
@@ -22,9 +17,9 @@ public class KeyboardPanel extends JPanel {
     public JButton Gs_Key;
     public JButton As_Key;
 
-    private JLayeredPane jLayeredPane;
-    private Font keyFont;
-    private Font sKeyFont;
+    private final JLayeredPane jLayeredPane;
+    private final Font keyFont;
+    private final Font sKeyFont;
 
     public KeyboardPanel(){
         super();

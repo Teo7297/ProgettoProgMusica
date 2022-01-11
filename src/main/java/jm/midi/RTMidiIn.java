@@ -45,7 +45,7 @@ public class RTMidiIn implements Receiver {
 	/** Used to hold running status state information */
 	private int oldStatus;
 	/** contains a list of listeners for this object */
-	private Vector listeners;
+	private final Vector listeners;
 	/** The transmitter which sends this receiver its events */
 	private Transmitter trans = null;
 	

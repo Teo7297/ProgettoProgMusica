@@ -32,7 +32,7 @@ import jm.audio.AudioObject;
 * @author Andrew Brown
 */
 public final class AudioSampleInst extends Instrument{
-	private String fileName;
+	private final String fileName;
 
 	public AudioSampleInst(String fileName){
 		this.fileName = fileName;

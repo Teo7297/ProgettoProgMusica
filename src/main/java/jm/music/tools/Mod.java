@@ -972,7 +972,7 @@ public class Mod implements JMC{
         }
 
         int i = 0;
-        int firstNote = (int)Note.REST;
+        int firstNote = Note.REST;
 
 		// get the first pitch
         while (i < phrase.size() && firstNote == Note.REST) {
@@ -1007,7 +1007,7 @@ public class Mod implements JMC{
         }
 
         int i = 0;
-        int firstNote = (int)Note.REST;
+        int firstNote = Note.REST;
 
 		// get the first pitch
         while (i < phrase.size() && firstNote == Note.REST) {
@@ -1045,7 +1045,7 @@ public class Mod implements JMC{
         }
 		// base inversion on step within scale and octave
         int i = 0;
-        int firstNotePitch = (int)Note.REST;
+        int firstNotePitch = Note.REST;
 		int firstNoteOctave = 0;
 		int firstNoteStep = 0;
 		int firstNoteStepOffset = 0;

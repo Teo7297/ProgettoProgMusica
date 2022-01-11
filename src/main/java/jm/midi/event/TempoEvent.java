@@ -34,7 +34,7 @@ import java.io.IOException;
 */
 
 public final class TempoEvent implements Event{
-	private short id = 020;
+	private final short id = 020;
 	private int time = 0;
 	private double tempo = 60.0;
 
@@ -100,11 +100,11 @@ public final class TempoEvent implements Event{
 	//----------------------------------------------
 	/** Read the contends of this object in from disk */
 	public int read(DataInputStream dis) throws IOException{
-		int b1 = (int)dis.readUnsignedByte();
-		int b2 = (int)dis.readUnsignedByte();
-		int b3 = (int)dis.readUnsignedByte();
+		int b1 = dis.readUnsignedByte();
+		int b2 = dis.readUnsignedByte();
+		int b3 = dis.readUnsignedByte();
 		int temp = (b1<<16) + (b2<<8) + b3;
-		this.tempo = (double) (1000000f / (float)temp * 60.0f);
+		this.tempo = 1000000f / (float)temp * 60.0f;
 		return 3;
 	}
 

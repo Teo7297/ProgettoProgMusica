@@ -61,10 +61,12 @@ public class ADSR extends AudioObject implements JMC{
 	/** a calculated graph with all points filled in */
 	private float[] graphShape;
 	/** is the a primary object? */
-	private boolean primary;
+	private final boolean primary;
 	// ADSR values
-	private int attack, decay, release;
-	private double sustain;
+	private final int attack;
+    private final int decay;
+    private final int release;
+	private final double sustain;
     // the number of samples that takes into account the release time
     private int totalSamples;
     // keep track of the number of samples processed
@@ -74,7 +76,7 @@ public class ADSR extends AudioObject implements JMC{
     // keep the number of samples for attack, decay and release
     private double attackSamps, decaySamps, releaseSamps;
     // the previous rhythmValue
-    private double prevRV = 0.0;
+    private final double prevRV = 0.0;
     // variables for samples per section
     int maxAttackCount;
     int maxDecayCount;
@@ -274,7 +276,7 @@ public class ADSR extends AudioObject implements JMC{
         //}
 		// release
         //if (primary) {
-            double startVal = (double)graphShape[this.numOfSamples - 1];
+            double startVal = graphShape[this.numOfSamples - 1];
             double inc2 = startVal/releaseSamps;
             for(int i=this.numOfSamples; i < totalSamples; i++) {
                 graphShape[i] = (float)(startVal - inc2 * (i - this.numOfSamples));

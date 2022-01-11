@@ -34,7 +34,7 @@ ByteList called message.
 ***************************************************************/
 
 public final class SysEx implements SysComEvt{
-	private Vector message;
+	private final Vector message;
 	private int time;
 	private final short id = 010;
 				//-------------------------------------

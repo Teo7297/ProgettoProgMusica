@@ -31,5 +31,5 @@ import jm.music.data.Phrase;
  */
 public abstract class SurvivorSelector extends GAComponent {
     public abstract Phrase[] selectSurvivors(Phrase[] population,
-            double[] fitness, Phrase parents[], double[] parentsFitness);
+                                             double[] fitness, Phrase[] parents, double[] parentsFitness);
 }

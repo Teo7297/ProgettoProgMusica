@@ -44,11 +44,11 @@ public final class SMF implements JMC{
 	/** The current number of tracks stored by this Class */
 	private short numOfTracks;
 	/** The number of bytes being read or written */
-	private int numOfBytes;
+	private final int numOfBytes;
 	/** Pulses per quarter note value */
 	private short ppqn;
 	/** list of Tracks contained within this SMF */
-	private Vector trackList;
+	private final Vector trackList;
 	/* Print statements */
         private boolean VERBOSE = false;
 

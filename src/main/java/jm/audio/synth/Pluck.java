@@ -45,9 +45,9 @@ public final class Pluck extends AudioObject{
     private float feedback = 0.49f;
     // all pass variables
     //The gain of this comb filter 
-    private float decay = 0.5f;
+    private final float decay = 0.5f;
     //The delay (in samples) to use with this comb filter
-    private int delay = 1;
+    private final int delay = 1;
     //Number of samples to delay by
     private float[] delayLine;
     //Delay line current index
@@ -126,7 +126,7 @@ public final class Pluck extends AudioObject{
             else kernel[i] = 0.0f; // fill with slience
         }
         // setup all pass values
-        int sampleDelay = (int)((float)((float)this.delay/(float)1000) * this.sampleRate); 
+        int sampleDelay = (int)(((float)this.delay/(float)1000) * this.sampleRate);
         this.delayLine = new float[sampleDelay*this.channels];
         this.delayIndex = 0;
     }

@@ -31,7 +31,7 @@ import java.util.*;
 * @author Andrew Brown, October 2003
 */
 public class FuzzySet {
-    private Vector numberList;
+    private final Vector numberList;
     private double productSum, memberSum;
     
     /**

@@ -43,10 +43,10 @@ import jm.midi.*;
 public class ShowRuler extends Canvas implements MouseListener, MouseMotionListener{
 	//attributes
 	private int startX;
-	private int height = 15;
-	private int timeSig = 2;
-	private ShowPanel sp;
-        private Font font = new Font("Helvetica", Font.PLAIN, 10);
+	private final int height = 15;
+	private final int timeSig = 2;
+	private final ShowPanel sp;
+        private final Font font = new Font("Helvetica", Font.PLAIN, 10);
 	
 	public ShowRuler(ShowPanel sp) {
 		super();
@@ -100,7 +100,7 @@ public class ShowRuler extends Canvas implements MouseListener, MouseMotionListe
 	public void mouseDragged(MouseEvent e) {
 	    //System.out.println("Dragged");
 	    double beatWidth = sp.beatWidth;
-		beatWidth += (double)((double)e.getX() - (double)startX)/5.0;
+		beatWidth += ((double)e.getX() - (double)startX) /5.0;
 		if ( beatWidth< 1.0) beatWidth= 1.0;
 		if ( beatWidth> 256.0) beatWidth= 256.0;
 		//System.out.println("beatWidth = "+beatWidth);

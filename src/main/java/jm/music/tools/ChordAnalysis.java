@@ -250,11 +250,7 @@ public final class ChordAnalysis {
             return true;
         }
 
-        if (PhraseAnalysis.isScale(note, tonic, scale)) {
-            return false;
-        }
-
-        return true;
+        return !PhraseAnalysis.isScale(note, tonic, scale);
     }
 
     private static Possible firstPassChords(final Note note,

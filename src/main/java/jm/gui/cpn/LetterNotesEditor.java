@@ -107,7 +107,7 @@ public class LetterNotesEditor extends     Dialog
     private char       currentNoteLetter = 'A';    
     private int        currentPitch = 69; 
     
-    private static List  inputList = new List(8);    
+    private static final List  inputList = new List(8);
                    
     public LetterNotesEditor( Frame  parentFrame ) {
         super( 

@@ -57,15 +57,15 @@ public final class PhraseMatrix implements JMC{
 	/**
 	 * The depth to make the pitch adaptive matrix's
 	 */
-	private int pitchDepth;
+	private final int pitchDepth;
         /**
 	 * The depth to make the rhythm adaptive matrix's
 	 */
-	private int rhythmDepth;
+	private final int rhythmDepth;
         /**
 	 * The depth to make the pitch adaptive matrix's
 	 */
-	private int dynamicDepth;
+	private final int dynamicDepth;
 
 
 	/**
@@ -74,7 +74,7 @@ public final class PhraseMatrix implements JMC{
 	 * can generate new notes while still keeping any
 	 * of the phrases original note attributes.
 	 */
-	private Note[] notes;
+	private final Note[] notes;
 
 	/**
  	* A map from rhythm values to AdaptiveMatrix index 

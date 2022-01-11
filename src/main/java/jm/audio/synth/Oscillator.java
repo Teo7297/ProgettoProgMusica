@@ -365,7 +365,7 @@ public class Oscillator extends AudioObject{
 			if(phase < 0){
 				phase += 2.0f*(float)Math.PI;
 			}
-			float sample=(float)Math.sin((double)(phase+(2.0f*(float)Math.PI)));
+			float sample=(float)Math.sin(phase+(2.0f*(float)Math.PI));
 			phase += si;
 			if(phase >= (2.0f*(float)Math.PI)){
 				phase -= 2.0f*(float)Math.PI;
@@ -375,7 +375,7 @@ public class Oscillator extends AudioObject{
 			if(phase < 0){
 				phase += 2.0f*(float)Math.PI;
 			}
-			sample=(float)Math.cos((double)(phase+(2.0f*(float)Math.PI)));
+			sample=(float)Math.cos(phase+(2.0f*(float)Math.PI));
 			phase += si;
 			if(phase >= (2.0f*(float)Math.PI)){
 				phase -= 2.0f*(float)Math.PI;

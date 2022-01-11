@@ -47,7 +47,7 @@ public class WaveCanvas extends Canvas {
 	private boolean resized = false;
     private Color waveColor = Color.darkGray;
     private Color backgroundColor = Color.white;
-    private int sampleStart = 0;
+    private final int sampleStart = 0;
     private int waveSize;
     private boolean fastDraw = false;
 

@@ -1,5 +1,6 @@
 package keyboard;
 
+import Game.GamePanel;
 import Game.NoteTimer;
 import mainMenu.MainFrame;
 
@@ -25,11 +26,13 @@ public class MusicSheetGraphics extends JPanel implements ActionListener{
     private int errors;
     private int currentScore;
     private final JLabel scoreLabel;
+    private final GamePanel gamePanel;
 
     private static boolean GODMODE;
 
-    public MusicSheetGraphics(String clefName, String clefType, int level_, boolean godmode){
+    public MusicSheetGraphics(String clefName, String clefType, int level_, boolean godmode, GamePanel gamePanel){
         super(null);
+        this.gamePanel = gamePanel;
         this.setPreferredSize(new Dimension(700,350));
         this.setBackground(Color.white);
         this.scoreLabel = new JLabel("Score: 0");
@@ -38,7 +41,9 @@ public class MusicSheetGraphics extends JPanel implements ActionListener{
         JButton homeButton = new JButton("Exit");
         homeButton.setBounds(600, 10, 80,30);
         homeButton.addActionListener((e)->{
+            this.gamePanel.removeKL();
             ((MainFrame)SwingUtilities.getRoot(this)).loadMainMenu(null);
+            this.gamePanel.removeAll();
         });
         this.add(homeButton);
 
@@ -122,7 +127,7 @@ public class MusicSheetGraphics extends JPanel implements ActionListener{
             errors += 1;
         }
         repaint();
-        Timer t = new Timer(50, this);
+        Timer t = new Timer(100, this);
         t.setRepeats(false);
         t.start();
     }

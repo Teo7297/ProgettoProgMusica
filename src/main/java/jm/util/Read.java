@@ -422,7 +422,7 @@ public class Read implements JMC{
                 score = null;
             } else {
                 JmMidiProcessor processor = new JmMidiProcessor(
-                        file.getParent() + file.separator, file.getName());
+                        file.getParent() + File.separator, file.getName());
                 message = processor.getMessage();
                 score = processor.getScore();
             }

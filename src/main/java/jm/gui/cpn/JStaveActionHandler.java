@@ -29,11 +29,11 @@ import jm.JMC;
 
 public class JStaveActionHandler implements JMC, MouseListener, MouseMotionListener, ActionListener { //, KeyListener {
 
-    private JGrandStave theApp;
+    private final JGrandStave theApp;
 	private int selectedNote = -1;
 	private boolean topTimeSelected = false, keySelected = false;
 	private int clickedPosY, clickedPosX, storedPitch = 72;
-	private double[] rhythmValues = {104.0, 103.0, 102.0, 101.5, 101.0, 100.75, 100.5, 100.25, 0.0, 0.25, 0.5, 0.75, 1.0, 1.5, 2.0, 3.0, 4.0};
+	private final double[] rhythmValues = {104.0, 103.0, 102.0, 101.5, 101.0, 100.75, 100.5, 100.25, 0.0, 0.25, 0.5, 0.75, 1.0, 1.5, 2.0, 3.0, 4.0};
 	
 	// constructor
     JStaveActionHandler(JGrandStave stave) {

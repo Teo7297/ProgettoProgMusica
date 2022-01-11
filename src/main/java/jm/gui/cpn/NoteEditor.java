@@ -43,32 +43,32 @@ import java.util.StringTokenizer;
 public class NoteEditor extends Dialog  
     implements ActionListener, WindowListener {
 
-    private Button      
-        okButton        = new Button("Apply"), 
-        cancelButton    = new Button("Cancel");
+    private final Button
+        okButton        = new Button("Apply");
+    private final Button cancelButton    = new Button("Cancel");
     
     private Note        note;
     
     private List        noteList,
                         octaveList;
                         
-    private TextField   
-        durationEdit  = new TextField(15),
-        dynamicEdit   = new TextField(15),
-        rhythmEdit    = new TextField(15),
-        panEdit       = new TextField(15),
-        offsetEdit    = new TextField(15);
+    private final TextField
+        durationEdit  = new TextField(15);
+    private final TextField dynamicEdit   = new TextField(15);
+    private final TextField rhythmEdit    = new TextField(15);
+    private final TextField panEdit       = new TextField(15);
+    private final TextField offsetEdit    = new TextField(15);
 
-    private Label       
-       noteLabel     = new Label("Note"),
-       dynamicLabel  = new Label("Volume (1-127)"),
-       rhythmLabel   = new Label("Rhythm Value"),
-       durationLabel = new Label("Duration Factor"),
-       panLabel      = new Label("Pan"),
-       offsetLabel   = new Label("Offset"),
-       octaveLabel   = new Label("Octave");                
+    private final Label
+       noteLabel     = new Label("Note");
+    private final Label dynamicLabel  = new Label("Volume (1-127)");
+    private final Label rhythmLabel   = new Label("Rhythm Value");
+    private final Label durationLabel = new Label("Duration Factor");
+    private final Label panLabel      = new Label("Pan");
+    private final Label offsetLabel   = new Label("Offset");
+    private final Label octaveLabel   = new Label("Octave");
        
-    private static  DecimalFormat decimalFormat
+    private static final DecimalFormat decimalFormat
                = new DecimalFormat("###.###########");       
         
     public NoteEditor( Frame  parentFrame ) {
@@ -467,9 +467,9 @@ public class NoteEditor extends Dialog
     }        
 
     private int getSelectedPitch() {
-        String noteString = noteList.getSelectedItem();;
+        String noteString = noteList.getSelectedItem();
         if ( noteString.equals("Rest") ) {
-            return (int)Note.REST;                
+            return Note.REST;
         }                    
         else {
             int answer;

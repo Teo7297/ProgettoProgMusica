@@ -52,7 +52,7 @@ public class WaveFileReader implements jm.JMC{
     /** Input Stream */
     private InputStream is;
     /** Play a whole file, or only note length? */
-    private boolean wholeFile = false;
+    private final boolean wholeFile = false;
     /** Endianess */
     private boolean bigEndian;
     /** The number of channels */
@@ -198,7 +198,7 @@ public class WaveFileReader implements jm.JMC{
         int ret = 0;
         int length = b.length;
         for(int i=0;i<b.length;i++,length--) {
-            ret |= ((int)(b[i] & 0xFF) << ((((bigEndian) ? length : (i+1)) * 8) - 8));
+            ret |= ((b[i] & 0xFF) << ((((bigEndian) ? length : (i+1)) * 8) - 8));
         }
         switch(bits) {
         case 1:
@@ -207,7 +207,7 @@ public class WaveFileReader implements jm.JMC{
                 ret &= 0x7F;
                 ret = ~ret + 1;
             }
-            sample = (float)((float)ret/(float)Byte.MAX_VALUE);
+            sample = (float)ret/(float)Byte.MAX_VALUE;
             break;
         case 2:
             if(ret > 0x7FFF) {
@@ -215,7 +215,7 @@ public class WaveFileReader implements jm.JMC{
                 ret &= 0x7FFF;
                 ret = ~ret + 1;
             }
-            sample = (float)((float)ret/(float)Short.MAX_VALUE);
+            sample = (float)ret/(float)Short.MAX_VALUE;
             break;
         case 3:
             if(ret > 0x7FFFFF) {
@@ -223,10 +223,10 @@ public class WaveFileReader implements jm.JMC{
                 ret &= 0x7FFFFF;
                 ret = ~ret + 1;
             }
-            sample = (float)((float)ret/8388608f);
+            sample = (float)ret/8388608f;
             break;
         case 4:
-            sample = (float)((float)ret/(float)Integer.MAX_VALUE);
+            sample = (float)ret/(float)Integer.MAX_VALUE;
             break;
         default:
             System.err.println("Format not accepted");

@@ -111,7 +111,7 @@ public class ClimaticPopInitialiser extends PopulationInitialiser {
             // Set target
             if (isClimaxAccepted(seed, beatsPerBar)) {
                 climax = findClimax(seed);
-                target = new Note(TONIC, (double) beatsPerBar);
+                target = new Note(TONIC, beatsPerBar);
                 targetBeat = 7 * beatsPerBar;
             } else {
                 int lowestPitch = Note.MAX_PITCH;
@@ -152,7 +152,7 @@ public class ClimaticPopInitialiser extends PopulationInitialiser {
 
             // If the melody isn't complete, extend to final note
             if (population[i].getEndTime() != 8 * beatsPerBar) {
-                target = new Note(TONIC, (double) beatsPerBar);
+                target = new Note(TONIC, beatsPerBar);
                 targetBeat = 7 * beatsPerBar;
                 extend(population[i], target, targetBeat,
                               beatRhythmArray, intervalArray, climax,
@@ -203,7 +203,7 @@ public class ClimaticPopInitialiser extends PopulationInitialiser {
 
             int[] intervals =  generateIntervalArray(phrase);
             int counter = returnPhrase.size() - 1;
-            int pitch = (int)Note.REST;
+            int pitch = Note.REST;
             while (pitch == Note.REST) {
                 pitch = returnPhrase.getNote(counter--)
                                         .getPitch();
@@ -343,11 +343,8 @@ public class ClimaticPopInitialiser extends PopulationInitialiser {
                 || location > 8 * beatsPerBar * (CLIMAX_AVERAGE + CLIMAX_ST_DEV)) {
             return false;
         }
-        if (lastHighestPitch > phrase.getNote(0).getPitch() + 12
-                && repetitions <= 1) {
-            return true;
-        }
-        return false;
+        return lastHighestPitch > phrase.getNote(0).getPitch() + 12
+                && repetitions <= 1;
     }
 
     private int findClimax(Phrase phrase) {
@@ -434,7 +431,7 @@ public class ClimaticPopInitialiser extends PopulationInitialiser {
                 int counter = 0;
     
                 // Don't add group of beats that will not cross the next bar line
-                while (counter < 30 && length + beatsInArray > ((int) (length
+                while (counter < 30 && length + beatsInArray > ((length
                                                                       / beatsPerBar)
                                                                 + 1)
                                                                * beatsPerBar) {
@@ -460,7 +457,7 @@ public class ClimaticPopInitialiser extends PopulationInitialiser {
                     }
                 } else {
                     addNote(phrase, target, targetBeat,
-                            (((int) (length / beatsPerBar) + 1) * beatsPerBar) - length,
+                            (((length / beatsPerBar) + 1) * beatsPerBar) - length,
                             intervalArray, climax, lowerlimit);
                 }
             }

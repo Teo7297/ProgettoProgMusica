@@ -38,13 +38,13 @@ public class PianoStave extends Stave implements JMC{
     public PianoStave() {
         super();
         panelHeight = 160;
-        this.setSize((int)(beatWidth*spacingValue), panelHeight);
+        this.setSize(beatWidth*spacingValue, panelHeight);
     }
     
     public PianoStave(Phrase phrase) {
         super(phrase);
         panelHeight = 160;
-        this.setSize((int)(beatWidth*spacingValue), panelHeight);
+        this.setSize(beatWidth*spacingValue, panelHeight);
     }
     
     public void paint(Graphics graphics) {
@@ -127,7 +127,7 @@ public class PianoStave extends Stave implements JMC{
        
         // draw notes and rests
         for(int i = 0; i < phrase.size();i++) {
-            int notePitchNum = (int)phrase.getNote(i).getPitch();
+            int notePitchNum = phrase.getNote(i).getPitch();
             // choose graphic
             chooseImage( notePitchNum, phrase.getNote(i).getRhythmValue(), 71, 60, 50);
             // reset pitch for rests

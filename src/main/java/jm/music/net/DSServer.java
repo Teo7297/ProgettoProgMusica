@@ -39,7 +39,7 @@ public class DSServer extends Thread{
 	/** The listener socket for this server. */
 	private ServerSocket ss;
 	/** A vector holding all current client connections */
-	private Vector clientConnections;
+	private final Vector clientConnections;
 
 	//----------------------------------------------
 	// Constructors 

@@ -69,13 +69,13 @@ public final class Filter extends AudioObject{
 	 */
 	private double poles = 2.0;
 	/** The filter coefficients calculated in coefficientCalc() */
-	private double[] a = new double[22];
+	private final double[] a = new double[22];
 	/** Temporary nextWorking buffer for a */
-	private double[] ta = new double[22];
+	private final double[] ta = new double[22];
 	/** The filter coefficients calculated in coefficientCalc() */
-	private double[] b = new double[22];
+	private final double[] b = new double[22];
 	/** Temporary nextWorking buffer for b */
-	private double[] tb = new double[22];
+	private final double[] tb = new double[22];
 	/** Input sample buffer */
 	private double[][] xbuf;
 	/** Output sample buffer */
@@ -225,7 +225,7 @@ public final class Filter extends AudioObject{
 			for(int j=(int)poles;j>0;j--){
 				xbuf[chan][j] = xbuf[chan][j-1];
                     }
-			xbuf[chan][0] = (double)buffer[i];
+			xbuf[chan][0] = buffer[i];
 			//Adjust the output buffer
 			for(int j=(int)poles;j>0;j--){
 				ybuf[chan][j] = ybuf[chan][j-1]; 
@@ -280,8 +280,8 @@ public final class Filter extends AudioObject{
 		for(int i=0;i<20;i++){
 			if(type==LOW_PASS)sa = sa + a[i];
 			if(type==LOW_PASS)sb = sb + b[i];
-			if(type==HIGH_PASS)sa = sa + (a[i]*Math.pow(-1.0,(double)i));
-			if(type==HIGH_PASS)sb = sb + (b[i]*Math.pow(-1.0,(double)i));
+			if(type==HIGH_PASS)sa = sa + (a[i]*Math.pow(-1.0, i));
+			if(type==HIGH_PASS)sb = sb + (b[i]*Math.pow(-1.0, i));
 		}
 		double gain = sa / (1-sb);
 		for(int i=0;i<20;i++){

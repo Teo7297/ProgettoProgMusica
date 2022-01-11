@@ -276,7 +276,7 @@ public class Convert {
     private static class StringProcessor {
         private int i = 0;
 
-        private String string;
+        private final String string;
         
         StringProcessor(final String string) {
             this.string = string;

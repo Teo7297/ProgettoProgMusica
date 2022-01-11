@@ -91,17 +91,30 @@ public class MainFrame extends JFrame {
     }
 
     public void registerScore(Score score){
+        boolean registered = false;
         JSONArray arr = scoresJson.getJSONArray("scores");
-        JSONObject o = new JSONObject();
-        o.put("user", score.getUsername());
-        o.put("points", score.getPoints());
-        o.put("time", score.getTime());
-        o.put("level", score.getLevel());
-        arr.put(o);
-        scoresJson.clear();
-        scoresJson.put("scores", arr);
-        storeScoresJSON();
-
+        for(int i=0; i<arr.length(); i++){
+            JSONObject element = ((JSONObject) arr.get(i));
+            if (element.getString("user").equals(score.getUsername())){
+                if(element.getInt("points") > score.getPoints())
+                    registered = true;
+                else
+                    arr.remove(i);
+                break;
+            }
+        }
+        if(!registered) {
+            JSONObject o = new JSONObject();
+            o.put("user", score.getUsername());
+            o.put("points", score.getPoints());
+            o.put("time", score.getTime());
+            o.put("level", score.getLevel());
+            arr.put(o);
+            scoresJson.clear();
+            scoresJson.put("scores", arr);
+            storeScoresJSON();
+            System.out.println(arr);
+        }
         ((MainMenuPanel)this.homePanel).updateScores(true);
     }
 

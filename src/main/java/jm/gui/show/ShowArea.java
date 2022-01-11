@@ -42,8 +42,8 @@ import jm.midi.*;
 public class ShowArea extends Canvas {
 	//attributes
 	private int oldX;
-	private int maxColours = 8;
-	private float[][] theColours = new float[maxColours][3];
+	private final int maxColours = 8;
+	private final float[][] theColours = new float[maxColours][3];
         private int noteHeight = 5;
         private int w = 2 * noteHeight; //width between stave lines
         private int ePos = 5 * noteHeight; // position of e in the treble stave
@@ -52,8 +52,8 @@ public class ShowArea extends Canvas {
 	private int[] noteOffset = {0,0,noteHeight,noteHeight,noteHeight*2,
             noteHeight*3,noteHeight*3,noteHeight*4,noteHeight*4,
             noteHeight*5,noteHeight*5,noteHeight*6};
-	private Font font = new Font("Helvetica",Font.PLAIN, 10);
-	private ShowPanel sp;
+	private final Font font = new Font("Helvetica",Font.PLAIN, 10);
+	private final ShowPanel sp;
         private double beatWidth;
         private int thinNote = 2; // thin value
 	
@@ -211,8 +211,8 @@ public class ShowArea extends Canvas {
                                     // (octavePixelheight) is the height of 
                                     // an octave, 156 is offset to put in position
                                     int octavePixelheight = noteHeight * 7;
-                                    int y = (int)(((10 - currNote / 12) * octavePixelheight + 
-                                            (ePos)) - noteOffset[currNote % 12]);
+                                    int y = ((10 - currNote / 12) * octavePixelheight +
+                                            (ePos)) - noteOffset[currNote % 12];
                                     int x = (int)(Math.round(aNote.getDuration() * beatWidth)); //480 ppq note
                                     int xRV = (int)(Math.round(aNote.getRhythmValue() * beatWidth)); //480 ppq note
                                     // check if the width of the note is less than 1 so 

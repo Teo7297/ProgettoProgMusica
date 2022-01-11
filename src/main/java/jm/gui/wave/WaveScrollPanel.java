@@ -32,13 +32,20 @@ import java.awt.event.*;
  * @author Andrew Brown
  */
 public class WaveScrollPanel extends Panel implements ActionListener, AdjustmentListener {
-        private Label name, bitSize, sampleRate, channels, resLable;
-        private Button minus, plus, play, stop;
+        private final Label name;
+    private final Label bitSize;
+    private final Label sampleRate;
+    private final Label channels;
+    private final Label resLable;
+        private final Button minus;
+    private final Button plus;
+    private final Button play;
+    private final Button stop;
         private WaveView viewer;
-        private WaveRuler ruler = new WaveRuler();
-        private Panel resizePanel;
-        private Scrollbar scroll = new Scrollbar(Scrollbar.HORIZONTAL);
-        private Font font = new Font("Helvetica", Font.PLAIN, 10);
+        private final WaveRuler ruler = new WaveRuler();
+        private final Panel resizePanel;
+        private final Scrollbar scroll = new Scrollbar(Scrollbar.HORIZONTAL);
+        private final Font font = new Font("Helvetica", Font.PLAIN, 10);
         
 	public WaveScrollPanel() {
 		setBackground(Color.lightGray);
@@ -133,7 +140,7 @@ public class WaveScrollPanel extends Panel implements ActionListener, Adjustment
         * Notify panel of a new screen resolution value.
         */
         public void setResolution(int res) {
-            String resStr = new String("Display Resolution = 1:"+res);
+            String resStr = "Display Resolution = 1:" + res;
             if(res < 1000) resStr += "  "; // spacing
             resLable.setText(resStr);
             ruler.setMarkerWidth(viewer.getSampleRate() / res);

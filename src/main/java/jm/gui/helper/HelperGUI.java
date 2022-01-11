@@ -63,16 +63,40 @@ public class HelperGUI extends Frame implements JMC, ActionListener, AdjustmentL
     // Attributes
     //-------------------
     protected Score score = new Score();
-    private Button composeBtn, playBtn, stopBtn, showBtn, sketchBtn, 
-        histogramBtn, printBtn, saveBtn, renderBtn, notateBtn, readMidiBtn,
-        audioViewBtn, audioPlayBtn, audioStopBtn, xmlOpenBtn, xmlSaveBtn;
-    private Scrollbar sliderA, sliderB, sliderC, sliderD, sliderE;
-    private Label labelA, labelB, labelC, labelD, labelE;
-    private Label commentLabA, commentLabB, commentLabC,
-        commentLabD, commentLabE;
+    private final Button composeBtn;
+    private final Button playBtn;
+    private final Button stopBtn;
+    private final Button showBtn;
+    private final Button sketchBtn;
+    private final Button histogramBtn;
+    private final Button printBtn;
+    private final Button saveBtn;
+    private final Button renderBtn;
+    private final Button notateBtn;
+    private final Button readMidiBtn;
+    private final Button audioViewBtn;
+    private final Button audioPlayBtn;
+    private Button audioStopBtn;
+    private final Button xmlOpenBtn;
+    private final Button xmlSaveBtn;
+    private final Scrollbar sliderA;
+    private final Scrollbar sliderB;
+    private final Scrollbar sliderC;
+    private final Scrollbar sliderD;
+    private final Scrollbar sliderE;
+    private final Label labelA;
+    private final Label labelB;
+    private final Label labelC;
+    private final Label labelD;
+    private final Label labelE;
+    private final Label commentLabA;
+    private final Label commentLabB;
+    private final Label commentLabC;
+    private final Label commentLabD;
+    private final Label commentLabE;
     protected Instrument[] insts;
     protected int variableA, variableB, variableC, variableD, variableE;
-    private MidiSynth ms = new MidiSynth();
+    private final MidiSynth ms = new MidiSynth();
     // Is there are open JavaSound synth?
     private boolean playing = false;
     protected String audioFileName;

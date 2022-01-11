@@ -100,13 +100,13 @@ public class ReadFilesJButton extends JButton {
      * JFileChooser that generates the dialogs for selecting the music files
      * to import
      */
-    private JFileChooser chooser = new JFileChooser();
+    private final JFileChooser chooser = new JFileChooser();
 
     /**
      * Parent component for this button.  Control to this component will be
      * suspended when file chooser dialogs and error dialogs are displayed.
      */
-    private Component owner;
+    private final Component owner;
 
     /**
      * Constructs a JButton for reading in MIDI or jMusic files.  Uses the
@@ -141,7 +141,7 @@ public class ReadFilesJButton extends JButton {
                         readListenerList.startedReading();
 
                         int chooserReturnValue = chooser.showOpenDialog(owner);
-                        if (chooserReturnValue != chooser.APPROVE_OPTION) {
+                        if (chooserReturnValue != JFileChooser.APPROVE_OPTION) {
                             return;
                         }
         

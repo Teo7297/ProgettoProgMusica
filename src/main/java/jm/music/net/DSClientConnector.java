@@ -46,9 +46,9 @@ public class DSClientConnector extends Thread{
 	/** Object output stream for this connection */
 	private ObjectOutputStream oos;
 	/** The Distributed Score Client */
-	private DSClient client;
+	private final DSClient client;
 
-	private Phrase phr = null;
+	private final Phrase phr = null;
 
 	//----------------------------------------------
 	// Constructors 

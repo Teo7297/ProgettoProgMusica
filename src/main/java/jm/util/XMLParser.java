@@ -107,7 +107,7 @@ class XMLParser {
                     + xmlStyle.getKeySignatureAttributeName()
                     + "="
                     + xmlStyle.getDoubleQuote()
-                    + Integer.toString(score.getKeySignature())
+                    + score.getKeySignature()
                     + xmlStyle.getDoubleQuote());
         }
         if (score.getKeyQuality() != Score.DEFAULT_KEY_QUALITY) {
@@ -116,7 +116,7 @@ class XMLParser {
                     + xmlStyle.getKeyQualityAttributeName()
                     + "="
                     + xmlStyle.getDoubleQuote()
-                    + Integer.toString(score.getKeyQuality())
+                    + score.getKeyQuality()
                     + xmlStyle.getDoubleQuote());
         }
         if (score.getNumerator() != Score.DEFAULT_NUMERATOR) {
@@ -125,7 +125,7 @@ class XMLParser {
                     + xmlStyle.getNumeratorAttributeName()
                     + "="
                     + xmlStyle.getDoubleQuote()
-                    + Integer.toString(score.getNumerator())
+                    + score.getNumerator()
                     + xmlStyle.getDoubleQuote());
         }
         if (score.getDenominator() != Score.DEFAULT_DENOMINATOR) {
@@ -134,7 +134,7 @@ class XMLParser {
                     + xmlStyle.getDenominatorAttributeName()
                     + "="
                     + xmlStyle.getDoubleQuote()
-                    + Integer.toString(score.getDenominator())
+                    + score.getDenominator()
                     + xmlStyle.getDoubleQuote());
         }
         int size = score.size();
@@ -205,7 +205,7 @@ class XMLParser {
                     + xmlStyle.getChannelAttributeName()
                     + "="
                     + xmlStyle.getDoubleQuote()
-                    + Integer.toString(part.getChannel())
+                    + part.getChannel()
                     + xmlStyle.getDoubleQuote());
         }
         if (part.getInstrument() != Part.DEFAULT_INSTRUMENT) {
@@ -214,7 +214,7 @@ class XMLParser {
                     + xmlStyle.getInstrumentAttributeName()
                     + "="
                     + xmlStyle.getDoubleQuote()
-                    + Integer.toString(part.getInstrument())
+                    + part.getInstrument()
                     + xmlStyle.getDoubleQuote());
         }
         if (part.getTempo() != Part.DEFAULT_TEMPO) {
@@ -234,7 +234,7 @@ class XMLParser {
                     + xmlStyle.getKeySignatureAttributeName()
                     + "=" 
                     + xmlStyle.getDoubleQuote()
-                    + Integer.toString(part.getKeySignature())
+                    + part.getKeySignature()
                     + xmlStyle.getDoubleQuote());
         }
         if (part.getKeyQuality() != Part.DEFAULT_KEY_QUALITY) {
@@ -243,7 +243,7 @@ class XMLParser {
                     + xmlStyle.getKeyQualityAttributeName()
                     + "="
                     + xmlStyle.getDoubleQuote()
-                    + Integer.toString(part.getKeyQuality())
+                    + part.getKeyQuality()
                     + xmlStyle.getDoubleQuote());
         }
         if (part.getNumerator() != Part.DEFAULT_NUMERATOR) {
@@ -252,7 +252,7 @@ class XMLParser {
                     + xmlStyle.getNumeratorAttributeName()
                     + "="
                     + xmlStyle.getDoubleQuote()
-                    + Integer.toString(part.getNumerator())
+                    + part.getNumerator()
                     + xmlStyle.getDoubleQuote());
         }
         if (part.getDenominator() != Part.DEFAULT_DENOMINATOR) {
@@ -261,7 +261,7 @@ class XMLParser {
                     + xmlStyle.getDenominatorAttributeName()
                     + "="
                     + xmlStyle.getDoubleQuote()
-                    + Integer.toString(part.getDenominator()) 
+                    + part.getDenominator()
                     + xmlStyle.getDoubleQuote());
         }
         if (part.getPan() != Part.DEFAULT_PAN) {
@@ -353,7 +353,7 @@ class XMLParser {
                     + xmlStyle.getInstrumentAttributeName()
                     + "="
                     + xmlStyle.getDoubleQuote()
-                    + Integer.toString(phrase.getInstrument())
+                    + phrase.getInstrument()
                     + xmlStyle.getDoubleQuote());
         }
         if (phrase.getPan() != Phrase.DEFAULT_TEMPO) {
@@ -425,7 +425,7 @@ class XMLParser {
 						+ xmlStyle.getPitchAttributeName()
 						+ "="
 						+ xmlStyle.getDoubleQuote()
-						+ Integer.toString(note.getPitch())
+						+ note.getPitch()
 						+ xmlStyle.getDoubleQuote());
 			}
 		} else {
@@ -434,7 +434,7 @@ class XMLParser {
 				+ xmlStyle.getFrequencyAttributeName()
 				+ "="
 				+ xmlStyle.getDoubleQuote()
-				+ Double.toString(note.getFrequency())
+				+ note.getFrequency()
 				+ xmlStyle.getDoubleQuote());
 		}
         if (note.getDynamic() != Note.DEFAULT_DYNAMIC) {
@@ -443,7 +443,7 @@ class XMLParser {
                     + xmlStyle.getDynamicAttributeName()
                     + "="
                     + xmlStyle.getDoubleQuote()
-                    + Integer.toString(note.getDynamic())
+                    + note.getDynamic()
                     + xmlStyle.getDoubleQuote());
         }
         if (note.getRhythmValue() != Note.DEFAULT_RHYTHM_VALUE) {
@@ -1456,11 +1456,11 @@ class XMLStyles {
 
 class Element {
 
-    private String name;
+    private final String name;
 
-    private Vector attributeVector = new Vector();
+    private final Vector attributeVector = new Vector();
 
-    private Vector childrenVector = new Vector();
+    private final Vector childrenVector = new Vector();
 
     public Element(String name) {
         this.name = name;
@@ -1500,7 +1500,7 @@ class Element {
 
 class Attribute {
 
-    private String name;
+    private final String name;
 
     private String value;
 

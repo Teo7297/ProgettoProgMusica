@@ -13,8 +13,8 @@ public class SpringPipe {
 	/** pluck strength */
 	double pluckAmt = 1.0; // from 0.1 - 1.0
     
-    private SpringObject[] springObjectArray;
-    private MassObject[] massObjectArray;    
+    private final SpringObject[] springObjectArray;
+    private final MassObject[] massObjectArray;
     
 	//constructor
     public SpringPipe(int nodeNumb, double springConstant, double friction, double jitter) {

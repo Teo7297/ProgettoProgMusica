@@ -30,51 +30,51 @@ import  java.util.*;
 
 public class StavePhraseProperties extends Properties {
 
-    private static String KEY_SIGNATURE   = "STAVE_KEY";
+    private static final String KEY_SIGNATURE   = "STAVE_KEY";
     
-    private static String STAVE_TYPE      = "STAVE_TYPE";    
+    private static final String STAVE_TYPE      = "STAVE_TYPE";
     
-    private static String STAVE_TITLE     = "STAVE_TITLE";    
+    private static final String STAVE_TITLE     = "STAVE_TITLE";
     
-    private static String STAVE_METRE     = "STAVE_METRE";    
+    private static final String STAVE_METRE     = "STAVE_METRE";
 
-    private static String PHRASE_NUMERATOR = "PHRASE_NUM";
+    private static final String PHRASE_NUMERATOR = "PHRASE_NUM";
 
-    private static String PHRASE_DENOMINATOR = "PHRASE_DEN";
+    private static final String PHRASE_DENOMINATOR = "PHRASE_DEN";
     
-    private static String PHRASE_TEMPO      = "PHRASE_TEMPO";
+    private static final String PHRASE_TEMPO      = "PHRASE_TEMPO";
 
-    private static String PHRASE_TITLE      = "PHRASE_TITLE";
-    private static String PHRASE_INSTRUMENT = "PHRASE_INSTRUMENT";
+    private static final String PHRASE_TITLE      = "PHRASE_TITLE";
+    private static final String PHRASE_INSTRUMENT = "PHRASE_INSTRUMENT";
 
-    private static String LAST_NOTE_RHYTHM = "LAST_NOTE_RHYTHM";
-    private static String LAST_NOTE_DUR    = "LAST_NOTE_DUR";
+    private static final String LAST_NOTE_RHYTHM = "LAST_NOTE_RHYTHM";
+    private static final String LAST_NOTE_DUR    = "LAST_NOTE_DUR";
     
-    private static String FINAL_REST_RHYTHM = "FINAL_REST_RHYTHM";
-    private static String FINAL_REST_DUR    = "FINAL_REST_DUR";
+    private static final String FINAL_REST_RHYTHM = "FINAL_REST_RHYTHM";
+    private static final String FINAL_REST_DUR    = "FINAL_REST_DUR";
 
-    private static String OTHER_NOTES_TOTAL_RHYTHM 
+    private static final String OTHER_NOTES_TOTAL_RHYTHM
                                 = "OTHER_NOTES_TOTAL_RHYTHM";
-    private static String OTHER_NOTES_TOTAL_DUR 
+    private static final String OTHER_NOTES_TOTAL_DUR
                                 = "OTHER_NOTES_TOTAL_DUR";
 
 
-    private static String GRAND_STAVE    = "GRAND_STAVE";
-    private static String TREBLE_STAVE   = "TREBLE_STAVE";
-    private static String BASS_STAVE     = "BASS_STAVE";
-    private static String PIANO_STAVE    = "PIANO_STAVE";
+    private static final String GRAND_STAVE    = "GRAND_STAVE";
+    private static final String TREBLE_STAVE   = "TREBLE_STAVE";
+    private static final String BASS_STAVE     = "BASS_STAVE";
+    private static final String PIANO_STAVE    = "PIANO_STAVE";
 
 
 
     
-    private static String FILE_NAME_SUFFIX = "pj";    
+    private static final String FILE_NAME_SUFFIX = "pj";
     
     public StavePhraseProperties (String midiFileName)
-            throws FileNotFoundException,
-                   IOException {         
+            throws
+            IOException {
       FileInputStream theStream 
         = new FileInputStream(midiFileName + FILE_NAME_SUFFIX);
-      load((InputStream) theStream);  
+      load(theStream);
     }    
 
     public StavePhraseProperties(
@@ -182,7 +182,7 @@ System.out.println("8");
       try {
         FileOutputStream theStream 
             = new FileOutputStream(midiFileName + FILE_NAME_SUFFIX);
-        store((OutputStream) theStream, 
+        store(theStream,
             "Stave and Phrase Properties for " +
             midiFileName );  
       }

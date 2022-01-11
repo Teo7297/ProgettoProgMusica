@@ -57,9 +57,9 @@ public class RTMixer implements AudioChainListener{
 	/** sampleArray contains the convolution of all RTLines buffers */ 
 	private float[] sampleArray;
 	/** bos is used to convert sampleArray into a byte stream */
-	private ByteArrayOutputStream bos;
+	private final ByteArrayOutputStream bos;
 	/** dos is used to help convert sampleArray into bos */
-	private DataOutputStream dos;
+	private final DataOutputStream dos;
 	/** dline is the JFM java sound object which we write sampleArray to */
 	private SourceDataLine dline;
 	/** The sampleRate to be used when establishing the JMF SourceDataLine */
@@ -268,7 +268,7 @@ public class RTMixer implements AudioChainListener{
 			this.sampleArray[i] = (float)0.0;
 		}
 		int returned = this.dline.write(bos.toByteArray(), 0, bos.size());
-		this.currentTime += (long)length;
+		this.currentTime += length;
 	}
 
 

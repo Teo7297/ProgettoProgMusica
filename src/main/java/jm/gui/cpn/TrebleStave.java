@@ -53,7 +53,7 @@ public class TrebleStave extends Stave implements JMC{
 
         public static final Accidental FLAT = new Accidental("flat");
 
-        private String name;
+        private final String name;
 
         // Due to a 1.1 compiler bug this constructor cannot be private 
         Accidental(String name) {
@@ -96,7 +96,7 @@ public class TrebleStave extends Stave implements JMC{
 
         private static final class Trad extends Style {
 
-                    private boolean[] accidentalRequiredByKeySignature =
+                    private final boolean[] accidentalRequiredByKeySignature =
                             new boolean[12];
 
                     private static final int[] SHARP_ACCIDENTAL_PAIRS =
@@ -108,7 +108,7 @@ public class TrebleStave extends Stave implements JMC{
                     private int[] degreeToAccidentalPair =
                             SHARP_ACCIDENTAL_PAIRS;
 
-                    private boolean[] accidentalInEffect =
+                    private final boolean[] accidentalInEffect =
                             new boolean[7];
 
                     private int keySignature = 0;
@@ -188,7 +188,7 @@ public class TrebleStave extends Stave implements JMC{
                     void processBarLine() {
                         this.setBooleanArrayToFalse(accidentalInEffect);
                     }
-                };
+                }
 
         private static final class JMusic extends Style {
 
@@ -229,9 +229,9 @@ public class TrebleStave extends Stave implements JMC{
                         if (keySignature > 0 && keySignature < 8) {
                             for (int i = 0; i < keySignature; i++) {
                                 int degree = sharpPitches[i] % 12;
-                                for (int j = (int)Note.MIN_PITCH;
-                                        j <= (int)Note.MAX_PITCH;
-                                        j++) {
+                                for (int j = Note.MIN_PITCH;
+                                     j <= Note.MAX_PITCH;
+                                     j++) {
                                     if ((j % 12) == degree) {
                                         chromaticallyAffectedPitches.addElement(
                                                 new Integer(j));
@@ -242,9 +242,9 @@ public class TrebleStave extends Stave implements JMC{
                         } else if (keySignature < 0 && keySignature > -8) {
                             for (int i = 0; i > keySignature; i--) {
                                 int degree = flatPitches[-i] % 12;
-                                for (int j = (int)Note.MIN_PITCH;
-                                        j <= (int)Note.MAX_PITCH;
-                                        j++) {
+                                for (int j = Note.MIN_PITCH;
+                                     j <= Note.MAX_PITCH;
+                                     j++) {
                                     if ((j % 12) == degree) {
                                         chromaticallyAffectedPitches.addElement(
                                                 new Integer(j));
@@ -296,9 +296,9 @@ public class TrebleStave extends Stave implements JMC{
                     void processBarLine() {
                         // do nothing
                     }
-                };
+                }
 
-        private String name;
+        private final String name;
 
         // Due to a 1.1 compiler bug this constructor cannot be private 
         Style(String name) {
@@ -336,7 +336,7 @@ public class TrebleStave extends Stave implements JMC{
     }
 
 
-    private int tonic = 0;
+    private final int tonic = 0;
 
     protected int[] scale = JMC.MAJOR_SCALE;
 
@@ -459,7 +459,7 @@ public class TrebleStave extends Stave implements JMC{
 
         // draw notes and rests
         for(int i = 0; i < phrase.size();i++) {
-            int notePitchNum = (int)phrase.getNote(i).getPitch();
+            int notePitchNum = phrase.getNote(i).getPitch();
             // reset pitch for rests
                         
             // position?
@@ -574,13 +574,13 @@ public class TrebleStave extends Stave implements JMC{
 
     private int lastChordDisplayed = -1;
 
-    private int lastPosition = 0;
+    private final int lastPosition = 0;
 
 //    private int[] firstChords = new int[0];
 
 //    private int[] secondChords = new int[0];
 
-    private String[] chordStrings = {"I", "II", "III", "IV", "V", "VI", "VII",
+    private final String[] chordStrings = {"I", "II", "III", "IV", "V", "VI", "VII",
                                      "."};
 
     private void drawNote(int notePitchNum, final double rhythmValue,

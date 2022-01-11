@@ -37,7 +37,7 @@ public class MassObject {
     /** remember the previous force */
     private double inertia = 0.0;
     /* the number of time intervals since the last calulation */
-    private double deltaTime = 1.0;
+    private final double deltaTime = 1.0;
     /* the virtical pixel position of this mass */
     private double yPosition;
     

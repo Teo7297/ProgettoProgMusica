@@ -30,7 +30,7 @@ package jm.gui.graph;
 public class StatisticsList implements Cloneable, java.io.Serializable {
     /**
      */
-    private transient Statistics elementData[];
+    private transient Statistics[] elementData;
 
     /**
      */
@@ -62,7 +62,7 @@ public class StatisticsList implements Cloneable, java.io.Serializable {
         modCount++;
         int oldCapacity = elementData.length;
         if (size < oldCapacity) {
-            Statistics oldData[] = elementData;
+            Statistics[] oldData = elementData;
             elementData = new Statistics[size];
             System.arraycopy(oldData, 0, elementData, 0, size);
         }
@@ -74,7 +74,7 @@ public class StatisticsList implements Cloneable, java.io.Serializable {
         modCount++;
         int oldCapacity = elementData.length;
         if (minCapacity > oldCapacity) {
-            Statistics oldData[] = elementData;
+            Statistics[] oldData = elementData;
             int newCapacity = (oldCapacity * 3)/2 + 1;
             if (newCapacity < minCapacity) {
                 newCapacity = minCapacity;
@@ -164,7 +164,7 @@ public class StatisticsList implements Cloneable, java.io.Serializable {
 
     /**
      */
-    public Statistics[] toArray(Statistics a[]) {
+    public Statistics[] toArray(Statistics[] a) {
         if (a.length < size) {
             a = (Statistics[])java.lang.reflect.Array.newInstance(
                                 a.getClass().getComponentType(), size);
@@ -370,7 +370,7 @@ public class StatisticsList implements Cloneable, java.io.Serializable {
         buf.append("[");
         int maxIndex = size() - 1;
         for (int i = 0; i <= maxIndex; i++) {
-            buf.append(String.valueOf(get(i)));
+            buf.append(get(i));
             if (i < maxIndex)
             buf.append(", ");
         }

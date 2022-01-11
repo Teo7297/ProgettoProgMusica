@@ -37,7 +37,7 @@ public class ElitismSurvivorSelector extends SurvivorSelector {
     }
 
     public Phrase[] selectSurvivors(Phrase[] population,
-            double[] fitness, Phrase children[], double[] childrensFitness) {
+                                    double[] fitness, Phrase[] children, double[] childrensFitness) {
         Phrase[] returnPopulation = new Phrase[population.length];
 
         int[] eliteIndices = new int[ELITISM_CONSTANT];

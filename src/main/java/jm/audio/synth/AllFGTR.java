@@ -40,13 +40,17 @@ public final class AllFGTR extends AudioObject{
 	// Attributes 
 	//----------------------------------------------
 	//private float[] grain = new float[buffer.length]; //grain buffer
-	private float[][] FGTArray = new float [200][7];
+	private final float[][] FGTArray = new float [200][7];
 	private float /*grainDuration,*/ bandwidthTop, bandwidthBottom;
 	private float frequency, spatial, highestAmp = 0.0f;
 	// interOnset is the space between the start of each grain
-	private int grainsPerSecond, interOnset, grainDuration;
+	private final int grainsPerSecond;
+	private int interOnset;
+	private int grainDuration;
 	private int bCounter=0, gCounter=0, dCounter=0;//This counter keeps track of the buffer
-	private int grainsPerBuffer=0, sampleRate=44100, channels=2;
+	private int grainsPerBuffer=0;
+	private final int sampleRate=44100;
+	private final int channels=2;
 
 	// insert filter stuff here, if it will be filtered internally
 	

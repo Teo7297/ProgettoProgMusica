@@ -1,10 +1,10 @@
 package Game;
 
 public class Score implements Comparable{
-    private int points;
-    private String username;
-    private int time;
-    private int level;
+    private final int points;
+    private final String username;
+    private final int time;
+    private final int level;
 
     public Score(int points, String username, int time, int level) {
         this.points = points;

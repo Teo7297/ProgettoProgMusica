@@ -34,7 +34,7 @@ public class Track{
 	// Attributes 
 	//----------------------------------------------
 	/** A Vector to hold SMF events */
-	private Vector eventList;
+	private final Vector eventList;
   
 	//----------------------------------------------
 	// Constructors

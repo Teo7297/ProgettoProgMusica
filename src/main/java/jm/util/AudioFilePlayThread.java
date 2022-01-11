@@ -31,8 +31,8 @@ import java.io.IOException;
 // inspired by http://www.developer.com/java/other/article.php/2173111
 
    class AudioFilePlayThread extends Thread {
-		byte tempBuffer[] = new byte[1024];
-		private AudioInputStream audioInputStream;
+		byte[] tempBuffer = new byte[1024];
+		private final AudioInputStream audioInputStream;
 
 		public AudioFilePlayThread(AudioInputStream audioInputStream) {
 			this.audioInputStream = audioInputStream;	

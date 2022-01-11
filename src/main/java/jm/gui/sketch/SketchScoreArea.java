@@ -34,17 +34,17 @@ import jm.midi.*;
 public class SketchScoreArea extends Canvas implements JMC, KeyListener, MouseListener, MouseMotionListener{
 	//attributes
 	private Score score;
-        private int scoreChannels;
+        private final int scoreChannels;
         private int currentChannel;
-	private int oldY = 0;
-	private Color[] theColors = new Color[10];
+	private final int oldY = 0;
+	private final Color[] theColors = new Color[10];
 	private int maxWidth;
 	//private int maxParts;
 	private double beatWidth;
 	private int x, y;
         private int newWidth = 650;
-	private Vector drawPoints = new Vector();
-	private int myHeight = 127;
+	private final Vector drawPoints = new Vector();
+	private final int myHeight = 127;
         private SketchScore sc;
 		
 	public SketchScoreArea(Score score, int maxWidth, double beatWidth) {
@@ -212,8 +212,8 @@ public class SketchScoreArea extends Canvas implements JMC, KeyListener, MouseLi
 	    //System.out.println(e.getModifiers());
 	    // convert line to phrase then add to the score
 	    if(drawPoints.size() > 0 ) {
-	        if( e.getModifiers() == 24){convertLineToPhrase(true);} // option key held down?
-	        else convertLineToPhrase(false);
+			// option key held down?
+			convertLineToPhrase(e.getModifiers() == 24);
 	    }
         drawPoints.removeAllElements();
         newWidth = 50;
@@ -238,14 +238,14 @@ public class SketchScoreArea extends Canvas implements JMC, KeyListener, MouseLi
                                     intValue()) / beatWidth + 
 					( (double)Math.abs(x2-x1)/beatWidth / (double)(Math.abs(y1-y2)) + 1.0) / 
                                         (Math.abs(y1-y2) + 1); //onset time
-			            if ( (int)((Integer)drawPoints.elementAt(counter * 4)).intValue() >
-						(int)((Integer)drawPoints.elementAt(counter * 4 +2)).intValue() ) {
+			            if ( ((Integer)drawPoints.elementAt(counter * 4)).intValue() >
+								((Integer)drawPoints.elementAt(counter * 4 +2)).intValue()) {
 				        //revised onset time for drawing backwards
 				        storer[counter][0] = (double)(((Integer)drawPoints.elementAt(counter * 4 + 2)).
                                             intValue()) / beatWidth / (double)(Math.abs(y1-y2)) + 1.0;
 				    }
                                     //pitch
-				    storer[counter][1] = (double)(127-y1 +i); 
+				    storer[counter][1] = 127-y1 +i;
                                     //duration
                                     storer[counter][2] = (double)Math.abs(x2-x1)/beatWidth / 
                                         (double)(Math.abs(y1-y2)) + 1.0; 
@@ -255,13 +255,13 @@ public class SketchScoreArea extends Canvas implements JMC, KeyListener, MouseLi
 			    // course grade
 			    storer[counter][0] = (double)(((Integer)drawPoints.elementAt(counter * 4)).
                                 intValue()) / beatWidth; //onset time
-			    if ( (int)((Integer)drawPoints.elementAt(counter * 4)).intValue() > 
-                                    (int)((Integer)drawPoints.elementAt(counter * 4 +2)).intValue() ) {
+			    if ( ((Integer)drawPoints.elementAt(counter * 4)).intValue() >
+						((Integer)drawPoints.elementAt(counter * 4 +2)).intValue()) {
                                 //revised onset time for drawing backwards
 			        storer[counter][0] = (double)(((Integer)drawPoints.elementAt(counter * 4 + 2)).
                                     intValue()) / beatWidth;
 			    }
-			    storer[counter][1] = (double)(127-y1); //pitch
+			    storer[counter][1] = 127-y1; //pitch
                             storer[counter][2] = (double)Math.abs(x2-x1)/beatWidth; //duration
 			}
 		    counter++;

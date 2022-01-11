@@ -124,11 +124,11 @@ public final class PChange implements VoiceEvt, Cloneable{
 	//--------------------------------
 	//Print
 	public void print(){
-		System.out.println(toString());
+		System.out.println(this);
 	}
         
         public String toString(){
-		return new String("Program Change(007): [time = " + time + "][midiChannel = " + midiChannel + "][value = " + value + "]");
+		return "Program Change(007): [time = " + time + "][midiChannel = " + midiChannel + "][value = " + value + "]";
 	}
 }
 

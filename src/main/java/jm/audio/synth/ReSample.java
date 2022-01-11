@@ -30,7 +30,7 @@ public final class ReSample extends AudioObject{
 	//----------------------------------------------
 	private double baseFreq = 0.0; 
 	private double newFreq = 0.0;
-	private boolean noteFreq = true;
+	private final boolean noteFreq = true;
 	
 	//----------------------------------------------
 	// Constructors 
@@ -69,7 +69,7 @@ public final class ReSample extends AudioObject{
 		int upSample = 0; //value 0 is upsample
 		if(skip<0){skip=-1.0/skip; upSample=1;}//value 1 is downsample
 		if(skip==0){upSample=2;skip=1;}//value 2 is no resample
-		float[] tmpBuf = new float[(int)((double)(buffer.length*cfm)+0.5) + 1]; // +1
+		float[] tmpBuf = new float[(int)((buffer.length*cfm) +0.5) + 1]; // +1
 		int ret = this.previous[0].nextWork(tmpBuf);
 		float tmp = 0.0f; //holds previous sample for interpolation
 		int count = 0, index = 0;

@@ -28,6 +28,6 @@ package jm.music.net;
  */
 
 public interface DSClient{
-	public void newObject(Object obj);
-	public void setConnection(DSClientConnector connection);
+	void newObject(Object obj);
+	void setConnection(DSClientConnector connection);
 }

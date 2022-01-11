@@ -81,7 +81,7 @@ public class Score implements JMC, Cloneable, Serializable{
 	/**
 	 * a Vector containing the Part objects associated with this score
 	 */
-	private Vector partList;
+	private final Vector partList;
 	/** the speed for this score */
 	private double tempo;
 
@@ -281,7 +281,7 @@ public class Score implements JMC, Cloneable, Serializable{
 	 * @param int partNumb the index of the part to be deleted
 	 */
 	 public void removePart(int partNumb) {
-	    Vector vct = (Vector)this.partList;
+	    Vector vct = this.partList;
 	    try{
 	        vct.removeElement(vct.elementAt(partNumb));
 	    } catch (RuntimeException re){
@@ -301,7 +301,7 @@ public class Score implements JMC, Cloneable, Serializable{
 	 * Deletes the last Part added to the Score
 	 */
 	 public void removeLastPart() {
-	    Vector vct = (Vector)this.partList;
+	    Vector vct = this.partList;
 	    vct.removeElement(vct.lastElement());
 	}
 
@@ -505,9 +505,9 @@ public class Score implements JMC, Cloneable, Serializable{
 		Enumeration enum1 = this.partList.elements();
 		while(enum1.hasMoreElements()){
 			Part oldPart = (Part) enum1.nextElement();
-			newScore.addPart((Part) oldPart.copy());
+			newScore.addPart(oldPart.copy());
 		}
-		return (Score)newScore;
+		return newScore;
 	}
 
     public Score copy(final double startTime, final double endTime) {
@@ -542,8 +542,8 @@ public class Score implements JMC, Cloneable, Serializable{
 	 * Print the titles of all tracks to stdout
 	 */
 	public String toString(){
-		String scoreData = new String("<***** SCORE '" + title +
-			"' contains " + this.size() + " parts. ****>" + '\n');
+		String scoreData = "<***** SCORE '" + title +
+				"' contains " + this.size() + " parts. ****>" + '\n';
 		scoreData += "Score Tempo = " + this.tempo + " bpm" +'\n';
 		Enumeration enum1 = partList.elements();
 		while(enum1.hasMoreElements()){

@@ -29,7 +29,7 @@ package jm.constants;
   */
 public interface Pitches {
     
-        public static final int
+        int
                 G9 = 127,
                 GF9 = 126,
                 FS9 = 126,
@@ -476,6 +476,6 @@ public interface Pitches {
                 dfn1 = 1,
                 csn1 = 1,
                 cn1 = 0,
-REST = (int)jm.music.data.Note.REST;  //No Note
+REST = jm.music.data.Note.REST;  //No Note
 
 }

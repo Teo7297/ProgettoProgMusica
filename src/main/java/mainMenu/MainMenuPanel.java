@@ -8,7 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -20,7 +19,6 @@ public class MainMenuPanel extends JPanel implements ActionListener {
     private String[] scores;
     private JList<String> scoresList;
     private JScrollPane scrollPane;
-    //private JPanel scorePanel;
     private static final String CONFIG_FILE = "config.properties";
 
     public MainMenuPanel(){
@@ -45,14 +43,6 @@ public class MainMenuPanel extends JPanel implements ActionListener {
         this.scoresList.setFont(new Font("Arimo", Font.PLAIN, 18));
         this.scrollPane = new JScrollPane(this.scoresList);
         this.scrollPane.setPreferredSize(new Dimension(360, 300));
-
-        //this.scorePanel = new JPanel(new BorderLayout());
-        //JPanel filterPanel = new JPanel(new FlowLayout());
-        //filterPanel.add(new JLabel("Best scores of all time!"));
-        //filterPanel.add(new JLabel("Filter by level"));
-        //filterPanel.add(new JComboBox<>(new String[]{"All", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"}));
-        //this.scorePanel.add(filterPanel, BorderLayout.NORTH);
-        //this.scorePanel.add(scrollPane, BorderLayout.CENTER);
         this.add(this.scrollPane, BorderLayout.EAST);
 
 

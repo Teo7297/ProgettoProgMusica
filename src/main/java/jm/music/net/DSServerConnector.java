@@ -41,7 +41,7 @@ public class DSServerConnector extends Thread{
 	// Attributes 
 	//----------------------------------------------
 	/** The permanent TCP socket connection to the client. */
-	private Socket connection;
+	private final Socket connection;
 	/** Object stream for this connection */
 	private ObjectInputStream ois;
 	/** Object output stream for this connection */
@@ -62,7 +62,7 @@ public class DSServerConnector extends Thread{
 	 * connections.
 	 */
 	public DSServerConnector(Socket connection, DSServer server){
-		this.server = server;
+		DSServerConnector.server = server;
 		this.connection = connection;
 		try{
 			OutputStream os = this.connection.getOutputStream();

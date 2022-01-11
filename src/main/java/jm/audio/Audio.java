@@ -42,7 +42,7 @@ import jm.audio.Instrument;
  */
 public final class Audio implements jm.JMC{
 	/** Do we want to write the jpf file */
-	private static boolean JPF = false;
+	private static final boolean JPF = false;
 	/**
 	 * Makes an array which contains all the notes from all the phrases
 	 * from all the instruments etc. solely based on start times.
@@ -143,7 +143,7 @@ public final class Audio implements jm.JMC{
                     Instrument currInst = (Instrument)inst.peek();
 					currInst.setBlock(false);
 					currInst.setFinished(true);
-					currInst.renderNote(new_note,((double)time+ntime));
+					currInst.renderNote(new_note,(time +ntime));
 					currInst.setFinished(false);
 					currInst.iterateChain();
 					ntime += phrase_ratio * note.getRhythmValue();
@@ -271,7 +271,7 @@ public final class Audio implements jm.JMC{
 			fis.skip(offset - 24); //skip the rest of the header
 
 			//adjust position and length for multiple channels
-			position *= (long)channels;
+			position *= channels;
 			length *= channels;
 
 		}catch(IOException ioe){
@@ -282,7 +282,7 @@ public final class Audio implements jm.JMC{
 			try{
                 raf.seek(position);
                 //read in and convert to sample
-                float sample = (float)((float)dis.readShort()/(float)32767);
+                float sample = (float)dis.readShort()/(float)32767;
                 try{//if we can read from the file
                     float d = raf.readFloat();
                     raf.seek(position);

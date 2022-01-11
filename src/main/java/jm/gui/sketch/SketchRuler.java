@@ -50,15 +50,15 @@ import jm.midi.*;
 public class SketchRuler extends Canvas implements MouseListener, MouseMotionListener, KeyListener{
 	//attributes
 	private int startX;
-	private int height = 15;
-	private int barNumbCount = 2;
-	private SketchScore sketchScore;
-        private Font font = new Font("Helvetica", Font.PLAIN, 10);
+	private final int height = 15;
+	private final int barNumbCount = 2;
+	private final SketchScore sketchScore;
+        private final Font font = new Font("Helvetica", Font.PLAIN, 10);
 	
 	public SketchRuler(SketchScore sketchScore) {
 		super();
 		this.sketchScore = sketchScore;
-		this.setSize((int)(sketchScore.score.getEndTime()*sketchScore.beatWidth),height);
+		this.setSize((int)(SketchScore.score.getEndTime()*sketchScore.beatWidth),height);
 		this.setBackground(Color.lightGray);
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
@@ -109,7 +109,7 @@ public class SketchRuler extends Canvas implements MouseListener, MouseMotionLis
 	public void mouseDragged(MouseEvent e) {
 	    //System.out.println("Dragged");
 	    double beatWidth = sketchScore.beatWidth;
-		beatWidth += (double)((double)e.getX() - (double)startX)/5.0;
+		beatWidth += ((double)e.getX() - (double)startX) /5.0;
 		if ( beatWidth< 1.0) beatWidth= 1.0;
 		if ( beatWidth> 256.0) beatWidth= 256.0;
 		//System.out.println("beatWidth = "+beatWidth);

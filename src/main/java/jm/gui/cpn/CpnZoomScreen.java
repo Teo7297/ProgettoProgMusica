@@ -48,19 +48,19 @@ public class CpnZoomScreen extends Dialog
         
     private Phrase   phrase, beforeZoom, afterZoom;     
 
-    private static TextField  
-        startMeasureEdit  = new TextField(8),  // 1st Measure is 1
-        measureCountEdit  = new TextField(8);  // Measures to show
+    private static final TextField
+        startMeasureEdit  = new TextField(8);  // 1st Measure is 1
+        private static final TextField measureCountEdit  = new TextField(8);  // Measures to show
                         
-    private static Label   startMeasureLabel
+    private static final Label   startMeasureLabel
                         = new Label("Start at Measure");
     
-    private static Label   measureCountLabel
+    private static final Label   measureCountLabel
                         = new Label("Number of Measures");
         
-    private Button     okButton
-                        = new Button( "Update View:" ),
-                       cancelButton
+    private final Button     okButton
+                        = new Button( "Update View:" );
+    private final Button cancelButton
                        = new Button("Cancel"); 
 
     public CpnZoomScreen(Frame parentFrame) {

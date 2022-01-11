@@ -33,7 +33,7 @@ import jm.music.data.Score;
  */
 class ReadListenerLinkedList {
     /** ReadListener stored at this node of the list */
-    private ReadListener listener;
+    private final ReadListener listener;
 
     /** Reference to the next ReadListenerLinkedList in the list */
     private ReadListenerLinkedList next;

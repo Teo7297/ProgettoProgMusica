@@ -29,7 +29,7 @@ package jm.constants;
   */
 public interface Volumes {
     
-	public static final int
+	int
 		SILENT = 0,
 		PPP = 10,
 		PP = 25, PIANISSIMO = 25,

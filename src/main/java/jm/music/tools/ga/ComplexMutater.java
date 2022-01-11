@@ -45,7 +45,7 @@ import jm.music.tools.NoteListException;
  * @version   0.1.2.0, 8th February 2001
  */
 public class ComplexMutater extends Mutater{
-    private int[] MUTATE_PERCENTAGE = {0,40,1,40,60}; //{1, 50, 5, 10, 40}; // {1, 50, 0, 0, 40};
+    private final int[] MUTATE_PERCENTAGE = {0,40,1,40,60}; //{1, 50, 5, 10, 40}; // {1, 50, 0, 0, 40};
 
     private static final int SEMITONES_PER_OCTAVE = 12;
 
@@ -275,7 +275,7 @@ public class ComplexMutater extends Mutater{
             vector = (Vector) individual.getNoteList().clone();
             int currentPitch;
             double currentRV;
-            int previousPitch = (int)Note.REST;
+            int previousPitch = Note.REST;
             double previousRV = 0;
             int index1 = initialSize;
             while (index1 < vector.size() && previousPitch == Note.REST) {

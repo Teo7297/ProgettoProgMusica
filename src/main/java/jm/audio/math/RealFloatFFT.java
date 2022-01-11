@@ -36,7 +36,7 @@ public abstract class RealFloatFFT {
       throw new IllegalArgumentException("The transform length must be >=0 : "+n);
     this.n = n; }
     
-  protected void checkData(float data[], int i0, int stride){
+  protected void checkData(float[] data, int i0, int stride){
     if (i0 < 0) 
       throw new IllegalArgumentException("The offset must be >=0 : "+i0);
     if (stride < 1)
@@ -47,29 +47,29 @@ public abstract class RealFloatFFT {
 					 " data.length="+data.length); }
 
   /** Compute the Fast Fourier Transform of data leaving the result in data. */
-  public void transform (float data[]) {
+  public void transform (float[] data) {
     transform (data, 0,1); }
 
   /** Compute the Fast Fourier Transform of data leaving the result in data. */
-  public abstract void transform (float data[], int i0, int stride);
+  public abstract void transform (float[] data, int i0, int stride);
 
   /** Return data in wraparound order.
     * @see <a href="package-summary.html#wraparound">wraparound format</A> */
-  public float[] toWraparoundOrder(float data[]){
+  public float[] toWraparoundOrder(float[] data){
     return toWraparoundOrder(data,0,1); }
 
   /** Return data in wraparound order.
     * i0 and stride are used to traverse data; the new array is in 
     * packed (i0=0, stride=1) format.
     * @see <a href="package-summary.html#wraparound">wraparound format</A> */
-  public abstract float[] toWraparoundOrder(float data[], int i0, int stride);
+  public abstract float[] toWraparoundOrder(float[] data, int i0, int stride);
 
   /** Compute the (unnomalized) inverse FFT of data, leaving it in place.*/
-  public void backtransform (float data[]) {
+  public void backtransform (float[] data) {
     backtransform(data,0,1); }
 
   /** Compute the (unnomalized) inverse FFT of data, leaving it in place.*/
-  public abstract void backtransform (float data[], int i0, int stride);
+  public abstract void backtransform (float[] data, int i0, int stride);
   
   /** Return the normalization factor.  
    * Multiply the elements of the backtransform'ed data to get the normalized inverse.*/
@@ -77,11 +77,11 @@ public abstract class RealFloatFFT {
     return 1.0f/((float) n); }
 
   /** Compute the (nomalized) inverse FFT of data, leaving it in place.*/
-  public void inverse(float data[]) {
+  public void inverse(float[] data) {
     inverse(data,0,1); }
 
   /** Compute the (nomalized) inverse FFT of data, leaving it in place.*/
-  public void inverse (float data[], int i0, int stride) {
+  public void inverse (float[] data, int i0, int stride) {
     backtransform(data, i0, stride);
 
   /* normalize inverse fft with 1/n */

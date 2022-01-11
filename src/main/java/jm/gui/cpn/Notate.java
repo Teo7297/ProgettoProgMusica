@@ -55,7 +55,9 @@ public class Notate extends Frame implements
     //private Phrase phrase;
     private Phrase[] phraseArray;
     private Stave[] staveArray;
-    private int scrollHeight = 130, locationX = 0, locationY = 0;
+    private final int scrollHeight = 130;
+    private int locationX = 0;
+    private int locationY = 0;
     private Dialog keyDialog, timeDialog;
     private MenuItem keySig, open, openJmXml, openjm, play, stop, delete, clear, 
                     newStave, close, timeSig, saveJmXml, saveJM, saveMidi, quit,
@@ -86,14 +88,14 @@ public class Notate extends Frame implements
 
     private String lastFileName   = "*.mid";
     private String lastDirectory  = "";
-    private String fileNameFilter = "*.mid";
+    private final String fileNameFilter = "*.mid";
 
     private boolean     zoomed;
     private Phrase      beforeZoom = new Phrase();
     private Phrase      afterZoom = new Phrase();
     /* The height of the notate window */
     private int height = 0;
-    private int width = 700;
+    private final int width = 700;
 
     public Notate() {
         this(new Phrase(), 0, 0);

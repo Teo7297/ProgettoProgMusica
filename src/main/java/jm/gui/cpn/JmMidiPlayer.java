@@ -35,10 +35,10 @@ import javax.sound.midi.*;
 
 public class JmMidiPlayer extends OutputStream {
 
-    private Sequencer   sequencer;
-    private Transmitter transmitter;
-    private Receiver    receiver;
-    private MidiDevice  synthesizer;
+    private final Sequencer   sequencer;
+    private final Transmitter transmitter;
+    private final Receiver    receiver;
+    private final MidiDevice  synthesizer;
 
     ByteArrayOutputStream os;
     

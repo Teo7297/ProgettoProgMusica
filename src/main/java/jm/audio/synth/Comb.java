@@ -35,10 +35,10 @@ import jm.music.data.Note;
 
 public final class Comb extends AudioObject{
 	//The gain of this comb filter 
-	private float decay;
+	private final float decay;
 
 	//The delay (in samples) to use with this comb filter
-	private int delay;
+	private final int delay;
 
 	//Number of samples to delay by
 	private float[] delayLine;
@@ -91,7 +91,7 @@ public final class Comb extends AudioObject{
 	 * 
 	 */
 	public void build(){
-		int sampleDelay = (int)((float)((float)this.delay/(float)1000) * this.sampleRate); 
+		int sampleDelay = (int)(((float)this.delay/(float)1000) * this.sampleRate);
 		this.delayLine = new float[sampleDelay*this.channels];
 		this.delayIndex = 0;
 	}

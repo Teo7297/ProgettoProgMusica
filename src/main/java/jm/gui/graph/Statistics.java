@@ -30,7 +30,7 @@ package jm.gui.graph;
 public class Statistics implements Cloneable, java.io.Serializable {
     /**
      */
-    private double elementData[];
+    private double[] elementData;
 
     /**
      */
@@ -61,7 +61,7 @@ public class Statistics implements Cloneable, java.io.Serializable {
     public void trimToSize() {
         int oldCapacity = elementData.length;
         if (size < oldCapacity) {
-            double oldData[] = elementData;
+            double[] oldData = elementData;
             elementData = new double[size];
             System.arraycopy(oldData, 0, elementData, 0, size);
         }
@@ -72,7 +72,7 @@ public class Statistics implements Cloneable, java.io.Serializable {
     public void ensureCapacity(int minCapacity) {
         int oldCapacity = elementData.length;
         if (minCapacity > oldCapacity) {
-            double oldData[] = elementData;
+            double[] oldData = elementData;
             int newCapacity = (oldCapacity * 3)/2 + 1;
             if (newCapacity < minCapacity) {
                 newCapacity = minCapacity;
@@ -153,7 +153,7 @@ public class Statistics implements Cloneable, java.io.Serializable {
 
     /**
      */
-    public double[] toArray(double a[]) {
+    public double[] toArray(double[] a) {
         if (a.length < size) {
             a = new double[size];
         }                    
@@ -368,7 +368,7 @@ public class Statistics implements Cloneable, java.io.Serializable {
         buf.append("[");
         int maxIndex = size() - 1;
         for (int i = 0; i <= maxIndex; i++) {
-            buf.append(String.valueOf(get(i)));
+            buf.append(get(i));
             if (i < maxIndex)
             buf.append(", ");
         }

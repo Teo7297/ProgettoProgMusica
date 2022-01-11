@@ -39,12 +39,12 @@ import java.awt.Dialog;
 public class PhraseViewer extends Dialog 
     implements WindowListener  {
 
-    private ScrollPane   scrollPane = new ScrollPane();
-    private TextArea     textArea   = new TextArea(20, 120);
+    private final ScrollPane   scrollPane = new ScrollPane();
+    private final TextArea     textArea   = new TextArea(20, 120);
     private Phrase       phrase;  
     private Stave        stave;  
     
-    private DecimalFormat decimalFormat 
+    private final DecimalFormat decimalFormat
             = new DecimalFormat( "#####.######" );
         
     public PhraseViewer(

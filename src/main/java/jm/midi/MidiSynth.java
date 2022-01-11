@@ -62,7 +62,7 @@ import javax.sound.midi.spi.MidiFileWriter;
 public class MidiSynth implements JMC, MetaEventListener {
 
     /** Pulses per quarter note value */
-    private short m_ppqn;
+    private final short m_ppqn;
     /** The Synthesizer we are using */
     private Synthesizer m_synth;
 	/** The Sequence we are using */
@@ -74,7 +74,7 @@ public class MidiSynth implements JMC, MetaEventListener {
     /** The overall (Score) tempo value */
     private float m_masterTempo;
     /** All previous tempos */
-    private Stack m_tempoHistory;
+    private final Stack m_tempoHistory;
     /** The diff. beteen the score and part tempi */
     private double trackTempoRatio = 1.0;
     /** The diff. between the score and phrase tempi */
@@ -440,7 +440,7 @@ public class MidiSynth implements JMC, MetaEventListener {
                         continue;
                     }
 
-                    long onTick = (long)(phraseTick);
+                    long onTick = phraseTick;
                     // pan
                     if (note.getPan() != lastPanPosition) {
 			evt = createCChangeEvent(currChannel, 10, (int)(note.getPan()*127), onTick);

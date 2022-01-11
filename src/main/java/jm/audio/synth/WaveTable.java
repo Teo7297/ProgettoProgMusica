@@ -116,7 +116,7 @@ public class WaveTable extends AudioObject{
 
 	/** this contains the wavetable data as samples */
 
-	private float[] waveTable;
+	private final float[] waveTable;
 
 	/** how many samples to we skip while passing through the wavetable */
 

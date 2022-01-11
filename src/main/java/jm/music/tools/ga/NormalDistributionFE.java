@@ -47,7 +47,7 @@ public class NormalDistributionFE extends FitnessEvaluater {
 
     protected Panel panel;
 
-    private double[] weighting = {1.0,  // Note Density
+    private final double[] weighting = {1.0,  // Note Density
                                   1.0,  // Pitch Variety
                                   1.0,  // Rhythmic Variety
                                   0.1,  // Climax Strength
@@ -559,7 +559,7 @@ public class NormalDistributionFE extends FitnessEvaluater {
 
     }
 
-    private double[] mean = {0.307,  // Note Density
+    private final double[] mean = {0.307,  // Note Density
                               0.308,  // Pitch Variety
                               0.021,  // Rhythmic Variety
                               0.669,  // Climax Strength
@@ -583,7 +583,7 @@ public class NormalDistributionFE extends FitnessEvaluater {
                               0.523,  // Climax Position
                               0.346};  // Climax Tonality
 
-    private double[] standardDeviation = {0.115, // Note Density
+    private final double[] standardDeviation = {0.115, // Note Density
                                           0.129, // Pitch Variety
                                           0.038, // Rhythmic Variety
                                           0.318, // Climax Strength

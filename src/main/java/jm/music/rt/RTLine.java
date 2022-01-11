@@ -46,15 +46,15 @@ public abstract class RTLine implements AudioChainListener{
 	/** if clear is true the threads wait call will be skipped */ 
 	protected boolean clear = false;
 	/** counter for how far we have gone between notes player */
-	private double localCounter = 0.0;
+	private final double localCounter = 0.0;
 	/** are we after a new note ? */
-	private boolean newNote = true;
+	private final boolean newNote = true;
 	/** tempo value */
 	private double tempo = 60.0;
 	/** test position ???? */
 	private double testPos;
 	/** This value is equal to (sampleRate * channels) */
-	private double size;
+	private final double size;
 	/** Note object to reuse */
 	Note note = null;
 	double scorePos = 0.0;

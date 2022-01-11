@@ -54,11 +54,11 @@ public class Noise extends AudioObject{
     private float amp = 1.0f;
     // for fractal math
     private static float sum;
-    private static float[] rg = new float[16];
+    private static final float[] rg = new float[16];
     private static int k, kg, ng, threshold;
     private static int np = 1;
     private static int nbits = 1;
-    private static int numbPoints = 48000; //number of notes
+    private static final int numbPoints = 48000; //number of notes
     private static float nr = (float)(numbPoints);
     private static float result;
     private static int counter = 0;
@@ -88,13 +88,13 @@ public class Noise extends AudioObject{
     private int walkNoiseDensityStepSize = 100;
     
     // gendyn noise variables
-    private java.util.Random RandomGenerator = new java.util.Random();
+    private final java.util.Random RandomGenerator = new java.util.Random();
     private int gendynAmpGranularity = 128;//50; // more or less quantisation noise
-    private double gendynPrevTime = 50;
+    private final double gendynPrevTime = 50;
     private int gendynTimeMirror = 80;
     private int gendynAmpMirror = 80;
     private int tempAmpMirror;
-    private boolean ampMirrorUpdate = false;
+    private final boolean ampMirrorUpdate = false;
     /** The starting sample value for the wave */
     private int gendynPointSize = 4;
     private boolean pointSizeReset = false;
@@ -102,14 +102,14 @@ public class Noise extends AudioObject{
     private double[] gendynAmpArray = new double[gendynPointSize];
     private double[] gendynTimeArray = new double[gendynPointSize];
     private double gendynAmp0 = 0.0;
-    private int gendynIntArray[];
+    private int[] gendynIntArray;
     private double gendynIntArrayLength;
     private int gendynIntArrayCounter = 0;
     private double gendynTimeStepSize = 10.0;
     private double maxGendynTimeStepSize = 100.0; // 75 // Xenakis would have this at 100
     private double gendynAmpStepSize = 10.0; 
     private double maxGendynAmpStepSize = 100.0; // 10 // Xenakis would have this at 100
-    private int mirrorMax = 100;
+    private final int mirrorMax = 100;
     /** Use a gaussian or normal random distribution */
     private boolean gendynGaussian = false;
     private double gendynPrimaryTimeStepSize = 10.0; 
@@ -236,7 +236,7 @@ public class Noise extends AudioObject{
                 for(int j=0;j<channels;j++){ 
                     buffer[ret++] = (float)(Math.random()*2.0 - 1.0) * amp;
                 }
-            };
+            }
             break;
         case BROWN_NOISE: 
             float prev0 = 0.0f;
@@ -253,7 +253,7 @@ public class Noise extends AudioObject{
                     prev1 = prev2;
                     prev2 = current;
                 }
-            };
+            }
             break;
         case STEP_NOISE:
             // low sample resolution noise (RandH noise)
@@ -266,7 +266,7 @@ public class Noise extends AudioObject{
                         (float)(Math.random()*2.0 - 1.0) * amp;
                     buffer[ret++] = temp;
                 }
-            };
+            }
             break;
         case SMOOTH_NOISE:
             // interpolated noise (RandI noise)
@@ -285,7 +285,7 @@ public class Noise extends AudioObject{
                             ((temp2 - temp) / density * (ret % density));
                     }
                 }
-            };
+            }
             break;
         case FRACTAL_NOISE:
             for(;ret < buffer.length;){
@@ -323,7 +323,7 @@ public class Noise extends AudioObject{
                     else if (gaussValue > 1.0f) gaussValue = 1.0f;
                     buffer[ret++] = gaussValue * amp;
                 }
-            };
+            }
             break;
                 
         case WALK_NOISE:
@@ -422,13 +422,13 @@ public class Noise extends AudioObject{
         gendynIntArray = new int[(int)gendynIntArrayLength];
         mgaCounter = 0;
         // stage 1
-        mgaInc = (gendynAmpArray[0] - gendynAmp0) / (double)gendynTimeArray[0];
+        mgaInc = (gendynAmpArray[0] - gendynAmp0) / gendynTimeArray[0];
         //first - continuing from previous
         for(jindex=0; jindex<(int)gendynTimeArray[0]; jindex++) {
             switch(gendynInterpolation) {
             case 2: 
                 // cos
-                double diff = (1.0 - (Math.cos(jindex / (double)gendynTimeArray[0] * 3.14) / 2.0 + 0.5)) * 
+                double diff = (1.0 - (Math.cos(jindex / gendynTimeArray[0] * 3.14) / 2.0 + 0.5)) *
                     (gendynAmpArray[0] - gendynAmp0);
                 gendynIntArray[mgaCounter++] = (int)((gendynAmp0 + diff) / 
                                                      100.0 * gendynAmpGranularity);
@@ -445,11 +445,11 @@ public class Noise extends AudioObject{
         }
         // remainder
         for (index = 1; index<gendynPointSize -1; index++) {
-            mgaInc = (gendynAmpArray[index] - gendynAmpArray[index-1]) / (double)gendynTimeArray[index];
+            mgaInc = (gendynAmpArray[index] - gendynAmpArray[index-1]) / gendynTimeArray[index];
             for(jindex = 0; jindex<(int)gendynTimeArray[index]; jindex++) {
                 switch(gendynInterpolation) {
                 case 2: 
-                    double diff = (1.0 - (Math.cos(jindex / (double)gendynTimeArray[index] * 3.14) / 2.0 + 0.5)) * 
+                    double diff = (1.0 - (Math.cos(jindex / gendynTimeArray[index] * 3.14) / 2.0 + 0.5)) *
                         (gendynAmpArray[index] - gendynAmpArray[index-1]);
                     gendynIntArray[mgaCounter++] = (int)((gendynAmpArray[index-1] + diff) / 
                                                          100.0 * gendynAmpGranularity);

@@ -42,7 +42,7 @@ package jm.audio.math;
   */
 
 public class RealFloatFFT_Radix2 extends RealFloatFFT {
-  private int logn;
+  private final int logn;
   
   /** Create an FFT for transforming n points of real, single precision data.
     * n must be an integral power of 2. */
@@ -57,7 +57,7 @@ public class RealFloatFFT_Radix2 extends RealFloatFFT {
   /** Compute the Fast Fourier Transform of data leaving the result in data.
    * See {@link <A HREF="#transformlayout"> Radix2 Transform Layout</A>} for description of
    * the resulting data layout.*/
-  public void transform (float data[], int i0, int stride) {
+  public void transform (float[] data, int i0, int stride) {
     checkData(data,i0,stride);
     int p, p_1, q;
 
@@ -134,7 +134,7 @@ public class RealFloatFFT_Radix2 extends RealFloatFFT {
   /** Compute the (unnomalized) inverse FFT of data, leaving it in place.
    * The data must be in the same arrangement as that produced by 
    {@link #transform transform}. */
-  public void backtransform (float data[], int i0, int stride) {
+  public void backtransform (float[] data, int i0, int stride) {
     checkData(data,i0,stride);
     int p, p_1, q;
 
@@ -213,16 +213,16 @@ public class RealFloatFFT_Radix2 extends RealFloatFFT {
 
   /** Return data in wraparound order.
     * @see <a href="package-summary.html#wraparound">wraparound format</A> */
-  public float[] toWraparoundOrder(float data[]){
+  public float[] toWraparoundOrder(float[] data){
     return toWraparoundOrder(data,0,1); }
 
   /** Return data in wraparound order.
     * i0 and stride are used to traverse data; the new array is in 
     * packed (i0=0, stride=1) format.
     * @see <a href="package-summary.html#wraparound">wraparound format</A> */
-  public float[] toWraparoundOrder(float data[], int i0, int stride) {
+  public float[] toWraparoundOrder(float[] data, int i0, int stride) {
     checkData(data,i0,stride);
-    float newdata[] = new float[2*n];
+    float[] newdata = new float[2*n];
     int nh = n/2;
     newdata[0]   = data[i0];
     newdata[1]   = 0.0f;
@@ -235,7 +235,7 @@ public class RealFloatFFT_Radix2 extends RealFloatFFT {
       newdata[2*(n-i)+1]=-data[i0+stride*(n-i)]; }
     return newdata; }
 
-  protected void bitreverse(float data[], int i0, int stride) {
+  protected void bitreverse(float[] data, int i0, int stride) {
     /* This is the Goldrader bit-reversal algorithm */
 
     for (int i = 0,j = 0; i < n - 1; i++) {

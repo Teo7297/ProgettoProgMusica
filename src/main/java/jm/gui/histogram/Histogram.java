@@ -50,11 +50,11 @@ public class Histogram extends Component implements JMC {
     private int[] rhythmValues;
     private int[] dynamicValues;
     private int[] panValues;
-    private Font f = new Font("Helvetica", Font.PLAIN, 9);
+    private final Font f = new Font("Helvetica", Font.PLAIN, 9);
     /** The thickness of the bra graphs. */
-    private int barWidth = 4;
+    private final int barWidth = 4;
     /** The amount of space for the ruler and labels. */
-    private int lableSpace = 24;
+    private final int lableSpace = 24;
     /** The type of note data to be displayed. */
     private int type = 0;
     /** The name for the displayed window. */
@@ -212,21 +212,21 @@ public class Histogram extends Component implements JMC {
     public void saveDataAs(String fileName) {
         try{
             FileOutputStream out = new FileOutputStream(fileName);
-            String headerText = "Pitch value" + String.valueOf("\t") + "Pitch data"  + 
-                String.valueOf("\t") + "Rhythm value" + String.valueOf("\t") + "Rhythm data" +
-                    String.valueOf("\t") + "Dynamic value" + String.valueOf("\t") + "Dynamic data" +
-                    String.valueOf("\t") + "Pan value" + String.valueOf("\t") + "Pan data" + 
-                    String.valueOf("\n");
+            String headerText = "Pitch value" + "\t" + "Pitch data"  +
+                    "\t" + "Rhythm value" + "\t" + "Rhythm data" +
+                    "\t" + "Dynamic value" + "\t" + "Dynamic data" +
+                    "\t" + "Pan value" + "\t" + "Pan data" +
+                    "\n";
             out.write(headerText.getBytes());
             for(int i=0; i < pitchValues.length; i++) {
-                String data = String.valueOf(i) + String.valueOf("\t") + String.valueOf(pitchValues[i]);
-                if (i < rhythmValues.length) data += String.valueOf("\t") + String.valueOf(i * 0.125) + 
-                    String.valueOf("\t") + String.valueOf(rhythmValues[i]);
-                if (i < dynamicValues.length) data += String.valueOf("\t") + String.valueOf(i) + 
-                    String.valueOf("\t") + String.valueOf(dynamicValues[i]);
-                if (i < panValues.length) data += String.valueOf("\t") + String.valueOf(i / 100.0) + 
-                    String.valueOf("\t") + String.valueOf(panValues[i]);
-                data += String.valueOf("\n");
+                String data = i + "\t" + pitchValues[i];
+                if (i < rhythmValues.length) data += "\t" + i * 0.125 +
+                        "\t" + rhythmValues[i];
+                if (i < dynamicValues.length) data += "\t" + i +
+                        "\t" + dynamicValues[i];
+                if (i < panValues.length) data += "\t" + i / 100.0 +
+                        "\t" + panValues[i];
+                data += "\n";
                 out.write(data.getBytes());
             }
             out.close();

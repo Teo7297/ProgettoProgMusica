@@ -153,7 +153,7 @@ public class JGrandStave extends JPanel implements JMC {
         this(new Phrase());
         bPos = 110;
         panelHeight = 310;
-        this.setSize((int)(beatWidth*40), panelHeight);
+        this.setSize(beatWidth*40, panelHeight);
     }
     
     public JGrandStave(Phrase phrase) {
@@ -163,7 +163,7 @@ public class JGrandStave extends JPanel implements JMC {
         // change 'paper' colour
         this.setBackground(Color.getHSBColor((float)0.14,(float)0.09,(float)1.0)); // .17, .1, 1
         // set the appropriate size (at least 8 bars of 4/4) for the stave
-        this.setSize((int)(beatWidth*40), panelHeight);
+        this.setSize(beatWidth*40, panelHeight);
         if (this.getSize().width < (int)(phrase.getEndTime()* beatWidth * 1.5) ) this.setSize( (int)(phrase.getEndTime()* beatWidth * 1.5), panelHeight);
         // compensate for overly large images - pain!!
         //if (this.getSize().width > 5000) {
@@ -375,7 +375,7 @@ public class JGrandStave extends JPanel implements JMC {
 
         bPos = 110;
         panelHeight = 310;
-        this.setSize((int)(beatWidth*40), panelHeight);
+        this.setSize(beatWidth*40, panelHeight);
     }
 
     private double beatCounter;
@@ -482,14 +482,10 @@ public class JGrandStave extends JPanel implements JMC {
                 pitchTempPos = notePosOffset[notePitchNum%12] + bPos - 4 + (( 5- notePitchNum/12) * 24) + (( 6- notePitchNum/12) * 4);
             }
 
-            if (notePitchNum == REST
+            isNormalColor = notePitchNum == REST
                     || PhraseAnalysis.isScale(phrase.getNote(i),
-                                              tonic,
-                                              scale)) {
-                isNormalColor = true;
-            } else {
-                isNormalColor = false;
-            }
+                    tonic,
+                    scale);
 
             firstAccidentalDisplayed = false;
 
@@ -614,7 +610,7 @@ public class JGrandStave extends JPanel implements JMC {
 
     private int[] secondChords = new int[0];
 
-    private String[] chordStrings = {"I", "II", "III", "IV", "V", "VI", "VII",
+    private final String[] chordStrings = {"I", "II", "III", "IV", "V", "VI", "VII",
                                      "."};
 
     private void drawNote(int notePitchNum, final double rhythmValue,

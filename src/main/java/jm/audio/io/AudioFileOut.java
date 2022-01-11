@@ -39,28 +39,28 @@ import java.io.InputStream;
 
 public class AudioFileOut {
     // the name of the file to read from.
-    private String fileName;
+    private final String fileName;
     // the file object to read from
-    private File file;
+    private final File file;
     // audio file type, au or aiff or wav
     private AudioFileFormat.Type fileType = AudioFileFormat.Type.AU;
     // file attributes
-    private AudioFormat format;
+    private final AudioFormat format;
     // Is the file data little or big endian? 
     // au and aif are big-endian, wav is little-endian
-    private boolean bigEndian;
+    private final boolean bigEndian;
     // the number of channels in the file, 1 == mono, 2 = stereo etc.
-    private int channels;
+    private final int channels;
     // The file's sample rate as samples per second.
-    private int sampleRate;
+    private final int sampleRate;
     // The number of samples in the file
-    private long duration;
+    private final long duration;
     // The number of bytes long each sample is. 1 = 8 bit, 2 = 16 bit etc.
-    private int sampleSize;
+    private final int sampleSize;
     // Audio intput stream, will hold the byte array of sample data.
     private AudioInputStream ais;
     // The float Array with the sample data in it
-    private float[] sampleData;
+    private final float[] sampleData;
     
     public AudioFileOut(float[] sampleData, String fileName) {
         this(sampleData, fileName, 1, 44100, 16);

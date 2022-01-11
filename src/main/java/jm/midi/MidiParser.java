@@ -260,7 +260,7 @@ public final class MidiParser implements JMC{
 			//as well as combining all phrases into one list
 //			HashMap midiEvents = new HashMap();
 
-			class EventPair{public double time; public Event ev; public EventPair(double t, Event e){time = t; ev = e;}};
+			class EventPair{public final double time; public final Event ev; public EventPair(double t, Event e){time = t; ev = e;}}
 			LinkedList<EventPair> midiEvents = new LinkedList<EventPair>();
 
 			/*if(inst.getTempo() != Part.DEFAULT_TEMPO){
@@ -414,7 +414,7 @@ public final class MidiParser implements JMC{
 		if(e.getID()==5)
 		{
 			// its a NoteOn
-			if(((NoteOn)e).getVelocity() ==0) return true;
+			return ((NoteOn) e).getVelocity() == 0;
 		}
 		// most commonly:
 		return false;

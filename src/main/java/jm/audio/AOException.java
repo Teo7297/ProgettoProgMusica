@@ -30,7 +30,7 @@ package jm.audio;
  */
 
 public final class AOException extends Exception{
-		private static String[] MESSAGES = new String[2];
+		private static final String[] MESSAGES = new String[2];
 	static{
 		MESSAGES[0] = "Unbalanced number of returned samples from "+
 			"multiple inputs.";

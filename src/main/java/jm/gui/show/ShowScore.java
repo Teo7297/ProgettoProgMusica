@@ -57,9 +57,23 @@ public class ShowScore extends Frame implements WindowListener, ActionListener {
 	//attributes
 	private Panel pan;
 	private Score score = new Score();
-	private MenuItem saveMIDI, quit, size7, size2, size3, size4, size5, size6, 
-            size8, thin, medium, thick, play, saveXML, openXML, openMIDI;
-        private ShowPanel sp;
+	private final MenuItem saveMIDI;
+    private final MenuItem quit;
+    private final MenuItem size7;
+    private final MenuItem size2;
+    private final MenuItem size3;
+    private final MenuItem size4;
+    private final MenuItem size5;
+    private final MenuItem size6;
+    private final MenuItem size8;
+    private final MenuItem thin;
+    private final MenuItem medium;
+    private final MenuItem thick;
+    private final MenuItem play;
+    private final MenuItem saveXML;
+    private final MenuItem openXML;
+    private final MenuItem openMIDI;
+        private final ShowPanel sp;
 	
 	//--------------
 	//constructors
@@ -172,14 +186,19 @@ public class ShowScore extends Frame implements WindowListener, ActionListener {
 	}
 	//other WindowListener interface methods
 	//They do nothing but are required to be present
-	public void windowActivated(WindowEvent we) {};
-	public void windowClosed(WindowEvent we) {};
-	public void windowDeactivated(WindowEvent we) {};
-	public void windowIconified(WindowEvent we) {};
-	public void windowDeiconified(WindowEvent we) {};
-	public void windowOpened(WindowEvent we) {};
+	public void windowActivated(WindowEvent we) {}
 
-	// handle menu items
+    public void windowClosed(WindowEvent we) {}
+
+    public void windowDeactivated(WindowEvent we) {}
+
+    public void windowIconified(WindowEvent we) {}
+
+    public void windowDeiconified(WindowEvent we) {}
+
+    public void windowOpened(WindowEvent we) {}
+
+    // handle menu items
 	public void actionPerformed(ActionEvent e){
 		if(e.getSource() == play) playBackMidi(); 
         if(e.getSource() == quit) System.exit(0);

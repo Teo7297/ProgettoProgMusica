@@ -48,7 +48,7 @@ public class Play implements JMC {
 	// for reading audio files for playback
 	private static AudioInputStream audioInputStream;
 	// mixer for real time audio playback
-	private static Vector mixerList = new Vector();
+	private static final Vector mixerList = new Vector();
 	/** A flag for real time audio currently playing */
 	private static boolean audioPlaying = false;
 	/** A flag to indicate audio playback has been initiated but halted */
@@ -411,15 +411,15 @@ public class Play implements JMC {
         pauseThread = new Thread( new Runnable() {
             public void run() {
                 try {
-                    pauseThread.sleep((int)(score.getEndTime() * 60.0 / score.getTempo() * 1000.0));
+                    Thread.sleep((int)(score.getEndTime() * 60.0 / score.getTempo() * 1000.0));
                 } catch (Exception e) {System.out.println("jMusic Play.audioWait error in pauseThread");}
                 System.out.println("Completed audio playback.");
 				//mixer.pause();
 				audioPaused = true;
 				try {
 					Thread.sleep(500); // stop abrupt cutoff buzz
-				} catch (InterruptedException e) {};
-            }});
+				} catch (InterruptedException e) {}
+			}});
         pauseThread.start();
     }
     

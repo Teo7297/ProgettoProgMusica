@@ -35,10 +35,10 @@ import jm.music.data.Note;
 
 public final class TapDelay extends AudioObject{
 	//The gain of this comb filter 
-	private float decay;
+	private final float decay;
 
 	//The delay (in samples) to use with this comb filter
-	private int delay;
+	private final int delay;
 
 	//Number of samples to delay by
 	private float[] delayLine;
@@ -47,7 +47,7 @@ public final class TapDelay extends AudioObject{
 	private int delayIndex;
 
 	//number of taps in this delay line
-	private int taps;
+	private final int taps;
 
 	//number of samples which delay is equal to
 	private int sampleDelay;

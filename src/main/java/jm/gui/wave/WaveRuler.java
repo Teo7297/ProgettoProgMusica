@@ -35,7 +35,7 @@ public class WaveRuler extends Panel implements MouseListener, MouseMotionListen
     private WaveScrollPanel scrollPanel;
     private int markerWidth, startX;
     private double tempRes;
-    private Font font = new Font("Helvetica", Font.PLAIN, 9);
+    private final Font font = new Font("Helvetica", Font.PLAIN, 9);
     private int startSecond = 0;
     
     public WaveRuler() {
@@ -150,7 +150,7 @@ public class WaveRuler extends Panel implements MouseListener, MouseMotionListen
 	    //System.out.println("Pressed");
 	    this.setCursor(new Cursor(10));
             startX = e.getX();
-            tempRes = (double)scrollPanel.getWaveView().getResolution();
+            tempRes = scrollPanel.getWaveView().getResolution();
 	}
 	
 	//Mouse Listener stubs

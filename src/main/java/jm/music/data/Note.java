@@ -215,7 +215,7 @@ public class Note implements Cloneable, Serializable{
     private Phrase myPhrase = null;
     /** An array of break point envelope values to be used by this note
      * - see Note constants for specified index allocations */
-    private double[][] breakPoints = new double[64][];
+    private final double[][] breakPoints = new double[64][];
 
     /**
      * Default constructor assigns null values to all note attributes
@@ -297,7 +297,7 @@ public class Note implements Cloneable, Serializable{
             System.exit(1);
         }
         this.pitchType = MIDI_PITCH;
-        this.pitch = (double)pitch;
+        this.pitch = pitch;
         this.rhythmValue = rhythmValue;
         this.dynamic = (dynamic < MIN_DYNAMIC)
             ? MIN_DYNAMIC
@@ -412,7 +412,7 @@ public class Note implements Cloneable, Serializable{
         if (this.pitchType == MIDI_PITCH && this.pitch != (double)REST &&
 			this.pitch <= MAX_PITCH && this.pitch >= MIN_PITCH)
             frq = jm.JMC.FRQ[(int)this.pitch];
-        if (this.pitch == (double)REST) frq = (double)REST;
+        if (this.pitch == (double)REST) frq = REST;
         return frq;
     }
 
@@ -464,7 +464,7 @@ public class Note implements Cloneable, Serializable{
      */
     public void setPitch(int pitch){
         if (pitch == REST)
-            this.pitch = (double)REST;
+            this.pitch = REST;
         else {
             try {
                 this.pitch = (pitch < MIN_PITCH)
@@ -661,19 +661,19 @@ public class Note implements Cloneable, Serializable{
     public String toString(){
         String noteDetails;
         if(pitchType == MIDI_PITCH) {
-            noteDetails =  new String("jMusic NOTE: " +
-                                      "[Pitch = " + (int)pitch +
-                                      "][RhythmValue = " + rhythmValue +
-                                      "][Dynamic = " + dynamic +
-									"][Duration = " + duration +
-                                      "][Pan = " + pan + "]");
+            noteDetails = "jMusic NOTE: " +
+                    "[Pitch = " + (int) pitch +
+                    "][RhythmValue = " + rhythmValue +
+                    "][Dynamic = " + dynamic +
+                    "][Duration = " + duration +
+                    "][Pan = " + pan + "]";
         } else {
-            noteDetails =  new String("Note: " +
-                                      "[Frequency = " + pitch +
-                                      "][RhythmValue = " + rhythmValue +
-                                      "][Dynamic = " + dynamic +
-									"][Duration = " + duration +
-                                      "][Pan = " + pan + "]");
+            noteDetails = "Note: " +
+                    "[Frequency = " + pitch +
+                    "][RhythmValue = " + rhythmValue +
+                    "][Dynamic = " + dynamic +
+                    "][Duration = " + duration +
+                    "][Pan = " + pan + "]";
         }
         return noteDetails;
     }
@@ -808,8 +808,7 @@ public class Note implements Cloneable, Serializable{
      * @return boolean True if the note is a rest otherwise false.
      */
     public boolean isRest() {
-        if (this.getPitch() == REST) return true;
-        else return false;
+        return this.getPitch() == REST;
     }
 
     /**

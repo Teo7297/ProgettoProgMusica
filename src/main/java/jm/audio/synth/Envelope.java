@@ -63,7 +63,7 @@ public class Envelope extends AudioObject implements JMC{
 	/** how far through the envelope shape we are */
 	private int position = 1;
 	/** is the a primary object? */
-	private boolean primary;
+	private final boolean primary;
 	/* Indicate waether of not to use values from the note */
 	private boolean useNotePoints = false;
 	/* The index in the note's breakPoint array to use.

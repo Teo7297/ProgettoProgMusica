@@ -228,7 +228,7 @@ public class CPhrase implements JMC, Cloneable, Serializable{
 	        Phrase phr = (Phrase)phraseList.get(i);
 	        Note[] notes = phr.getNoteArray();
             for (int j = 0; j < notes.length; j++) {
-                Note n = (Note)notes[j];
+                Note n = notes[j];
                 if(note.getName().equals(n.getName()))
                     return true;
             }
@@ -470,7 +470,7 @@ public class CPhrase implements JMC, Cloneable, Serializable{
 		cp.setPhraseList(tempVect);
         cp.setAppend(this.append);
         cp.setLinkedPhrase(this.linkedPhrase);
-		return (CPhrase)cp;
+		return cp;
 	}
 
 	/**
@@ -492,7 +492,7 @@ public class CPhrase implements JMC, Cloneable, Serializable{
 		cp.setPhraseList(tempVect);
         cp.setAppend(this.append);
         cp.setLinkedPhrase(this.linkedPhrase);
-		return (CPhrase)cp;
+		return cp;
 	}
 
 	/**
@@ -506,8 +506,8 @@ public class CPhrase implements JMC, Cloneable, Serializable{
 	 * Collects the CPhrase attributes to a string
 	 */
 	public String toString(){
-		String cphraseData = new String("<---- CPHRASE '" + title +
-                    "' Start time: " + startTime + " ---->" +'\n');
+		String cphraseData = "<---- CPHRASE '" + title +
+				"' Start time: " + startTime + " ---->" + '\n';
 		Enumeration enum1 = phraseList.elements();
 		while(enum1.hasMoreElements()){
 			Phrase phrase = (Phrase) enum1.nextElement();

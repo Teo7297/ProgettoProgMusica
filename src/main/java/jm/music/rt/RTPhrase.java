@@ -30,10 +30,10 @@ import jm.music.data.*;
 import jm.audio.Instrument;
 
 public class RTPhrase extends RTLine implements JMC {
-    private Phrase phrase;
+    private final Phrase phrase;
     private int noteCounter = 0;
     private boolean waitForStartTime = true;
-    private Note aRest = new Note(REST, 1.0);
+    private final Note aRest = new Note(REST, 1.0);
     
     /**
     * constructor that takes a phrase and a single instrument as arguments.

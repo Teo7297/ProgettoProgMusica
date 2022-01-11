@@ -410,7 +410,7 @@ public class Part implements Cloneable, Serializable, JMC{
 	 * @param int noteNumb the index of the note to be deleted
 	 */
 	 public void removePhrase(int phraseNumb) {
-	    Vector vct = (Vector)this.phraseList;
+	    Vector vct = this.phraseList;
 	    try{
 	        vct.removeElement(vct.elementAt(phraseNumb));
 	    } catch (RuntimeException re){
@@ -430,7 +430,7 @@ public class Part implements Cloneable, Serializable, JMC{
 	 * Deletes the last phrase added to the part
 	 */
 	 public void removeLastPhrase() {
-	    Vector vct = (Vector)this.phraseList;
+	    Vector vct = this.phraseList;
 	    vct.removeElement(vct.lastElement());
 	}
 
@@ -462,7 +462,7 @@ public class Part implements Cloneable, Serializable, JMC{
 	 * @return Phrase[] An array containing all Phrase objects in this part
 	 */
 	public Phrase[] getPhraseArray(){
-		Vector vct = (Vector) this.phraseList;
+		Vector vct = this.phraseList;
 		Phrase[] phraseArray = new Phrase[vct.size()];
 		for(int i=0;i< phraseArray.length;i++){
 		    phraseArray[i] = (Phrase) vct.elementAt(i);
@@ -672,10 +672,10 @@ public class Part implements Cloneable, Serializable, JMC{
 		Enumeration enum1 = this.phraseList.elements();
 		while(enum1.hasMoreElements()){
 			Phrase oldPhrase = (Phrase) enum1.nextElement();
-			i.addPhrase((Phrase) oldPhrase.copy());
+			i.addPhrase(oldPhrase.copy());
 		}
 		copyAttributes(i);
-		return (Part)i;
+		return i;
 	}
 
         private void copyAttributes(Part i) {
@@ -711,7 +711,7 @@ public class Part implements Cloneable, Serializable, JMC{
 			}
 		}
 		cp.setPhraseList(tempVect);
-		return (Part)cp;
+		return cp;
 	}
 
 
@@ -760,7 +760,7 @@ public class Part implements Cloneable, Serializable, JMC{
                         }
                 }
                 cp.setPhraseList(tempVect);
-                return (Part)cp;
+                return cp;
         }
 
 
@@ -783,8 +783,8 @@ public class Part implements Cloneable, Serializable, JMC{
 	 * Collects the Parts attributes to a string
 	 */
 	public String toString(){
-		String partData = new String("<----- PART '" + title +
-			"' contains " + this.size() + " phrases.  ----->" + '\n');
+		String partData = "<----- PART '" + title +
+				"' contains " + this.size() + " phrases.  ----->" + '\n';
 		partData += "Channel = " + channel + '\n';
 		partData += "Instrument = "+ instrument + '\n';
                 if(this.tempo > 0) partData += "Part Tempo = "+ this.tempo + '\n';

@@ -41,7 +41,7 @@ public final class RTIn extends AudioObject{
 	/** have we reached the end of the audio file */
 	public boolean finished = false;
 	/** the size of the holding buffer used by the TargetSource */
-	private int bufsize;
+	private final int bufsize;
 	/** the audio input data source */
 	private TargetDataLine dline;
 	/** have we started running yet ? */
@@ -75,8 +75,8 @@ public final class RTIn extends AudioObject{
 		dline.read(data,0,amount);
 		for(;ret<buffer.length;ret++){
 			short input=(short)((data[bc++]<<8)+(data[bc++]));
-			buffer[ret]=(float)((float)input/
-						(float)Short.MAX_VALUE);
+			buffer[ret]= (float)input/
+						(float)Short.MAX_VALUE;
 		}
 		return ret;
 	}

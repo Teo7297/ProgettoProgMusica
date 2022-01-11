@@ -47,8 +47,15 @@ import java.awt.image.*; //
 public class HistogramFrame extends Frame implements WindowListener, ActionListener, JMC {
 	//attributes
 	private Score score = new Score();
-	private MenuItem showPitch, showRhythm, showDynamic, showPan, open, openXml, saveAs, quit;
-        private Histogram histo;
+	private final MenuItem showPitch;
+    private final MenuItem showRhythm;
+    private final MenuItem showDynamic;
+    private final MenuItem showPan;
+    private final MenuItem open;
+    private final MenuItem openXml;
+    private final MenuItem saveAs;
+    private final MenuItem quit;
+        private final Histogram histo;
 	//--------------
 	//constructors
 	//--------------
@@ -171,14 +178,19 @@ public class HistogramFrame extends Frame implements WindowListener, ActionListe
 	}
 	//other WindowListener interface methods
 	//They do nothing but are required to be present
-	public void windowActivated(WindowEvent we) {};
-	public void windowClosed(WindowEvent we) {};
-	public void windowDeactivated(WindowEvent we) {};
-	public void windowIconified(WindowEvent we) {};
-	public void windowDeiconified(WindowEvent we) {};
-	public void windowOpened(WindowEvent we) {};
+	public void windowActivated(WindowEvent we) {}
 
-	/**
+    public void windowClosed(WindowEvent we) {}
+
+    public void windowDeactivated(WindowEvent we) {}
+
+    public void windowIconified(WindowEvent we) {}
+
+    public void windowDeiconified(WindowEvent we) {}
+
+    public void windowOpened(WindowEvent we) {}
+
+    /**
         * Handle menu items
         */
 	public void actionPerformed(ActionEvent e){

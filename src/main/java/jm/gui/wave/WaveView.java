@@ -61,10 +61,10 @@ public class WaveView implements ActionListener, ComponentListener {
 		size4096, openFile, quit, changeColor,
 		vSmall, small, medium, large, huge, times1, times2, times3, times4;
 	
-    private Frame f = new Frame();
-	private WaveCanvas[] canvases = new WaveCanvas[8];
-    private ScrollPane sp = new ScrollPane(ScrollPane.SCROLLBARS_NEVER);
-    private WaveScrollPanel scrollPanel = new WaveScrollPanel();
+    private final Frame f = new Frame();
+	private final WaveCanvas[] canvases = new WaveCanvas[8];
+    private final ScrollPane sp = new ScrollPane(ScrollPane.SCROLLBARS_NEVER);
+    private final WaveScrollPanel scrollPanel = new WaveScrollPanel();
     private boolean whiteColor = true;
     /** The RTMixer object for playback */
     private RTMixer mixer;

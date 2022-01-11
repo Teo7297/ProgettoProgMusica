@@ -52,10 +52,18 @@ public class SketchScore extends Frame implements WindowListener, ActionListener
 	private static int maxParts;
 	protected static Score score;
 	protected double beatWidth = 10.0;
-	private Panel pan;
-	private SketchScoreArea sketchScoreArea;
-	private SketchRuler ruler;
-	private MenuItem play, speedUp, slowDown, clear, saveMIDI, quit, openMIDI, openXML, saveXML;
+	private final Panel pan;
+	private final SketchScoreArea sketchScoreArea;
+	private final SketchRuler ruler;
+	private final MenuItem play;
+    private final MenuItem speedUp;
+    private final MenuItem slowDown;
+    private final MenuItem clear;
+    private final MenuItem saveMIDI;
+    private final MenuItem quit;
+    private final MenuItem openMIDI;
+    private final MenuItem openXML;
+    private final MenuItem saveXML;
 	
 	//--------------
 	//constructors
@@ -66,7 +74,7 @@ public class SketchScore extends Frame implements WindowListener, ActionListener
 	
 	public SketchScore(Score score, int xPos, int yPos) {
 		super("jMusic Sketch: '" + score.getTitle() + "'");
-		this.score = score;
+		SketchScore.score = score;
 		this.getWidthAndParts();
 		
 		//register the closebox event
@@ -156,14 +164,19 @@ public class SketchScore extends Frame implements WindowListener, ActionListener
 	}
 	//other WindowListener interface methods
 	//They do nothing but are required to be present
-	public void windowActivated(WindowEvent we) {};
-	public void windowClosed(WindowEvent we) {};
-	public void windowDeactivated(WindowEvent we) {};
-	public void windowIconified(WindowEvent we) {};
-	public void windowDeiconified(WindowEvent we) {};
-	public void windowOpened(WindowEvent we) {};
-	
-        /**
+	public void windowActivated(WindowEvent we) {}
+
+    public void windowClosed(WindowEvent we) {}
+
+    public void windowDeactivated(WindowEvent we) {}
+
+    public void windowIconified(WindowEvent we) {}
+
+    public void windowDeiconified(WindowEvent we) {}
+
+    public void windowOpened(WindowEvent we) {}
+
+    /**
         * recalulate and draw the sketch
         */
 	public void update() {
@@ -277,7 +290,7 @@ public class SketchScore extends Frame implements WindowListener, ActionListener
             if (fileName != null) {
                 Score score = new Score();
                 jm.util.Read.midi(score, fd.getDirectory() + fileName);
-                this.score = score;
+                SketchScore.score = score;
                 update();
             }
         }
@@ -294,7 +307,7 @@ public class SketchScore extends Frame implements WindowListener, ActionListener
             if (fileName != null) {
                 Score score = new Score();
                 jm.util.Read.xml(score, fd.getDirectory() + fileName);
-                this.score = score;
+                SketchScore.score = score;
                 update();
             }
         }
