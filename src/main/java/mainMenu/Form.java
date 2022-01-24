@@ -54,7 +54,7 @@ public class Form extends JPanel {
             String level = (String) levelComboBox.getSelectedItem();
             String time = (String) timeComboBox.getSelectedItem();
             String clef = (String) clefComboBox.getSelectedItem();
-            if(username.equals("")){
+            if(username.trim().equals("")){
                 System.err.println("Fill username field");
                 error = true;
             }
